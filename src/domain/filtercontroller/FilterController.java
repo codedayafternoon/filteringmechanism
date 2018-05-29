@@ -8,7 +8,7 @@ import domain.filters.ICountable;
 import domain.filters.ReservedState;
 import domain.hub.Hub;
 
-public abstract class FilterController {
+public class FilterController {
 
 	protected List<FilterContainer> containers;
 	protected Hub hub;
@@ -16,7 +16,7 @@ public abstract class FilterController {
 	protected IRequestConverter requestConverter;
 	private Builder builder;
 
-	protected FilterController(List<FilterContainer> containers, Hub hub, IRequestHandler handler,
+	public FilterController(List<FilterContainer> containers, Hub hub, IRequestHandler handler,
 			IRequestConverter requestConverter) {
 		this.containers = containers;
 		this.hub = hub;
@@ -25,7 +25,7 @@ public abstract class FilterController {
 		this.hub.SetFilterController(this);
 	}
 
-	protected FilterController( Hub hub, IRequestHandler handler, IRequestConverter requestConverter) {
+	public FilterController( Hub hub, IRequestHandler handler, IRequestConverter requestConverter) {
 		this.containers = new ArrayList<>();
 		this.hub = hub;
 		this.requestHandler = handler;

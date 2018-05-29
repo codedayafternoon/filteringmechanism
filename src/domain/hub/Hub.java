@@ -28,6 +28,7 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 
 	public List<FilterInterconnection> Interconnections;
 
+
 	public Hub() {
 		this.filters = new HashMap<>();
 		this.parameters = new HashMap<>();
@@ -64,24 +65,7 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 		for(IFilterHubListener listener : this.filterListeners)
 			listener.FilterRemoved(filter);
 
-		// TODO move this in other function
-		List<FilterInterconnection> filtered = this.Interconnections.stream().filter(x->x.When.Event == FilterEvent.Reset && x.When.GetFilters().contains(filter)).collect(Collectors.toList());
-		if(!filtered.isEmpty()){
-			for(FilterInterconnection interconnection : filtered){
-				List<EventSubjectPair> clauses = interconnection.Then;
-				for(EventSubjectPair clause : clauses){
-					List<Filter> subjects = clause.GetFilters();
-					FilterEvent event = clause.Event;
-					for(Filter f : subjects){
-						if(event == FilterEvent.Reset)
-							f.Reset();
-						if(event == FilterEvent.StateChange)
-							f.ChangeState(clause.Parameters);
-					}
-				}
-
-			}
-		}
+		notifyInterconnections(filter, FilterEvent.Reset);
 	}
 
 	@Override
@@ -90,27 +74,46 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 		for(IFilterHubListener listener : this.filterListeners)
 			listener.FilterAdded(filter);
 
-		// TODO move this in other function
-		List<FilterInterconnection> filtered = this.Interconnections.stream().filter(x->x.When.Event == FilterEvent.StateChange && x.When.GetFilters().contains(filter)).collect(Collectors.toList());
-		if(!filtered.isEmpty()){
-			for(FilterInterconnection interconnection : filtered){
-				List<EventSubjectPair> clauses = interconnection.Then;
-				for(EventSubjectPair clause : clauses){
-					List<Filter> subjects = clause.GetFilters();
-					FilterEvent event = clause.Event;
-					for(Filter f : subjects){
-						if(event == FilterEvent.Reset)
-							f.Reset();
-						if(event == FilterEvent.StateChange)
-							f.ChangeState(clause.Parameters);
-					}
-				}
-			}
+		notifyInterconnections(filter, FilterEvent.StateChange);
+	}
+
+	private void notifyInterconnections(Filter filter, FilterEvent state) {
+		List<FilterInterconnection> filtered = getFilterActorsFromInterconnections(filter, state);
+		notifySubjectsFromInterconnections(filtered);
+	}
+
+	private List<FilterInterconnection> getFilterActorsFromInterconnections(Filter filter, FilterEvent state) {
+		return this.Interconnections.stream().filter(x -> x.When.Event == state && x.When.GetFilters().contains(filter)).collect(Collectors.toList());
+	}
+
+	private void notifySubjectsFromInterconnections(List<FilterInterconnection> filtered) {
+		if(filtered.isEmpty())
+			return;
+
+		for(FilterInterconnection interconnection : filtered){
+			this.notifyInterconnection(interconnection);
 		}
 
-
 	}
-	
+
+	private void notifyInterconnection(FilterInterconnection interconnection) {
+		List<EventSubjectPair> clauses = interconnection.Then;
+		for(EventSubjectPair clause : clauses){
+			this.notifyClause(clause);
+		}
+	}
+
+	private void notifyClause(EventSubjectPair clause) {
+		List<Filter> subjects = clause.GetFilters();
+		FilterEvent event = clause.Event;
+		for(Filter f : subjects){
+			if(event == FilterEvent.Reset)
+				f.Reset();
+			if(event == FilterEvent.StateChange)
+				f.ChangeState(clause.Parameters);
+		}
+	}
+
 	private void addFilter(Filter filter) {
 		if (this.filters.containsKey(filter))
 			return;
