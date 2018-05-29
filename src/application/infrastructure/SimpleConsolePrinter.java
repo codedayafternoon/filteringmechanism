@@ -4,7 +4,6 @@ import java.io.PrintStream;
 import java.util.List;
 
 import domain.filtercontroller.FilterContainer;
-import org.hamcrest.core.IsInstanceOf;
 
 import application.Container;
 import domain.filters.Filter;
