@@ -237,7 +237,7 @@ public class CommandExecution {
         HubCommand freeContainerStateChangeCommand3reset = new HubCommand("freeContainer", "f1", ""); // filter notifiers +1
 
         HubCommand rangeStateChangeCommand1reset = new HubCommand("range", "r", "from:200"); // filter notifiers +1
-        HubCommand rangeStateChangeCommand2reset = new HubCommand("range", "r", "to:300"); // filter notifiers +1
+        HubCommand rangeStateChangeCommand2reset = new HubCommand("range", "r", "to:500"); // filter notifiers +1
 
         this.hub.Execute(singleContainerStateChangeCommandreset);
 
@@ -262,7 +262,7 @@ public class CommandExecution {
         Assert.assertFalse(handler.Request.contains("checkContainer=c2,c1") || handler.Request.contains("checkContainer=c1,c2"));
         Assert.assertTrue(handler.Request.contains("f1="));
         Assert.assertFalse(handler.Request.contains("f1=free_text"));
-        Assert.assertTrue(handler.Request.contains("r=from:200-to:300"));
+        Assert.assertTrue(handler.Request.contains("r=from:200-to:500"));
         Assert.assertTrue(handler.Request.contains("cs1=x"));
 
     }

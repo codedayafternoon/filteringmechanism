@@ -17,6 +17,10 @@ public abstract class RangeFilter extends Filter {
 	private List<String> FromValues;
 	private List<String> ToValues;
 
+	private boolean fromIsReset;
+	private boolean toIsReset;
+
+
 	public RangeFilter(Object id, String name, INotifier notifier) {
 		super(id, name, notifier);
 	}
@@ -73,6 +77,7 @@ public abstract class RangeFilter extends Filter {
 				if (this.ToValues.contains(to)) {
 					if(!this.SelectedTo.equals(to)) {
 						this.SelectedTo = to;
+						this.checkToReset();
 						changed = true;
 					}
 				}
@@ -81,15 +86,32 @@ public abstract class RangeFilter extends Filter {
 				if (this.FromValues.contains(from)) {
 					if(!this.SelectedFrom.equals(from)) {
 						this.SelectedFrom = from;
+						this.checkFromReset();
 						changed = true;
 					}
 				}
 			}
 		}
 
-		if (changed)
+		if(this.fromIsReset && this.toIsReset)
+			super.notifier.NotifyFilterReset(this);
+		else if (changed)
 			super.notifier.NotifyFilterStateChanged(this);// NotifyStateChanged(this, false);
 
+	}
+
+	private void checkToReset() {
+		if(this.SelectedTo.equals(this.defaultTo))
+			this.toIsReset = true;
+		else
+			this.toIsReset = false;
+	}
+
+	private void checkFromReset() {
+		if(this.SelectedFrom.equals(this.defaultFrom))
+			this.fromIsReset = true;
+		else
+			this.fromIsReset = false;
 	}
 
 	@Override

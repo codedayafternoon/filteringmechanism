@@ -7,6 +7,6 @@ public interface IFilterHub {
 	void AddFilterListener(IFilterHubListener listener);
 	void RemoveFilterListener(IFilterHubListener listener);
 	void ClearFilterListeners();
-	void NotifyFilterRemoved(Filter filter);
-	void NotifyFilterAdded(Filter filter);
+	void NotifyFilterReset(Filter filter);
+	void NotifyFilterStateChanged(Filter filter);
 }

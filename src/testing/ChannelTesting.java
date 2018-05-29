@@ -243,7 +243,7 @@ public class ChannelTesting {
         controller.ChangeState("range", "r", "from:200"); // already set, do nothing
         controller.ChangeState("range", "r", "to:400");
         controller.ChangeState("range", "r", "from:100");
-        controller.ChangeState("range", "r", "from:200-to:300");
+        controller.ChangeState("range", "r", "from:200-to:200");
         Assert.assertEquals(1, this.parameterFilterChannel.Parameter);
         Assert.assertEquals(9, this.parameterFilterChannel.Filter);
         Assert.assertEquals(9, this.filterChannel1.Filter);
@@ -257,33 +257,30 @@ public class ChannelTesting {
         Assert.assertTrue(handler.Request.contains("f1=text"));
         Assert.assertTrue(handler.Request.contains("cs1=x")); // for complex the inside fiter is shown
         Assert.assertTrue(handler.Request.contains("cf1=free_text"));
-        Assert.assertTrue(handler.Request.contains("r=from:200-to:300"));
+        Assert.assertTrue(handler.Request.contains("r=from:200-to:200"));
 
         controller.ChangeState("checkContainer", "c3", "1"); // filterNotifiers +1
         controller.ChangeState("checkContainer", "c2", ReservedState.reset); // filterNotifiers -1
         controller.ChangeState("complex", "c1", "cf1:free_text2"); // filterNotifiers +1
         controller.ChangeState("freeContainer", "f1", "text22"); // filterNotifiers +1
-        controller.ChangeState("locale", "locale", ReservedState.reset); // parameterNotifiers +1
-        controller.ChangeState("sorting", "s", "asc"); // requestNotifiers +1
+        controller.ChangeState("locale", "locale", ReservedState.reset); // parameterNotifiers -1
+        controller.ChangeState("sorting", "s", "asc"); // requestNotifiers -1
         controller.ChangeState("singleContainer", "f1", "1"); // filterNotifiers +1, also reset f2, so filterNotifiers -1
-        Assert.assertEquals(2, this.parameterFilterChannel.Parameter);
+        Assert.assertEquals(0, this.parameterFilterChannel.Parameter);
         Assert.assertEquals(11, this.parameterFilterChannel.Filter);
         Assert.assertEquals(11, this.filterChannel1.Filter);
         Assert.assertEquals(11, this.filterChannel2.Filter);
-        Assert.assertEquals(2, this.completeChannel.Parameter);
-        Assert.assertEquals(2, this.completeChannel.Request);
+        Assert.assertEquals(0, this.completeChannel.Parameter);
+        Assert.assertEquals(0, this.completeChannel.Request);
         Assert.assertEquals(11, this.completeChannel.Filter);
         Assert.assertTrue(handler.Request.contains("singleContainer=f1"));
         Assert.assertTrue(handler.Request.contains("checkContainer=c1,c3") || handler.Request.contains("checkContainer=c3,c1"));
-        Assert.assertTrue(handler.Request.contains("locale=en-au"));
+        Assert.assertFalse(handler.Request.contains("locale=en-au")); // is reset and dont apear in request
         Assert.assertTrue(handler.Request.contains("s=asc"));
         Assert.assertTrue(handler.Request.contains("f1=text22"));
         Assert.assertTrue(handler.Request.contains("cs1=x")); // for complex the inside fiter is shown
         Assert.assertTrue(handler.Request.contains("cf1=free_text2"));
-        Assert.assertTrue(handler.Request.contains("r=from:200-to:300"));
-
-        //reseting things
-
+        Assert.assertTrue(handler.Request.contains("r=from:200-to:200"));
 
     }
 

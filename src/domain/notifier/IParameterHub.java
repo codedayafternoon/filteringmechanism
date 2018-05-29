@@ -7,6 +7,6 @@ public interface IParameterHub {
 	void AddParameterListener(IParameterHubListener listener);
 	void RemoveParameterListener(IParameterHubListener listener);
 	void ClearParameterListeners();
-	void NotifyParameterRemoved(Filter filter);
-	void NotifyParameterAdded(Filter filter);
+	void NotifyParameterReset(Filter filter);
+	void NotifyParameterStateChanged(Filter filter);
 }

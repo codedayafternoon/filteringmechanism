@@ -13,12 +13,12 @@ public class ParameterNotifier implements INotifier{
 	
 	@Override
 	public void NotifyFilterReset(Filter filter) {
-		this.parameterHub.NotifyParameterRemoved(filter);
+		this.parameterHub.NotifyParameterReset(filter);
 	}
 
 	@Override
 	public void NotifyFilterStateChanged(Filter filter) {
-		this.parameterHub.NotifyParameterAdded(filter);
+		this.parameterHub.NotifyParameterStateChanged(filter);
 	}
 
 }

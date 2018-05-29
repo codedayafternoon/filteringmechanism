@@ -5,9 +5,13 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import domain.filtercontroller.FilterController;
 import domain.filters.Filter;
+import domain.hub.interconnections.EventSubjectPair;
+import domain.hub.interconnections.FilterEvent;
+import domain.hub.interconnections.FilterInterconnection;
 import domain.notifier.IFilterHub;
 import domain.notifier.IParameterHub;
 import domain.notifier.IRequestHub;
@@ -22,6 +26,8 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	private List<IFilterHubListener> filterListeners;
 	private List<IRequestHubListener> requestListeners;
 
+	public List<FilterInterconnection> Interconnections;
+
 	public Hub() {
 		this.filters = new HashMap<>();
 		this.parameters = new HashMap<>();
@@ -29,6 +35,8 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 		this.parameterListeners = new ArrayList<IParameterHubListener>();
 		this.filterListeners = new ArrayList<IFilterHubListener>();
 		this.requestListeners = new ArrayList<IRequestHubListener>();
+
+		this.Interconnections = new ArrayList<>();
 	}
 
 	// ===================================== REGION Filters ==============================================
@@ -51,17 +59,56 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	}
 
 	@Override
-	public void NotifyFilterRemoved(Filter filter) {
+	public void NotifyFilterReset(Filter filter) {
 		this.removeFilter(filter);
 		for(IFilterHubListener listener : this.filterListeners)
 			listener.FilterRemoved(filter);
+
+		// TODO move this in other function
+		List<FilterInterconnection> filtered = this.Interconnections.stream().filter(x->x.When.Event == FilterEvent.Reset && x.When.GetFilters().contains(filter)).collect(Collectors.toList());
+		if(!filtered.isEmpty()){
+			for(FilterInterconnection interconnection : filtered){
+				List<EventSubjectPair> clauses = interconnection.Then;
+				for(EventSubjectPair clause : clauses){
+					List<Filter> subjects = clause.GetFilters();
+					FilterEvent event = clause.Event;
+					for(Filter f : subjects){
+						if(event == FilterEvent.Reset)
+							f.Reset();
+						if(event == FilterEvent.StateChange)
+							f.ChangeState(clause.Parameters);
+					}
+				}
+
+			}
+		}
 	}
 
 	@Override
-	public void NotifyFilterAdded(Filter filter) {
+	public void NotifyFilterStateChanged(Filter filter) {
 		this.addFilter(filter);
 		for(IFilterHubListener listener : this.filterListeners)
 			listener.FilterAdded(filter);
+
+		// TODO move this in other function
+		List<FilterInterconnection> filtered = this.Interconnections.stream().filter(x->x.When.Event == FilterEvent.StateChange && x.When.GetFilters().contains(filter)).collect(Collectors.toList());
+		if(!filtered.isEmpty()){
+			for(FilterInterconnection interconnection : filtered){
+				List<EventSubjectPair> clauses = interconnection.Then;
+				for(EventSubjectPair clause : clauses){
+					List<Filter> subjects = clause.GetFilters();
+					FilterEvent event = clause.Event;
+					for(Filter f : subjects){
+						if(event == FilterEvent.Reset)
+							f.Reset();
+						if(event == FilterEvent.StateChange)
+							f.ChangeState(clause.Parameters);
+					}
+				}
+			}
+		}
+
+
 	}
 	
 	private void addFilter(Filter filter) {
@@ -103,14 +150,14 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	}
 
 	@Override
-	public void NotifyParameterRemoved(Filter filter) {
+	public void NotifyParameterReset(Filter filter) {
 		this.removeParameter(filter);
 		for(IParameterHubListener listener : this.parameterListeners)
 			listener.ParameterRemoved(filter);
 	}
 
 	@Override
-	public void NotifyParameterAdded(Filter filter) {
+	public void NotifyParameterStateChanged(Filter filter) {
 		this.addParameter(filter);
 		for(IParameterHubListener listenter : this.parameterListeners)
 			listenter.ParameterAdded(filter);
@@ -155,14 +202,14 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	}
 
 	@Override
-	public void NotifyRequestRemoved(Filter filter) {
+	public void NotifyRequestReset(Filter filter) {
 		this.removeParameter(filter);
 		for(IRequestHubListener listener : this.requestListeners)
 			listener.RequestRemoved(filter);
 	}
 
 	@Override
-	public void NotifyRequestAdded(Filter filter) {
+	public void NotifyRequestStateChanged(Filter filter) {
 		this.addRequest(filter);
 		for(IRequestHubListener listener : this.requestListeners)
 			listener.RequestAdded(filter);

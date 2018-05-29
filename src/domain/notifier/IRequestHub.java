@@ -8,6 +8,6 @@ public interface IRequestHub {
 	void AddRequestListener(IRequestHubListener listener);
 	void RemoveRequestListener(IRequestHubListener listener);
 	void ClearRequestListeners();
-	void NotifyRequestRemoved(Filter filter);
-	void NotifyRequestAdded(Filter filter);
+	void NotifyRequestReset(Filter filter);
+	void NotifyRequestStateChanged(Filter filter);
 }

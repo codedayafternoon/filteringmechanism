@@ -13,12 +13,12 @@ public class FilterNotifier implements INotifier {
 	
 	@Override
 	public void NotifyFilterReset(Filter filter) {
-		this.filterHub.NotifyFilterRemoved(filter);
+		this.filterHub.NotifyFilterReset(filter);
 	}
 
 	@Override
 	public void NotifyFilterStateChanged(Filter filter) {
-		this.filterHub.NotifyFilterAdded(filter);
+		this.filterHub.NotifyFilterStateChanged(filter);
 	}
 
 }

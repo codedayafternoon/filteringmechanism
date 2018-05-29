@@ -13,12 +13,12 @@ public class RequestNotifier implements INotifier {
 	
 	@Override
 	public void NotifyFilterReset(Filter filter) {
-		this.hub.NotifyRequestRemoved(filter);
+		this.hub.NotifyRequestReset(filter);
 	}
 
 	@Override
 	public void NotifyFilterStateChanged(Filter filter) {
-		this.hub.NotifyRequestAdded(filter);
+		this.hub.NotifyRequestStateChanged(filter);
 	}
 
 }

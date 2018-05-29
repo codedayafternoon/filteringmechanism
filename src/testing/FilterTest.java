@@ -33,18 +33,6 @@ public class FilterTest {
 
     }
 
-
-//    @Test
-//    public void testSameIdInControllerNotPermitted(){
-//        this.filterContainer1 = new MockContainer("c2");
-//
-//        List<FilterContainer> containers = new ArrayList<>();
-//        containers.add(this.filterContainer);
-//        containers.add(this.filterContainer1);
-//        this.filterController = new MockFilterController(containers, null, null, null );
-//
-//    }
-
     @Test
     public void testSameFilterNameInContainerNotPermitted(){
         MockSingleSelectFilter f1 = new MockSingleSelectFilter(this.filterContainer, 1, "f1", this.notifier);
@@ -120,8 +108,6 @@ public class FilterTest {
         Assert.assertEquals(true, checkBox1.IsChecked());
         Assert.assertEquals(false, checkBox2.IsChecked());
         Assert.assertEquals(1, this.notifier.Notified);
-
-
     }
 
     @Test

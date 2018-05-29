@@ -36,7 +36,10 @@ public abstract class SingleTextFilter extends Filter {
 		if(this.selectedValue.equals(value))
 			return;
 		this.selectedValue = value;
-		super.notifier.NotifyFilterStateChanged(this);// NotifyStateChanged(this, false);
+		if(this.selectedValue.equals(this.defaultValue))
+			super.notifier.NotifyFilterReset(this);
+		else
+			super.notifier.NotifyFilterStateChanged(this); // NotifyStateChanged(this, false);
 	}
 	
 	@Override
