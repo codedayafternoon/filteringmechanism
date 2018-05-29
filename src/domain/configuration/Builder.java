@@ -20,6 +20,8 @@ public class Builder {
 
     public void Build(Configuration config){
         List<FilterContainer> containers = config.GetContainers();
+        if(containers == null)
+            return;
         for(FilterContainer c : containers){
             this.controller.AddContainer(c);
         }

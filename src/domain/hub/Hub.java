@@ -12,19 +12,24 @@ import domain.filters.Filter;
 import domain.hub.interconnections.EventSubjectPair;
 import domain.hub.interconnections.FilterEvent;
 import domain.hub.interconnections.FilterInterconnection;
+import domain.hub.results.IResult;
 import domain.notifier.IFilterHub;
 import domain.notifier.IParameterHub;
 import domain.notifier.IRequestHub;
 
 public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
-	
+
+	private FilterController filterController;
+
 	private Map<Filter, Date> filters;
 	private Map<Filter, Date> parameters;
 	private Map<Filter, Date> requests;
-	private FilterController filterController;
+
 	private List<IParameterHubListener> parameterListeners;
 	private List<IFilterHubListener> filterListeners;
 	private List<IRequestHubListener> requestListeners;
+
+	private List<IResultHubListener> resultListeners;
 
 	public List<FilterInterconnection> Interconnections;
 
@@ -33,9 +38,12 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 		this.filters = new HashMap<>();
 		this.parameters = new HashMap<>();
 		this.requests = new HashMap<>();
+
 		this.parameterListeners = new ArrayList<IParameterHubListener>();
 		this.filterListeners = new ArrayList<IFilterHubListener>();
 		this.requestListeners = new ArrayList<IRequestHubListener>();
+
+		this.resultListeners = new ArrayList<>();
 
 		this.Interconnections = new ArrayList<>();
 	}
@@ -65,7 +73,7 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 		for(IFilterHubListener listener : this.filterListeners)
 			listener.FilterRemoved(filter);
 
-		notifyInterconnections(filter, FilterEvent.Reset);
+		this.notifyInterconnections(filter, FilterEvent.Reset);
 	}
 
 	@Override
@@ -74,44 +82,7 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 		for(IFilterHubListener listener : this.filterListeners)
 			listener.FilterAdded(filter);
 
-		notifyInterconnections(filter, FilterEvent.StateChange);
-	}
-
-	private void notifyInterconnections(Filter filter, FilterEvent state) {
-		List<FilterInterconnection> filtered = getFilterActorsFromInterconnections(filter, state);
-		notifySubjectsFromInterconnections(filtered);
-	}
-
-	private List<FilterInterconnection> getFilterActorsFromInterconnections(Filter filter, FilterEvent state) {
-		return this.Interconnections.stream().filter(x -> x.When.Event == state && x.When.GetFilters().contains(filter)).collect(Collectors.toList());
-	}
-
-	private void notifySubjectsFromInterconnections(List<FilterInterconnection> filtered) {
-		if(filtered.isEmpty())
-			return;
-
-		for(FilterInterconnection interconnection : filtered){
-			this.notifyInterconnection(interconnection);
-		}
-
-	}
-
-	private void notifyInterconnection(FilterInterconnection interconnection) {
-		List<EventSubjectPair> clauses = interconnection.Then;
-		for(EventSubjectPair clause : clauses){
-			this.notifyClause(clause);
-		}
-	}
-
-	private void notifyClause(EventSubjectPair clause) {
-		List<Filter> subjects = clause.GetFilters();
-		FilterEvent event = clause.Event;
-		for(Filter f : subjects){
-			if(event == FilterEvent.Reset)
-				f.Reset();
-			if(event == FilterEvent.StateChange)
-				f.ChangeState(clause.Parameters);
-		}
+		this.notifyInterconnections(filter, FilterEvent.StateChange);
 	}
 
 	private void addFilter(Filter filter) {
@@ -236,6 +207,45 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 
 	// ===================================== END REGION Filter ==============================================
 
+	// ===================================== Start Helpers ==============================================
+	private void notifyInterconnections(Filter filter, FilterEvent state) {
+		List<FilterInterconnection> filtered = getFilterActorsFromInterconnections(filter, state);
+		notifySubjectsFromInterconnections(filtered);
+	}
+
+	private List<FilterInterconnection> getFilterActorsFromInterconnections(Filter filter, FilterEvent state) {
+		return this.Interconnections.stream().filter(x -> x.When.Event == state && x.When.GetFilters().contains(filter)).collect(Collectors.toList());
+	}
+
+	private void notifySubjectsFromInterconnections(List<FilterInterconnection> filtered) {
+		if(filtered.isEmpty())
+			return;
+
+		for(FilterInterconnection interconnection : filtered){
+			this.notifyInterconnection(interconnection);
+		}
+
+	}
+
+	private void notifyInterconnection(FilterInterconnection interconnection) {
+		List<EventSubjectPair> clauses = interconnection.Then;
+		for(EventSubjectPair clause : clauses){
+			this.notifyClause(clause);
+		}
+	}
+
+	private void notifyClause(EventSubjectPair clause) {
+		List<Filter> subjects = clause.GetFilters();
+		FilterEvent event = clause.Event;
+		for(Filter f : subjects){
+			if(event == FilterEvent.Reset)
+				f.Reset();
+			if(event == FilterEvent.StateChange)
+				f.ChangeState(clause.Parameters);
+		}
+	}
+	// ===================================== End Helpers ==============================================
+
 	public void Execute(HubCommand command){
 		if(this.filterController == null)
 			return;
@@ -251,37 +261,46 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	}
 
 	public void Execute(List<HubCommand> commands){
+		if(commands == null)
+			return;
 		for(HubCommand c : commands)
 			this.Execute(c);
-
 	}
 
-
-//	public void UpdateCounts(List<HubCommand> items) {
-//		if (this.filterController == null)
-//			return;
-//
-//		for (HubCommand item : items) {
-//
-//			this.filterController.UpdateCount(item.ContainerName, item.FilterName, item.Count);
-//		}
-//	}
-//
-//	public void UpdateStates(List<HubCommand> items) {
-//		if (this.filterController == null)
-//			return;
-//
-//		for (HubCommand item : items) {
-//			this.filterController.DoChangeState(item.ContainerName, item.FilterName, item.State);
-//		}
-//	}
-
-
-	
+	// ============================================= START IHub =====================================================
 	@Override
 	public void SetFilterController(FilterController controller) {
 		this.filterController = controller;
 	}
 
+
+	@Override
+	public void ResultReceived(IResult result) {
+		Object resultObject = result.GetResults();
+		for(IResultHubListener listener : this.resultListeners)
+			listener.ResultReceived(resultObject);
+		List<HubCommand> commands = result.GetHubCommands();
+		this.Execute(commands);
+	}
+
+	@Override
+	public void AddResultListener(IResultHubListener listener) {
+		if(this.resultListeners.contains(listener))
+			return;
+		this.resultListeners.add(listener);
+	}
+
+	@Override
+	public void RemoveResultListener(IResultHubListener listener) {
+		if(this.resultListeners.contains(listener))
+			this.resultListeners.remove(listener);
+	}
+
+	@Override
+	public void ClearResultListeners() {
+		this.resultListeners.clear();
+	}
+
+	// ============================================= END IHub =====================================================
 
 }
