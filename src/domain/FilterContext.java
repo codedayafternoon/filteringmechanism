@@ -9,7 +9,7 @@ import domain.hub.Hub;
 
 public class FilterContext {
     private static FilterController controller;
-    Hub hub;
+    private static Hub hub;
     private IRequestHandler handler;
     private IRequestConverter converter;
     private Builder builder;
@@ -22,9 +22,9 @@ public class FilterContext {
     }
 
     public FilterController GetController(){
-        if(this.controller == null)
-            this.controller = new FilterController(this.GetHub(), this.handler, this.converter);
-        return this.controller;
+        if(controller == null)
+            controller = new FilterController(this.GetHub(), this.handler, this.converter);
+        return controller;
     }
 
     public Builder GetBuilder(){
@@ -33,9 +33,9 @@ public class FilterContext {
         return this.builder;
     }
 
-    private Hub GetHub(){
-        if(this.hub == null)
-            this.hub = new Hub();
-        return this.hub;
+    public Hub GetHub(){
+        if(hub == null)
+            hub = new Hub();
+        return hub;
     }
 }

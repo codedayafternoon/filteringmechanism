@@ -1,17 +1,24 @@
 package testing;
 
 import domain.FilterContext;
+import domain.configuration.Configuration;
+import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IRequestConverter;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.Filter;
+import domain.hub.Hub;
 import domain.hub.IFilterHubListener;
 import domain.hub.IParameterHubListener;
 import domain.hub.IRequestHubListener;
+import domain.notifier.FilterNotifier;
 import org.junit.Assert;
 import org.junit.Test;
+import testing.mocks.MockFreeTextFilter;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class FilterContextUsage {
@@ -23,10 +30,34 @@ public class FilterContextUsage {
         MockRequestConverter converter = new MockRequestConverter();
         context.Initialize(handler, converter);
 
+        context.GetBuilder().Build(new MockConfiguration(context.GetHub()));
+
         FilterController controller = context.GetController();
         MockParameterComponent component1 = new MockParameterComponent(controller);
         MockCompleteComponent component2 = new MockCompleteComponent(controller );
 
+        Assert.assertEquals(1, context.GetController().GetContainers().size());
+        Assert.assertEquals(1, context.GetController().GetContainers().get(0).GetFilters().size());
+        Assert.assertEquals("f1", context.GetController().GetContainers().get(0).GetFilters().get(0).Name);
+
+    }
+
+    private class MockConfiguration extends Configuration{
+
+        Hub hub;
+        public MockConfiguration(Hub hub) {
+            this.hub = hub;
+        }
+
+        @Override
+        public List<FilterContainer> GetContainers() {
+            List<FilterContainer> res = new ArrayList<>();
+            FilterContainer c1 = new FilterContainer("c1");
+            MockFreeTextFilter f1 = new MockFreeTextFilter(1, "f1", new FilterNotifier(this.hub));
+            c1.AddFilter(f1);
+            res.add(c1);
+            return res;
+        }
     }
 
     private class MockCompleteComponent implements IParameterHubListener, IFilterHubListener, IRequestHubListener{
