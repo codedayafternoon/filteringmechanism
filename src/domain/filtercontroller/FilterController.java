@@ -53,13 +53,13 @@ public class FilterController {
 	}
 
 	public void ChangeState(String containerName, String filterName, ReservedState state) {
-		this.DoChangeState(containerName, filterName, state.toString());
-		this.Update();
+		if(this.DoChangeState(containerName, filterName, state.toString()))
+			this.Update();
 	}
 
 	public void ChangeState(String containerName, String filterName, String state) {
-		this.DoChangeState(containerName, filterName, state);
-		this.Update();
+		if(this.DoChangeState(containerName, filterName, state))
+			this.Update();
 	}
 
 	/**
@@ -68,15 +68,16 @@ public class FilterController {
 	 * @param filterName
 	 * @param state
 	 */
-	public void DoChangeState(String containerName, String filterName, String state) {
+	public boolean DoChangeState(String containerName, String filterName, String state) {
 		System.out.println("ChangeState of " + containerName + "==>" + filterName + " to " + state);
 		FilterContainer container = this.GetContainerByName(containerName);
 		if (container == null)
-			return;
+			return false;
 		Filter filter = this.GetFilterByName(container, filterName);
 		if (filter == null)
-			return;
+			return false;
 		filter.ChangeState(state);
+		return true;
 	}
 
 	protected FilterContainer GetContainerByName(String name) {

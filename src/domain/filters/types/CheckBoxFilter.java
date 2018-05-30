@@ -22,10 +22,6 @@ public abstract class CheckBoxFilter extends Filter {
 	
 	public void UnCheck() {
 		this.Reset();
-//		if(!this._isChecked)
-//			return;
-//		this._isChecked = false;
-//		super.notifier.NotifyFilterReset(this);
 	}
 
 	@Override
