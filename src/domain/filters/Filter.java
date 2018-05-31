@@ -5,7 +5,7 @@ import domain.filtercontroller.FilterContainer;
 public abstract class Filter {
 
 	public Object Id;
-	public String Name;
+	private String Name;
 	protected INotifier notifier;
 	protected FilterContainer _container;
 	public abstract FilterMode GetMode();
@@ -14,6 +14,16 @@ public abstract class Filter {
 		this.Id = id;
 		this.notifier = notifier;
 		this.Name = name;
+	}
+
+	public String getName() {
+		return Name;
+	}
+
+	public void setName(String name) {
+		String old = this.Name;
+		this.Name = name;
+		this.notifier.NotifyPropertyChanged(this, old, name, FilterPropertyType.Name);
 	}
 
 	public void TriggerStateChanged(){

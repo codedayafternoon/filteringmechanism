@@ -37,7 +37,7 @@ public abstract class CompositeFilter extends Filter implements INotifier {
 		String filterName = parts[0];
 		String s = parts[1];
 		
-		Filter f = this.filters.stream().filter(x->x.Name.equals(filterName)).findFirst().get();
+		Filter f = this.filters.stream().filter(x->x.getName().equals(filterName)).findFirst().get();
 
 		f.ChangeState(s);
 		

@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import domain.filtercontroller.FilterController;
 import domain.filters.Filter;
+import domain.filters.FilterPropertyType;
 import domain.hub.interconnections.EventSubjectPair;
 import domain.hub.interconnections.FilterEvent;
 import domain.hub.interconnections.FilterInterconnection;
@@ -71,7 +72,7 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	public void NotifyFilterReset(Filter filter) {
 		this.removeFilter(filter);
 		for(IFilterHubListener listener : this.filterListeners)
-			listener.FilterRemoved(filter);
+			listener.FilterReset(filter);
 
 		this.notifyInterconnections(filter, FilterEvent.Reset);
 	}
@@ -80,9 +81,15 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	public void NotifyFilterStateChanged(Filter filter) {
 		this.addFilter(filter);
 		for(IFilterHubListener listener : this.filterListeners)
-			listener.FilterAdded(filter);
+			listener.FilterChanged(filter);
 
 		this.notifyInterconnections(filter, FilterEvent.StateChange);
+	}
+
+	@Override
+	public void NotifyFilterPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType) {
+		for(IFilterHubListener listener : this.filterListeners)
+			listener.FilterPropertyChanged(filter, old, aNew, propType);
 	}
 
 	private void addFilter(Filter filter) {
@@ -127,16 +134,24 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	public void NotifyParameterReset(Filter filter) {
 		this.removeParameter(filter);
 		for(IParameterHubListener listener : this.parameterListeners)
-			listener.ParameterRemoved(filter);
+			listener.ParameterReset(filter);
 	}
 
 	@Override
 	public void NotifyParameterStateChanged(Filter filter) {
 		this.addParameter(filter);
-		for(IParameterHubListener listenter : this.parameterListeners)
-			listenter.ParameterAdded(filter);
+		for(IParameterHubListener listener : this.parameterListeners)
+			listener.ParameterChanged(filter);
+
+		this.notifyInterconnections(filter, FilterEvent.StateChange);
 	}
-	
+
+	@Override
+	public void NotifyParameterPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType) {
+		for(IParameterHubListener listener : this.parameterListeners)
+			listener.ParameterPropertyChanged(filter, old, aNew, propType);
+	}
+
 	private void addParameter(Filter filter) {
 		if (this.filters.containsKey(filter))
 			return;
@@ -179,14 +194,22 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	public void NotifyRequestReset(Filter filter) {
 		this.removeParameter(filter);
 		for(IRequestHubListener listener : this.requestListeners)
-			listener.RequestRemoved(filter);
+			listener.RequestReset(filter);
 	}
 
 	@Override
 	public void NotifyRequestStateChanged(Filter filter) {
 		this.addRequest(filter);
 		for(IRequestHubListener listener : this.requestListeners)
-			listener.RequestAdded(filter);
+			listener.RequestChanged(filter);
+
+		this.notifyInterconnections(filter, FilterEvent.StateChange);
+	}
+
+	@Override
+	public void NotifyRequestPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType) {
+		for(IRequestHubListener listener : this.requestListeners)
+			listener.RequestPropertyChanged(filter, old, aNew, propType);
 	}
 
 	private void addRequest(Filter filter) {
@@ -249,6 +272,14 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	public void Execute(HubCommand command){
 		if(this.filterController == null)
 			return;
+
+		Filter filter = this.filterController.GetFilterById(command.ContainerName, command.GetId());
+		if(filter == null)
+			return;
+
+		if(!filter.getName().equals(command.FilterName)){
+			filter.setName(command.FilterName);
+		}
 
 		if(command.State != null ){
 			this.filterController.DoChangeState(command.ContainerName, command.FilterName, command.State);

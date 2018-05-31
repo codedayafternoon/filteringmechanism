@@ -36,7 +36,7 @@ public class SimpleConsolePrinter {
 
 	private String PrintFilter(Filter f) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(f.Name);
+		sb.append(f.getName());
 		sb.append(" [" + f.GetState() + "]");
 		if(f instanceof  ICountable) {
 			sb.append("(" + ((ICountable)f).GetCount() + ")");

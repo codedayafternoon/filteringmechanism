@@ -7,6 +7,7 @@ import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IRequestHandler;
 import domain.filtercontroller.IRequestConverter;
 import domain.filters.Filter;
+import domain.filters.FilterPropertyType;
 import domain.filters.ReservedState;
 import domain.hub.Hub;
 import domain.hub.IFilterHubListener;
@@ -295,27 +296,37 @@ public class ChannelTesting {
         }
 
         @Override
-        public void ParameterAdded(Filter filter) {
-            System.out.println("ParameterFilterChannel->ParameterAdded:"+filter);
+        public void ParameterChanged(Filter filter) {
+            System.out.println("ParameterFilterChannel->ParameterChanged:"+filter);
             this.Parameter++;
         }
 
         @Override
-        public void ParameterRemoved(Filter filter) {
-            System.out.println("ParameterFilterChannel->ParameterRemoved:"+filter);
+        public void ParameterReset(Filter filter) {
+            System.out.println("ParameterFilterChannel->ParameterReset:"+filter);
             this.Parameter--;
         }
 
         @Override
-        public void FilterAdded(Filter filter) {
-            System.out.println("ParameterFilterChannel->RequestAdded:"+filter);
+        public void ParameterPropertyChanged(domain.filters.Filter filter, String old, String aNew, FilterPropertyType propType) {
+
+        }
+
+        @Override
+        public void FilterChanged(Filter filter) {
+            System.out.println("ParameterFilterChannel->RequestChanged:"+filter);
             this.Filter++;
         }
 
         @Override
-        public void FilterRemoved(Filter filter) {
-            System.out.println("ParameterFilterChannel->RequestRemoved:"+filter);
+        public void FilterReset(Filter filter) {
+            System.out.println("ParameterFilterChannel->RequestReset:"+filter);
             this.Filter--;
+        }
+
+        @Override
+        public void FilterPropertyChanged(domain.filters.Filter filter, String old, String _new, FilterPropertyType propType) {
+
         }
     }
 
@@ -324,15 +335,20 @@ public class ChannelTesting {
         public int Filter;
 
         @Override
-        public void FilterAdded(Filter filter) {
-            System.out.println("FilterChannel->FilterAdded:"+filter);
+        public void FilterChanged(Filter filter) {
+            System.out.println("FilterChannel->FilterChanged:"+filter);
             this.Filter++;
         }
 
         @Override
-        public void FilterRemoved(Filter filter) {
-            System.out.println("FilterChannel->FilterRemoved:"+filter);
+        public void FilterReset(Filter filter) {
+            System.out.println("FilterChannel->FilterReset:"+filter);
             Filter--;
+        }
+
+        @Override
+        public void FilterPropertyChanged(domain.filters.Filter filter, String old, String _new, FilterPropertyType propType) {
+
         }
     }
 
@@ -341,15 +357,20 @@ public class ChannelTesting {
         public int Filter;
 
         @Override
-        public void FilterAdded(Filter filter) {
-            System.out.println("FilterChannel->FilterAdded:"+filter);
+        public void FilterChanged(Filter filter) {
+            System.out.println("FilterChannel->FilterChanged:"+filter);
             this.Filter++;
         }
 
         @Override
-        public void FilterRemoved(Filter filter) {
-            System.out.println("FilterChannel->FilterRemoved:"+filter);
+        public void FilterReset(Filter filter) {
+            System.out.println("FilterChannel->FilterReset:"+filter);
             Filter--;
+        }
+
+        @Override
+        public void FilterPropertyChanged(domain.filters.Filter filter, String old, String _new, FilterPropertyType propType) {
+
         }
     }
 
@@ -366,39 +387,54 @@ public class ChannelTesting {
         }
 
         @Override
-        public void FilterAdded(Filter filter) {
-            System.out.println("CompleteChannel->FilterAdded:"+filter);
+        public void FilterChanged(Filter filter) {
+            System.out.println("CompleteChannel->FilterChanged:"+filter);
             this.Filter++;
         }
 
         @Override
-        public void FilterRemoved(Filter filter) {
-            System.out.println("CompleteChannel->FilterRemoved:"+filter);
+        public void FilterReset(Filter filter) {
+            System.out.println("CompleteChannel->FilterReset:"+filter);
             this.Filter--;
         }
 
         @Override
-        public void ParameterAdded(Filter filter) {
-            System.out.println("CompleteChannel->ParameterAdded:"+filter);
+        public void FilterPropertyChanged(domain.filters.Filter filter, String old, String _new, FilterPropertyType propType) {
+
+        }
+
+        @Override
+        public void ParameterChanged(Filter filter) {
+            System.out.println("CompleteChannel->ParameterChanged:"+filter);
             this.Parameter++;
         }
 
         @Override
-        public void ParameterRemoved(Filter filter) {
-            System.out.println("CompleteChannel->ParameterRemoved:"+filter);
+        public void ParameterReset(Filter filter) {
+            System.out.println("CompleteChannel->ParameterReset:"+filter);
             this.Parameter--;
         }
 
         @Override
-        public void RequestAdded(Filter filter) {
-            System.out.println("CompleteChannel->RequestAdded:"+filter);
+        public void ParameterPropertyChanged(domain.filters.Filter filter, String old, String aNew, FilterPropertyType propType) {
+
+        }
+
+        @Override
+        public void RequestChanged(Filter filter) {
+            System.out.println("CompleteChannel->RequestChanged:"+filter);
             this.Request++;
         }
 
         @Override
-        public void RequestRemoved(Filter filter) {
-            System.out.println("CompleteChannel->RequestRemoved:"+filter);
+        public void RequestReset(Filter filter) {
+            System.out.println("CompleteChannel->RequestReset:"+filter);
             this.Request--;
+        }
+
+        @Override
+        public void RequestPropertyChanged(domain.filters.Filter filter, String old, String aNew, FilterPropertyType propType) {
+
         }
     }
 

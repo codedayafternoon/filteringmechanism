@@ -20,13 +20,13 @@ public class FilterContainer implements IInvalidator{
 	public void AddFilter(Filter filter) {
 		filter.SetContainer(this);
 		this.checkForSameId(filter.Id);
-		this.checkForSameName(filter.Name);
+		this.checkForSameName(filter.getName());
 		this.filters.add(filter);
 	}
 
 	private void checkForSameName(String name) {
 		for(Filter f : this.filters){
-			if(f.Name.equals(name))
+			if(f.getName().equals(name))
 				throw new IllegalArgumentException("there is already a filter " + f + " with the same name");
 		}
 	}
@@ -58,4 +58,13 @@ public class FilterContainer implements IInvalidator{
 	public String GetName() {
 		return this.name;
 	}
+
+    public Filter GetFilterById(Object id) {
+		for(Filter f : this.filters)
+		{
+			if(f.Id.equals(id))
+				return f;
+		}
+		return null;
+    }
 }

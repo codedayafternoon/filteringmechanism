@@ -5,6 +5,7 @@ import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IRequestHandler;
 import domain.filtercontroller.IRequestConverter;
 import domain.filters.Filter;
+import domain.filters.FilterPropertyType;
 import domain.filters.INotifier;
 import domain.hub.Hub;
 import org.junit.Assert;
@@ -154,6 +155,11 @@ public class FilterTest {
         public void NotifyFilterReset(Filter filter) {
             System.out.println("MockFilterNotifier->NotifyFilterReset:" + filter);
             this.Notified++;
+        }
+
+        @Override
+        public void NotifyPropertyChanged(Filter filter, String old, String _new, FilterPropertyType propType) {
+
         }
 
         @Override

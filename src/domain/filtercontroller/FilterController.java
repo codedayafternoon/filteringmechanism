@@ -86,7 +86,7 @@ public class FilterController {
 	}
 
 	protected Filter GetFilterByName(FilterContainer container, String name) {
-		Filter filter = container.GetFilters().stream().filter(x -> x.Name.equals(name)).findFirst().get();
+		Filter filter = container.GetFilters().stream().filter(x -> x.getName().equals(name)).findFirst().get();
 		return filter;
 	}
 
@@ -100,7 +100,10 @@ public class FilterController {
 			return;
 		if (!(filter instanceof ICountable))
 			return;
+
 		((ICountable)filter).SetCount(count);
+
+		// TODO replace with propertychanged from inside the filter
 		filter.TriggerStateChanged(); // TODO execute with flag? not always..
 	}
 
@@ -127,4 +130,9 @@ public class FilterController {
 		return s;
 	}
 
+    public Filter GetFilterById(String containerName, Object id) {
+		FilterContainer container = this.GetContainerByName(containerName);
+		Filter filter = container.GetFilterById(id);
+		return filter;
+    }
 }

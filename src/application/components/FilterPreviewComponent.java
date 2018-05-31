@@ -5,6 +5,7 @@ import java.util.List;
 
 import domain.filtercontroller.FilterController;
 import domain.filters.Filter;
+import domain.filters.FilterPropertyType;
 import domain.filters.ReservedState;
 import domain.hub.IFilterHubListener;
 
@@ -25,13 +26,13 @@ public class FilterPreviewComponent implements IFilterHubListener {
 	private void Print() {
 		System.out.println("=========================================================");
 		for (Filter f : this.filters) {
-			System.out.println("[" + f.Name + " " + f.GetState() + "]");
+			System.out.println("[" + f.getName() + " " + f.GetState() + "]");
 		}
 		System.out.println("=========================================================");
 	}
 
 	@Override
-	public void FilterAdded(Filter filter) {
+	public void FilterChanged(Filter filter) {
 		if (this.filters.contains(filter)) {
 			this.Print();
 			return;
@@ -41,9 +42,14 @@ public class FilterPreviewComponent implements IFilterHubListener {
 	}
 
 	@Override
-	public void FilterRemoved(Filter filter) {
+	public void FilterReset(Filter filter) {
 		this.filters.remove(filter);
 		this.Print();
+	}
+
+	@Override
+	public void FilterPropertyChanged(Filter filter, String old, String _new, FilterPropertyType propType) {
+
 	}
 
 }

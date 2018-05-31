@@ -1,19 +1,26 @@
 package domain.hub;
 
 public class HubCommand {
+	private Object Id;
 	public final String ContainerName;
 	public final String FilterName;
 	public final String State;
 	public final int Count;
 
+	public Object GetId(){
+		return this.Id;
+	}
+
 	/**
 	 * for updating both state and count
+	 * @param id
 	 * @param containerName
 	 * @param filterName
 	 * @param count
 	 * @param filterState
 	 */
-	public HubCommand(String containerName, String filterName, int count, String filterState) {
+	public HubCommand(Object id, String containerName, String filterName, int count, String filterState) {
+		this.Id = id;
 		this.ContainerName = containerName;
 		this.FilterName = filterName;
 		this.State = filterState;
@@ -22,11 +29,13 @@ public class HubCommand {
 
 	/**
 	 * for updating only state
+	 * @param id
 	 * @param containerName
 	 * @param filterName
 	 * @param filterState
 	 */
-	public HubCommand(String containerName, String filterName, String filterState) {
+	public HubCommand(int id, String containerName, String filterName, String filterState) {
+		this.Id = id;
 		this.ContainerName = containerName;
 		this.FilterName = filterName;
 		this.State = filterState;
@@ -35,11 +44,13 @@ public class HubCommand {
 
 	/**
 	 * for updating only count
+	 * @param id
 	 * @param containerName
 	 * @param filterName
 	 * @param count
 	 */
-	public HubCommand(String containerName, String filterName, int count) {
+	public HubCommand(int id, String containerName, String filterName, int count) {
+		this.Id = id;
 		this.ContainerName = containerName;
 		this.FilterName = filterName;
 		this.State = null;

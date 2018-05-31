@@ -1,18 +1,24 @@
 package application.components;
 
 import domain.filters.Filter;
+import domain.filters.FilterPropertyType;
 import domain.hub.IFilterHubListener;
 
 public class FiltersTreeViewComponent implements IFilterHubListener {
 
 	@Override
-	public void FilterAdded(Filter filter) {
-		System.out.println("FiltersTreeViewComponent => filterAdded : " + filter.Name);
+	public void FilterChanged(Filter filter) {
+		System.out.println("FiltersTreeViewComponent => filterAdded : " + filter.getName());
 	}
 
 	@Override
-	public void FilterRemoved(Filter filter) {
-		System.out.println("FiltersTreeViewComponent => FilterRemoved : " + filter.Name);
+	public void FilterReset(Filter filter) {
+		System.out.println("FiltersTreeViewComponent => FilterReset : " + filter.getName());
+	}
+
+	@Override
+	public void FilterPropertyChanged(Filter filter, String old, String _new, FilterPropertyType propType) {
+
 	}
 
 }

@@ -7,6 +7,7 @@ import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IRequestConverter;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.Filter;
+import domain.filters.FilterPropertyType;
 import domain.filters.ReservedState;
 import domain.hub.*;
 import domain.notifier.FilterNotifier;
@@ -179,18 +180,18 @@ public class CommandExecution {
         MockRequestHandler handler = new MockRequestHandler();
         MockController controller = new MockController(containers, hub, handler, new UrlQueryConverter(new UrlBuilder(",", "&")));
 
-        HubCommand singleContainerStateChangeCommand = new HubCommand("singleContainer", "f1", "1"); // filter notifiers +1
-        HubCommand singleContainerStateChangeCommand2 = new HubCommand("singleContainer", "f2", "1"); // filterNotifiers +1 and -1 for reseting f1
-        HubCommand singleContainerStateChangeCommand3 = new HubCommand("singleContainer", "f3", "1"); // filterNotifiers +1 and -1 for reseting f2
+        HubCommand singleContainerStateChangeCommand = new HubCommand(1, "singleContainer", "f1", "1"); // filter notifiers +1
+        HubCommand singleContainerStateChangeCommand2 = new HubCommand(2, "singleContainer", "f2", "1"); // filterNotifiers +1 and -1 for reseting f1
+        HubCommand singleContainerStateChangeCommand3 = new HubCommand(3, "singleContainer", "f3", "1"); // filterNotifiers +1 and -1 for reseting f2
 
-        HubCommand checkBoxStateChangeCommand = new HubCommand("checkContainer", "c2", "1"); // filter notifiers +1
-        HubCommand checkBoxStateChangeCountCommand2 = new HubCommand("checkContainer", "c1", 10, "1"); // filter notifiers +1 for state +1 for count
-        HubCommand checkBoxStateChangeCountCommand3 = new HubCommand("checkContainer", "c2",100, "0"); // filter notifiers -1 for resetting +1 for count
+        HubCommand checkBoxStateChangeCommand = new HubCommand(5, "checkContainer", "c2", "1"); // filter notifiers +1
+        HubCommand checkBoxStateChangeCountCommand2 = new HubCommand(4, "checkContainer", "c1", 10, "1"); // filter notifiers +1 for state +1 for count
+        HubCommand checkBoxStateChangeCountCommand3 = new HubCommand(5, "checkContainer", "c2",100, "0"); // filter notifiers -1 for resetting +1 for count
 
-        HubCommand freeContainerStateChangeCommand3 = new HubCommand("freeContainer", "f1", "free_text"); // filter notifiers +1
+        HubCommand freeContainerStateChangeCommand3 = new HubCommand(7, "freeContainer", "f1", "free_text"); // filter notifiers +1
 
-        HubCommand rangeStateChangeCommand1 = new HubCommand("range", "r",63, "from:100"); // filter notifiers +1 count +0 because range is not ICountable
-        HubCommand rangeStateChangeCommand2 = new HubCommand("range", "r", "to:400"); // filter notifiers +1
+        HubCommand rangeStateChangeCommand1 = new HubCommand(11, "range", "r", 63, "from:100"); // filter notifiers +1 count +0 because range is not ICountable
+        HubCommand rangeStateChangeCommand2 = new HubCommand(11, "range", "r", "to:400"); // filter notifiers +1
 
         this.hub.Execute(singleContainerStateChangeCommand);
         this.hub.Execute(singleContainerStateChangeCommand2);
@@ -229,15 +230,15 @@ public class CommandExecution {
         Assert.assertTrue(handler.Request.contains("r=from:100-to:400"));
         Assert.assertTrue(handler.Request.contains("cs1=z"));
 
-        HubCommand singleContainerStateChangeCommandreset = new HubCommand("singleContainer", "f3", ReservedState.reset.toString()); // filterNotifiers -1
+        HubCommand singleContainerStateChangeCommandreset = new HubCommand(3, "singleContainer", "f3", ReservedState.reset.toString()); // filterNotifiers -1
 
-        HubCommand checkBoxStateChangeCommandreset = new HubCommand("checkContainer", "c2", "0"); // filter notifiers 0 because is already 0
-        HubCommand checkBoxStateChangeCountCommand2reset = new HubCommand("checkContainer", "c1", "0"); // filter notifiers -1
+        HubCommand checkBoxStateChangeCommandreset = new HubCommand(5, "checkContainer", "c2", "0"); // filter notifiers 0 because is already 0
+        HubCommand checkBoxStateChangeCountCommand2reset = new HubCommand(4, "checkContainer", "c1", "0"); // filter notifiers -1
 
-        HubCommand freeContainerStateChangeCommand3reset = new HubCommand("freeContainer", "f1", ""); // filter notifiers +1
+        HubCommand freeContainerStateChangeCommand3reset = new HubCommand(7, "freeContainer", "f1", ""); // filter notifiers +1
 
-        HubCommand rangeStateChangeCommand1reset = new HubCommand("range", "r", "from:200"); // filter notifiers +1
-        HubCommand rangeStateChangeCommand2reset = new HubCommand("range", "r", "to:500"); // filter notifiers +1
+        HubCommand rangeStateChangeCommand1reset = new HubCommand(11, "range", "r", "from:200"); // filter notifiers +1
+        HubCommand rangeStateChangeCommand2reset = new HubCommand(11, "range", "r", "to:500"); // filter notifiers +1
 
         this.hub.Execute(singleContainerStateChangeCommandreset);
 
@@ -278,27 +279,37 @@ public class CommandExecution {
         }
 
         @Override
-        public void ParameterAdded(domain.filters.Filter filter) {
-            System.out.println("ParameterFilterChannel->ParameterAdded:"+filter);
+        public void ParameterChanged(domain.filters.Filter filter) {
+            System.out.println("ParameterFilterChannel->ParameterChanged:"+filter);
             this.Parameter++;
         }
 
         @Override
-        public void ParameterRemoved(Filter filter) {
-            System.out.println("ParameterFilterChannel->ParameterRemoved:"+filter);
+        public void ParameterReset(Filter filter) {
+            System.out.println("ParameterFilterChannel->ParameterReset:"+filter);
             this.Parameter--;
         }
 
         @Override
-        public void FilterAdded(Filter filter) {
-            System.out.println("ParameterFilterChannel->RequestAdded:"+filter);
+        public void ParameterPropertyChanged(domain.filters.Filter filter, String old, String aNew, FilterPropertyType propType) {
+
+        }
+
+        @Override
+        public void FilterChanged(Filter filter) {
+            System.out.println("ParameterFilterChannel->RequestChanged:"+filter);
             this.Filter++;
         }
 
         @Override
-        public void FilterRemoved(Filter filter) {
-            System.out.println("ParameterFilterChannel->RequestRemoved:"+filter);
+        public void FilterReset(Filter filter) {
+            System.out.println("ParameterFilterChannel->RequestReset:"+filter);
             this.Filter--;
+        }
+
+        @Override
+        public void FilterPropertyChanged(domain.filters.Filter filter, String old, String _new, FilterPropertyType propType) {
+
         }
     }
 
@@ -307,15 +318,20 @@ public class CommandExecution {
         public int Filter;
 
         @Override
-        public void FilterAdded(Filter filter) {
-            System.out.println("FilterChannel->FilterAdded:"+filter);
+        public void FilterChanged(Filter filter) {
+            System.out.println("FilterChannel->FilterChanged:"+filter);
             this.Filter++;
         }
 
         @Override
-        public void FilterRemoved(Filter filter) {
-            System.out.println("FilterChannel->FilterRemoved:"+filter);
+        public void FilterReset(Filter filter) {
+            System.out.println("FilterChannel->FilterReset:"+filter);
             Filter--;
+        }
+
+        @Override
+        public void FilterPropertyChanged(domain.filters.Filter filter, String old, String _new, FilterPropertyType propType) {
+
         }
     }
 
@@ -324,15 +340,20 @@ public class CommandExecution {
         public int Filter;
 
         @Override
-        public void FilterAdded(Filter filter) {
-            System.out.println("FilterChannel->FilterAdded:"+filter);
+        public void FilterChanged(Filter filter) {
+            System.out.println("FilterChannel->FilterChanged:"+filter);
             this.Filter++;
         }
 
         @Override
-        public void FilterRemoved(Filter filter) {
-            System.out.println("FilterChannel->FilterRemoved:"+filter);
+        public void FilterReset(Filter filter) {
+            System.out.println("FilterChannel->FilterReset:"+filter);
             Filter--;
+        }
+
+        @Override
+        public void FilterPropertyChanged(domain.filters.Filter filter, String old, String _new, FilterPropertyType propType) {
+
         }
     }
 
@@ -349,39 +370,54 @@ public class CommandExecution {
         }
 
         @Override
-        public void FilterAdded(Filter filter) {
-            System.out.println("CompleteChannel->FilterAdded:"+filter);
+        public void FilterChanged(Filter filter) {
+            System.out.println("CompleteChannel->FilterChanged:"+filter);
             this.Filter++;
         }
 
         @Override
-        public void FilterRemoved(Filter filter) {
-            System.out.println("CompleteChannel->FilterRemoved:"+filter);
+        public void FilterReset(Filter filter) {
+            System.out.println("CompleteChannel->FilterReset:"+filter);
             this.Filter--;
         }
 
         @Override
-        public void ParameterAdded(Filter filter) {
-            System.out.println("CompleteChannel->ParameterAdded:"+filter);
+        public void FilterPropertyChanged(domain.filters.Filter filter, String old, String _new, FilterPropertyType propType) {
+
+        }
+
+        @Override
+        public void ParameterChanged(Filter filter) {
+            System.out.println("CompleteChannel->ParameterChanged:"+filter);
             this.Parameter++;
         }
 
         @Override
-        public void ParameterRemoved(Filter filter) {
-            System.out.println("CompleteChannel->ParameterRemoved:"+filter);
+        public void ParameterReset(Filter filter) {
+            System.out.println("CompleteChannel->ParameterReset:"+filter);
             this.Parameter--;
         }
 
         @Override
-        public void RequestAdded(Filter filter) {
-            System.out.println("CompleteChannel->RequestAdded:"+filter);
+        public void ParameterPropertyChanged(domain.filters.Filter filter, String old, String aNew, FilterPropertyType propType) {
+
+        }
+
+        @Override
+        public void RequestChanged(Filter filter) {
+            System.out.println("CompleteChannel->RequestChanged:"+filter);
             this.Request++;
         }
 
         @Override
-        public void RequestRemoved(Filter filter) {
-            System.out.println("CompleteChannel->RequestRemoved:"+filter);
+        public void RequestReset(Filter filter) {
+            System.out.println("CompleteChannel->RequestReset:"+filter);
             this.Request--;
+        }
+
+        @Override
+        public void RequestPropertyChanged(domain.filters.Filter filter, String old, String aNew, FilterPropertyType propType) {
+
         }
     }
 

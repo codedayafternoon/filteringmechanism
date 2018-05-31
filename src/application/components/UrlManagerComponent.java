@@ -2,6 +2,7 @@ package application.components;
 
 import application.infrastructure.IUrlBuilder;
 import domain.filters.Filter;
+import domain.filters.FilterPropertyType;
 import domain.filters.types.CompositeFilter;
 import domain.hub.IFilterHubListener;
 import domain.hub.IParameterHubListener;
@@ -23,13 +24,13 @@ public class UrlManagerComponent implements IFilterHubListener, IParameterHubLis
 	private void AddToUrlBuilder(Filter f) {
 		switch (f.GetMode()) {
 		case BOOLEAN:
-			this._urlBuilder.AddParameter(f.GetContainer().GetName(), f.Name);
+			this._urlBuilder.AddParameter(f.GetContainer().GetName(), f.getName());
 			break;
 		case RANGED:
-			this._urlBuilder.ReplaceParameter(f.Name, f.GetState());
+			this._urlBuilder.ReplaceParameter(f.getName(), f.GetState());
 			break;
 		case SINGLE_VALUE:
-			this._urlBuilder.AddParameter(f.Name, f.GetState());
+			this._urlBuilder.AddParameter(f.getName(), f.GetState());
 			break;
 		case COMPLEX:
 			List<Filter> activeFilters = ((CompositeFilter)f).GetActiveFilters();
@@ -47,11 +48,11 @@ public class UrlManagerComponent implements IFilterHubListener, IParameterHubLis
 	private void RemoveFromUrlBuilder(Filter f) {
 		switch (f.GetMode()) {
 		case BOOLEAN:
-			this._urlBuilder.RemoveParameter(f.GetContainer().GetName(), f.Name);
+			this._urlBuilder.RemoveParameter(f.GetContainer().GetName(), f.getName());
 			break;
 		case RANGED:
 		case SINGLE_VALUE:
-			this._urlBuilder.RemoveParameter(f.Name, f.GetState());
+			this._urlBuilder.RemoveParameter(f.getName(), f.GetState());
 			break;
 		case COMPLEX:
 			List<Filter> activeFilters = ((CompositeFilter)f).GetActiveFilters();
@@ -65,23 +66,33 @@ public class UrlManagerComponent implements IFilterHubListener, IParameterHubLis
 	}
 
 	@Override
-	public void ParameterAdded(Filter filter) {
+	public void ParameterChanged(Filter filter) {
 		this.Add(filter);
 	}
 
 	@Override
-	public void ParameterRemoved(Filter filter) {
+	public void ParameterReset(Filter filter) {
 		this.Remove(filter);
 	}
 
 	@Override
-	public void FilterAdded(Filter filter) {
+	public void ParameterPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType) {
+
+	}
+
+	@Override
+	public void FilterChanged(Filter filter) {
 		this.Add(filter);
 	}
 
 	@Override
-	public void FilterRemoved(Filter filter) {
+	public void FilterReset(Filter filter) {
 		this.Remove(filter);
+	}
+
+	@Override
+	public void FilterPropertyChanged(Filter filter, String old, String _new, FilterPropertyType propType) {
+
 	}
 
 }

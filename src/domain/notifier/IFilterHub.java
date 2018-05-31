@@ -1,6 +1,7 @@
 package domain.notifier;
 
 import domain.filters.Filter;
+import domain.filters.FilterPropertyType;
 import domain.hub.IFilterHubListener;
 
 public interface IFilterHub {
@@ -9,4 +10,5 @@ public interface IFilterHub {
 	void ClearFilterListeners();
 	void NotifyFilterReset(Filter filter);
 	void NotifyFilterStateChanged(Filter filter);
+    void NotifyFilterPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType);
 }

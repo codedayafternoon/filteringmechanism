@@ -1,5 +1,6 @@
 package testing;
 
+import domain.filters.FilterPropertyType;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -68,17 +69,22 @@ public class FilterNotifierTest {
 		public int Notified = 0;
 		
 		@Override
-		public void FilterAdded(Filter filter) {
-			System.out.println("MockFilterHubListener->FilterAdded:" + filter);
+		public void FilterChanged(Filter filter) {
+			System.out.println("MockFilterHubListener->FilterChanged:" + filter);
 			Notified++;
 		}
 
 		@Override
-		public void FilterRemoved(Filter filter) {
-			System.out.println("MockFilterHubListener->FilterRemoved:" + filter);
+		public void FilterReset(Filter filter) {
+			System.out.println("MockFilterHubListener->FilterReset:" + filter);
 			Notified++;
 		}
-		
+
+		@Override
+		public void FilterPropertyChanged(Filter filter, String old, String _new, FilterPropertyType propType) {
+
+		}
+
 	}
 	
 	

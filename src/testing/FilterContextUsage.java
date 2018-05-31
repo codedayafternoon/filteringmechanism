@@ -7,6 +7,7 @@ import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IRequestConverter;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.Filter;
+import domain.filters.FilterPropertyType;
 import domain.hub.Hub;
 import domain.hub.IFilterHubListener;
 import domain.hub.IParameterHubListener;
@@ -38,7 +39,7 @@ public class FilterContextUsage {
 
         Assert.assertEquals(1, context.GetController().GetContainers().size());
         Assert.assertEquals(1, context.GetController().GetContainers().get(0).GetFilters().size());
-        Assert.assertEquals("f1", context.GetController().GetContainers().get(0).GetFilters().get(0).Name);
+        Assert.assertEquals("f1", context.GetController().GetContainers().get(0).GetFilters().get(0).getName());
 
     }
 
@@ -68,32 +69,47 @@ public class FilterContextUsage {
         }
 
         @Override
-        public void FilterAdded(Filter filter) {
+        public void FilterChanged(Filter filter) {
 
         }
 
         @Override
-        public void FilterRemoved(Filter filter) {
+        public void FilterReset(Filter filter) {
 
         }
 
         @Override
-        public void ParameterAdded(Filter filter) {
+        public void FilterPropertyChanged(Filter filter, String old, String _new, FilterPropertyType propType) {
 
         }
 
         @Override
-        public void ParameterRemoved(Filter filter) {
+        public void ParameterChanged(Filter filter) {
 
         }
 
         @Override
-        public void RequestAdded(Filter filter) {
+        public void ParameterReset(Filter filter) {
 
         }
 
         @Override
-        public void RequestRemoved(Filter filter) {
+        public void ParameterPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType) {
+
+        }
+
+        @Override
+        public void RequestChanged(Filter filter) {
+
+        }
+
+        @Override
+        public void RequestReset(Filter filter) {
+
+        }
+
+        @Override
+        public void RequestPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType) {
 
         }
     }
@@ -105,12 +121,17 @@ public class FilterContextUsage {
         }
 
         @Override
-        public void ParameterAdded(Filter filter) {
+        public void ParameterChanged(Filter filter) {
 
         }
 
         @Override
-        public void ParameterRemoved(Filter filter) {
+        public void ParameterReset(Filter filter) {
+
+        }
+
+        @Override
+        public void ParameterPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType) {
 
         }
     }

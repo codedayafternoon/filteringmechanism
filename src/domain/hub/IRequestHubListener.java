@@ -1,8 +1,10 @@
 package domain.hub;
 
 import domain.filters.Filter;
+import domain.filters.FilterPropertyType;
 
 public interface IRequestHubListener {
-    void RequestAdded(Filter filter);
-    void RequestRemoved(Filter filter);
+    void RequestChanged(Filter filter);
+    void RequestReset(Filter filter);
+    void RequestPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType);
 }

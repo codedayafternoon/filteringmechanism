@@ -42,10 +42,10 @@ public class BuilderTesting {
         Assert.assertEquals(2, controller.GetContainers().get(0).GetFilters().size());
         Assert.assertEquals(1, controller.GetContainers().get(1).GetFilters().size());
 
-        Assert.assertEquals("c1", controller.GetContainers().get(0).GetFilters().get(0).Name);
-        Assert.assertEquals("c2", controller.GetContainers().get(0).GetFilters().get(1).Name);
+        Assert.assertEquals("c1", controller.GetContainers().get(0).GetFilters().get(0).getName());
+        Assert.assertEquals("c2", controller.GetContainers().get(0).GetFilters().get(1).getName());
 
-        Assert.assertEquals("r1", controller.GetContainers().get(1).GetFilters().get(0).Name);
+        Assert.assertEquals("r1", controller.GetContainers().get(1).GetFilters().get(0).getName());
     }
 
     private class MockConfiguration extends Configuration

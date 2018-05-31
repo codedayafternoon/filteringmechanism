@@ -64,7 +64,6 @@ public class ResultTesting {
         this.container2.AddFilter(this.checkBox3);
         this.container2.AddFilter(this.checkBox4);
 
-
     }
 
     @Test

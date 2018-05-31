@@ -2,9 +2,41 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4cb998c-79ff-4600-979e-12edf2390fb1" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/src/domain/filters/FilterPropertyType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/testing/FilterPropertyChangeTesting.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/SimpleRequestHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/SimpleRequestHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/components/FilterPreviewComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/components/FilterPreviewComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/components/FiltersTreeViewComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/components/FiltersTreeViewComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/components/UrlManagerComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/components/UrlManagerComponent.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/filters/AreaDistanceFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/filters/AreaDistanceFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/infrastructure/SimpleConsolePrinter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/infrastructure/SimpleConsolePrinter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/application/infrastructure/UrlQueryConverter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/infrastructure/UrlQueryConverter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/filtercontroller/FilterContainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filtercontroller/FilterContainer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/domain/filtercontroller/FilterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filtercontroller/FilterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/filters/types/CheckBoxFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/types/CheckBoxFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/filters/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/Filter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/filters/INotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/INotifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/filters/types/CompositeFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/types/CompositeFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/hub/Hub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/hub/Hub.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/hub/HubCommand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/hub/HubCommand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/hub/IFilterHubListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/hub/IFilterHubListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/hub/IParameterHubListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/hub/IParameterHubListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/hub/IRequestHubListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/hub/IRequestHubListener.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/notifier/FilterNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/notifier/FilterNotifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/notifier/IFilterHub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/notifier/IFilterHub.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/notifier/IParameterHub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/notifier/IParameterHub.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/notifier/IRequestHub.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/notifier/IRequestHub.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/notifier/ParameterNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/notifier/ParameterNotifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/notifier/RequestNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/notifier/RequestNotifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testing/BuilderTesting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/BuilderTesting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testing/ChannelTesting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/ChannelTesting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testing/CommandExecution.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/CommandExecution.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testing/FilterContextUsage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/FilterContextUsage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testing/FilterNotifierTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/FilterNotifierTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testing/FilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/FilterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testing/ResultTesting.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/ResultTesting.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testing/mocks/MockCheckBoxFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/mocks/MockCheckBoxFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testing/mocks/MockCompositeFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/mocks/MockCompositeFilter.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,66 +55,133 @@
     </SUITE>
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SimpleRequestHandler.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/application/SimpleRequestHandler.java">
+    <leaf>
+      <file leaf-file-name="ChannelTesting.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/testing/ChannelTesting.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="735">
-              <caret line="42" selection-start-line="42" selection-end-line="42" />
+            <state relative-caret-position="6809">
+              <caret line="385" column="28" lean-forward="true" selection-start-line="385" selection-start-column="28" selection-end-line="385" selection-end-column="28" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UrlQueryConverter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/application/infrastructure/UrlQueryConverter.java">
+      <file leaf-file-name="InterconnectionTesting.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/testing/InterconnectionTesting.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="36" column="4" lean-forward="true" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
+            <state relative-caret-position="2649">
+              <caret line="156" lean-forward="true" selection-start-line="156" selection-end-line="156" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="method#testHubInterconnectionMultipleItems#0;class#InterconnectionTesting#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IUrlBuilder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/application/infrastructure/IUrlBuilder.java">
+      <file leaf-file-name="BuilderTesting.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/testing/BuilderTesting.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="42">
-              <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
+            <state relative-caret-position="222">
+              <caret line="35" column="19" lean-forward="true" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FilterController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/domain/filtercontroller/FilterController.java">
+      <file leaf-file-name="FilterPropertyChangeTesting.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/testing/FilterPropertyChangeTesting.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="571">
-              <caret line="69" column="7" lean-forward="true" selection-start-line="69" selection-start-column="7" selection-end-line="69" selection-end-column="7" />
+            <state relative-caret-position="459">
+              <caret line="53" selection-start-line="53" selection-end-line="53" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2346#2347#0" expanded="true" />
+                <element signature="e#2384#2385#0" expanded="true" />
+                <element signature="e#1200#1201#0" expanded="true" />
+                <element signature="e#1243#1244#0" expanded="true" />
+                <element signature="e#1314#1315#0" expanded="true" />
+                <element signature="e#1355#1356#0" expanded="true" />
+                <element signature="e#3116#3117#0" expanded="true" />
+                <element signature="e#3171#3172#0" expanded="true" />
+                <element signature="e#3118#3119#0" expanded="true" />
+                <element signature="e#3154#3155#0" expanded="true" />
+                <element signature="e#3225#3226#0" expanded="true" />
+                <element signature="e#3261#3262#0" expanded="true" />
+                <element signature="e#3329#3330#0" expanded="true" />
+                <element signature="e#3365#3366#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UrlBuilder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/application/infrastructure/UrlBuilder.java">
+      <file leaf-file-name="ResultTesting.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/testing/ResultTesting.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-208">
-              <caret line="43" column="29" lean-forward="true" selection-start-line="43" selection-start-column="29" selection-end-line="43" selection-end-column="29" />
+            <state relative-caret-position="336">
+              <caret line="66" column="5" lean-forward="true" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="class#MockResult#0;class#ResultTesting#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="IFilterHub.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/domain/notifier/IFilterHub.java">
+      <file leaf-file-name="FilterContext.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/domain/FilterContext.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+            <state relative-caret-position="189">
+              <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ParameterNotifier.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/domain/notifier/ParameterNotifier.java">
+      <file leaf-file-name="Hub.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/domain/hub/Hub.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+            <state relative-caret-position="483">
+              <caret line="291" selection-start-line="291" selection-end-line="291" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FilterContextUsage.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/testing/FilterContextUsage.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="273">
+              <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CheckBoxFilter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/domain/filters/types/CheckBoxFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="299">
+              <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+              <folding>
+                <element signature="e#507#508#0" expanded="true" />
+                <element signature="e#526#527#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FilterNotifier.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/domain/notifier/FilterNotifier.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="246">
+              <caret line="15" column="50" lean-forward="true" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="50" />
+              <folding>
+                <element signature="e#248#249#0" expanded="true" />
+                <element signature="e#275#276#0" expanded="true" />
+                <element signature="e#383#384#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -92,9 +191,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Enum" />
         <option value="Class" />
-        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -106,6 +205,10 @@
       <find>locale</find>
       <find>checkBox1</find>
       <find>RemoveParameter</find>
+      <find>f3</find>
+      <find>propertychan</find>
+      <find />
+      <find>NotifyFilterReset</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -114,42 +217,64 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/testing/FilterTest.java" />
-        <option value="$PROJECT_DIR$/src/domain/notifier/IFilterHub.java" />
-        <option value="$PROJECT_DIR$/src/domain/notifier/IParameterHub.java" />
-        <option value="$PROJECT_DIR$/src/domain/notifier/IRequestHub.java" />
         <option value="$PROJECT_DIR$/src/domain/filters/FilterEvent.java" />
         <option value="$PROJECT_DIR$/src/domain/hub/interconnections/FilterEvent.java" />
         <option value="$PROJECT_DIR$/src/domain/hub/interconnections/EventSubjectPair.java" />
         <option value="$PROJECT_DIR$/src/domain/hub/interconnections/FilterInterconnection.java" />
         <option value="$PROJECT_DIR$/src/domain/filters/types/RangeFilter.java" />
-        <option value="$PROJECT_DIR$/src/testing/CommandExecution.java" />
         <option value="$PROJECT_DIR$/src/domain/filters/types/SingleTextFilter.java" />
-        <option value="$PROJECT_DIR$/src/testing/ChannelTesting.java" />
         <option value="$PROJECT_DIR$/src/testing/InterconnectionTesting.java" />
-        <option value="$PROJECT_DIR$/src/testing/BuilderTesting.java" />
         <option value="$PROJECT_DIR$/src/domain/hub/interconnections/Rule.java" />
         <option value="$PROJECT_DIR$/src/domain/FilterContext.java" />
-        <option value="$PROJECT_DIR$/src/testing/FilterContextUsage.java" />
-        <option value="$PROJECT_DIR$/src/application/SimpleRequestHandler.java" />
         <option value="$PROJECT_DIR$/src/domain/hub/results/IResult.java" />
         <option value="$PROJECT_DIR$/src/domain/hub/IResultHubListener.java" />
         <option value="$PROJECT_DIR$/src/domain/hub/IHub.java" />
         <option value="$PROJECT_DIR$/src/domain/configuration/Builder.java" />
-        <option value="$PROJECT_DIR$/src/domain/hub/Hub.java" />
-        <option value="$PROJECT_DIR$/src/testing/ResultTesting.java" />
         <option value="$PROJECT_DIR$/src/domain/filters/types/CheckBoxFilter.java" />
         <option value="$PROJECT_DIR$/src/domain/configuration/Configuration.java" />
         <option value="$PROJECT_DIR$/src/application/infrastructure/UrlBuilder.java" />
+        <option value="$PROJECT_DIR$/src/application/SimpleRequestHandler.java" />
+        <option value="$PROJECT_DIR$/src/domain/filters/FilterPropertyType.java" />
+        <option value="$PROJECT_DIR$/src/domain/filters/types/CompositeFilter.java" />
+        <option value="$PROJECT_DIR$/src/testing/BuilderTesting.java" />
+        <option value="$PROJECT_DIR$/src/application/infrastructure/UrlQueryConverter.java" />
+        <option value="$PROJECT_DIR$/src/application/infrastructure/SimpleConsolePrinter.java" />
+        <option value="$PROJECT_DIR$/src/domain/filters/INotifier.java" />
+        <option value="$PROJECT_DIR$/src/domain/filters/Filter.java" />
+        <option value="$PROJECT_DIR$/src/domain/notifier/IFilterHub.java" />
+        <option value="$PROJECT_DIR$/src/domain/notifier/ParameterNotifier.java" />
+        <option value="$PROJECT_DIR$/src/domain/notifier/IParameterHub.java" />
+        <option value="$PROJECT_DIR$/src/domain/notifier/RequestNotifier.java" />
+        <option value="$PROJECT_DIR$/src/domain/notifier/IRequestHub.java" />
+        <option value="$PROJECT_DIR$/src/domain/hub/IFilterHubListener.java" />
+        <option value="$PROJECT_DIR$/src/domain/hub/IParameterHubListener.java" />
+        <option value="$PROJECT_DIR$/src/domain/hub/IRequestHubListener.java" />
+        <option value="$PROJECT_DIR$/src/application/filters/AreaDistanceFilter.java" />
+        <option value="$PROJECT_DIR$/src/testing/FilterContextUsage.java" />
+        <option value="$PROJECT_DIR$/src/testing/FilterTest.java" />
+        <option value="$PROJECT_DIR$/src/testing/FilterNotifierTest.java" />
+        <option value="$PROJECT_DIR$/src/application/components/UrlManagerComponent.java" />
+        <option value="$PROJECT_DIR$/src/testing/CommandExecution.java" />
+        <option value="$PROJECT_DIR$/src/testing/mocks/MockCompositeFilter.java" />
+        <option value="$PROJECT_DIR$/src/application/components/FilterPreviewComponent.java" />
+        <option value="$PROJECT_DIR$/src/application/components/FiltersTreeViewComponent.java" />
+        <option value="$PROJECT_DIR$/src/testing/ChannelTesting.java" />
+        <option value="$PROJECT_DIR$/src/testing/mocks/MockCheckBoxFilter.java" />
+        <option value="$PROJECT_DIR$/src/domain/filtercontroller/FilterContainer.java" />
         <option value="$PROJECT_DIR$/src/domain/filtercontroller/FilterController.java" />
+        <option value="$PROJECT_DIR$/src/domain/hub/HubCommand.java" />
+        <option value="$PROJECT_DIR$/src/domain/hub/Hub.java" />
+        <option value="$PROJECT_DIR$/src/domain/notifier/FilterNotifier.java" />
+        <option value="$PROJECT_DIR$/src/testing/FilterPropertyChangeTesting.java" />
+        <option value="$PROJECT_DIR$/src/testing/ResultTesting.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="224" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="1912" />
     <option name="y" value="-8" />
-    <option name="width" value="1400" />
-    <option name="height" value="1000" />
+    <option name="width" value="1936" />
+    <option name="height" value="1096" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -159,6 +284,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -175,27 +302,7 @@
               <item name="filteringmechanism" type="b2602c69:ProjectViewProjectNode" />
               <item name="filteringmechanism" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="filteringmechanism" type="b2602c69:ProjectViewProjectNode" />
-              <item name="filteringmechanism" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="application" type="462c0819:PsiDirectoryNode" />
-              <item name="infrastructure" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="filteringmechanism" type="b2602c69:ProjectViewProjectNode" />
-              <item name="filteringmechanism" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="domain" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="filteringmechanism" type="b2602c69:ProjectViewProjectNode" />
-              <item name="filteringmechanism" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="domain" type="462c0819:PsiDirectoryNode" />
-              <item name="configuration" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="filteringmechanism" type="b2602c69:ProjectViewProjectNode" />
@@ -216,6 +323,29 @@
               <item name="filteringmechanism" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="domain" type="462c0819:PsiDirectoryNode" />
+              <item name="filters" type="462c0819:PsiDirectoryNode" />
+              <item name="types" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="filteringmechanism" type="b2602c69:ProjectViewProjectNode" />
+              <item name="filteringmechanism" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
+              <item name="hub" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="filteringmechanism" type="b2602c69:ProjectViewProjectNode" />
+              <item name="filteringmechanism" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
+              <item name="hub" type="462c0819:PsiDirectoryNode" />
+              <item name="results" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="filteringmechanism" type="b2602c69:ProjectViewProjectNode" />
+              <item name="filteringmechanism" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
               <item name="notifier" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -229,8 +359,6 @@
         </subPane>
       </pane>
       <pane id="AndroidView" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -253,20 +381,14 @@
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
     </configuration>
-    <configuration name="FilterContextUsage.testFilterContextUsage" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BuilderTesting and 9 more" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="filteringmechanism" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="testing.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="testing" />
-      <option name="MAIN_CLASS_NAME" value="testing.FilterContextUsage" />
-      <option name="METHOD_NAME" value="testFilterContextUsage" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="pattern" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
@@ -274,9 +396,20 @@
       <option name="TEST_SEARCH_SCOPE">
         <value defaultName="singleModule" />
       </option>
-      <patterns />
+      <patterns>
+        <pattern testClass="testing.BuilderTesting" />
+        <pattern testClass="testing.ChannelTesting" />
+        <pattern testClass="testing.CommandExecution" />
+        <pattern testClass="testing.FilterContextUsage" />
+        <pattern testClass="testing.FilterNotifierTest" />
+        <pattern testClass="testing.FilterPropertyChangeTesting" />
+        <pattern testClass="testing.FilterTest" />
+        <pattern testClass="testing.InterconnectionTesting" />
+        <pattern testClass="testing.ResultTesting" />
+        <pattern testClass="testing.TestUrlBuilder" />
+      </patterns>
     </configuration>
-    <configuration name="InterconnectionTesting.testHubInterconnectionComplex" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="FilterPropertyChangeTesting.testPropertyChange" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="filteringmechanism" />
       <extension name="coverage">
         <pattern>
@@ -287,8 +420,8 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
       <option name="PACKAGE_NAME" value="testing" />
-      <option name="MAIN_CLASS_NAME" value="testing.InterconnectionTesting" />
-      <option name="METHOD_NAME" value="testHubInterconnectionComplex" />
+      <option name="MAIN_CLASS_NAME" value="testing.FilterPropertyChangeTesting" />
+      <option name="METHOD_NAME" value="testPropertyChange" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -408,18 +541,18 @@
     </configuration>
     <list>
       <item itemvalue="JUnit.testing in filteringmechanism" />
-      <item itemvalue="JUnit.InterconnectionTesting.testHubInterconnectionComplex" />
-      <item itemvalue="JUnit.FilterContextUsage.testFilterContextUsage" />
       <item itemvalue="JUnit.ResultTesting.testPassResultToHub" />
       <item itemvalue="JUnit.ResultTesting" />
+      <item itemvalue="JUnit.FilterPropertyChangeTesting.testPropertyChange" />
+      <item itemvalue="JUnit.BuilderTesting and 9 more" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.ResultTesting.testPassResultToHub" />
         <item itemvalue="JUnit.testing in filteringmechanism" />
+        <item itemvalue="JUnit.FilterPropertyChangeTesting.testPropertyChange" />
+        <item itemvalue="JUnit.BuilderTesting and 9 more" />
         <item itemvalue="JUnit.ResultTesting" />
-        <item itemvalue="JUnit.FilterContextUsage.testFilterContextUsage" />
-        <item itemvalue="JUnit.InterconnectionTesting.testHubInterconnectionComplex" />
       </list>
     </recent_temporary>
   </component>
@@ -437,40 +570,39 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ResultTesting - 2018.05.29 at 16h 21m 25s.xml">
-      <configuration name="ResultTesting" configurationId="JUnit" />
+    <history-entry file="FilterPropertyChangeTesting_testPropertyChange - 2018.05.31 at 17h 26m 44s.xml">
+      <configuration name="FilterPropertyChangeTesting.testPropertyChange" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ResultTesting_testPassResultToHub - 2018.05.29 at 16h 23m 48s.xml">
-      <configuration name="ResultTesting.testPassResultToHub" configurationId="JUnit" />
+    <history-entry file="FilterPropertyChangeTesting_testPropertyChange - 2018.05.31 at 17h 29m 58s.xml">
+      <configuration name="FilterPropertyChangeTesting.testPropertyChange" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="testing_in_filteringmechanism - 2018.05.29 at 16h 23m 52s.xml">
+    <history-entry file="FilterPropertyChangeTesting_testPropertyChange - 2018.05.31 at 17h 30m 22s.xml">
+      <configuration name="FilterPropertyChangeTesting.testPropertyChange" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="FilterPropertyChangeTesting_testPropertyChange - 2018.05.31 at 18h 01m 15s.xml">
+      <configuration name="FilterPropertyChangeTesting.testPropertyChange" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="testing_in_filteringmechanism - 2018.05.31 at 18h 01m 54s.xml">
       <configuration name="testing in filteringmechanism" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ResultTesting_testPassResultToHub - 2018.05.29 at 16h 24m 01s.xml">
-      <configuration name="ResultTesting.testPassResultToHub" configurationId="JUnit" />
+    <history-entry file="FilterPropertyChangeTesting_testPropertyChange - 2018.05.31 at 18h 02m 35s.xml">
+      <configuration name="FilterPropertyChangeTesting.testPropertyChange" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="testing_in_filteringmechanism - 2018.05.29 at 16h 24m 10s.xml">
+    <history-entry file="FilterPropertyChangeTesting_testPropertyChange - 2018.05.31 at 18h 02m 39s.xml">
+      <configuration name="FilterPropertyChangeTesting.testPropertyChange" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="testing_in_filteringmechanism - 2018.05.31 at 18h 02m 44s.xml">
       <configuration name="testing in filteringmechanism" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="testing_in_filteringmechanism - 2018.05.29 at 16h 24m 33s.xml">
+    <history-entry file="testing_in_filteringmechanism - 2018.05.31 at 18h 05m 04s.xml">
       <configuration name="testing in filteringmechanism" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="ResultTesting_testPassResultToHub - 2018.05.29 at 16h 24m 45s.xml">
-      <configuration name="ResultTesting.testPassResultToHub" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="testing_in_filteringmechanism - 2018.05.30 at 17h 22m 52s.xml">
+    <history-entry file="testing_in_filteringmechanism - 2018.05.31 at 18h 07m 48s.xml">
       <configuration name="testing in filteringmechanism" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="testing_in_filteringmechanism - 2018.05.30 at 17h 48m 32s.xml">
-      <configuration name="testing in filteringmechanism" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="ResultTesting_testPassResultToHub - 2018.05.30 at 17h 48m 36s.xml">
-      <configuration name="ResultTesting.testPassResultToHub" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1096" extended-state="7" />
-    <editor active="true" />
+    <frame x="1912" y="-8" width="1936" height="1096" extended-state="6" />
     <layout>
       <window_info anchor="right" id="Palette" order="3" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -480,25 +612,25 @@
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.2745694" />
       <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.254306" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18020834" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18020834" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32928064" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39918947" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.29483283" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Coverage" order="3" side_tool="true" visible="true" weight="0.19895834" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Coverage" order="3" side_tool="true" visible="true" weight="0.19895834" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -520,188 +652,27 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/testing/ChannelTesting.java</url>
-          <line>265</line>
+          <line>266</line>
           <properties />
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/testing/FilterContextUsage.java</url>
-          <line>32</line>
+          <line>33</line>
           <properties />
           <option name="timeStamp" value="7" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/testing/FilterPropertyChangeTesting.java</url>
+          <line>53</line>
+          <properties />
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="8" />
+      <option name="time" value="9" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="17" selection-start-line="17" selection-end-line="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/hub/interconnections/Rule.java" />
-    <entry file="file://$PROJECT_DIR$/src/testing/FilterNotifierTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testing/mocks/MockCheckBoxFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/Filter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="12" column="63" lean-forward="true" selection-start-line="12" selection-start-column="63" selection-end-line="12" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/FilterMode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/ICountable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" selection-start-line="2" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/IInvalidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" selection-start-line="4" selection-end-line="6" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/INotifier.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/ReservedState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" lean-forward="true" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/CheckBoxFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="21" column="4" lean-forward="true" selection-start-line="20" selection-start-column="5" selection-end-line="21" selection-end-column="4" />
-          <folding>
-            <element signature="e#507#508#0" expanded="true" />
-            <element signature="e#526#527#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/CompositeFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="64" column="13" lean-forward="true" selection-start-line="64" selection-start-column="13" selection-end-line="64" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/FreeTextFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
-          <caret line="34" column="5" lean-forward="true" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
-          <folding>
-            <element signature="e#766#767#0" expanded="true" />
-            <element signature="e#792#793#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/RangeFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="16" column="36" lean-forward="true" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/SingleSelectFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="23" column="4" lean-forward="true" selection-start-line="23" selection-start-column="4" selection-end-line="23" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/SingleTextFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="16" column="29" lean-forward="true" selection-start-line="16" selection-start-column="29" selection-end-line="16" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/notifier/IParameterHub.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="10" column="18" lean-forward="true" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/notifier/IRequestHub.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/notifier/FilterNotifier.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="5" selection-start-line="5" selection-end-line="24" />
-          <folding>
-            <element signature="e#294#295#0" expanded="true" />
-            <element signature="e#341#342#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/notifier/RequestNotifier.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="5" selection-start-line="5" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/hub/Hub.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="168">
-          <caret line="23" column="38" lean-forward="true" selection-start-line="23" selection-start-column="38" selection-end-line="23" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/hub/HubCommand.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="537">
-          <caret line="40" column="7" lean-forward="true" selection-start-line="40" selection-start-column="7" selection-end-line="40" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/hub/IFilterHubListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" lean-forward="true" selection-start-line="3" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/domain/hub/IHub.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
@@ -709,27 +680,6 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/hub/IParameterHubListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" selection-start-line="4" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/hub/IRequestHubListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" selection-start-line="4" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/hub/IResultHubListener.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" selection-start-line="2" selection-end-line="5" />
         </state>
       </provider>
     </entry>
@@ -764,16 +714,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="273">
           <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filtercontroller/FilterContainer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="38" column="5" lean-forward="true" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -798,100 +738,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/configuration/Builder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="18" column="5" lean-forward="true" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-          <folding>
-            <element signature="e#383#384#0" expanded="true" />
-            <element signature="e#427#428#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/domain/configuration/Configuration.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="12" lean-forward="true" selection-start-line="12" selection-end-line="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/FilterContext.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="9" column="28" lean-forward="true" selection-start-line="9" selection-start-column="28" selection-end-line="9" selection-end-column="28" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testing/BuilderTesting.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="54" column="15" selection-start-line="54" selection-start-column="15" selection-end-line="54" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testing/ChannelTesting.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="278" column="59" lean-forward="true" selection-start-line="278" selection-start-column="59" selection-end-line="278" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testing/CommandExecution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="347">
-          <caret line="255" column="63" lean-forward="true" selection-start-line="255" selection-start-column="63" selection-end-line="255" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testing/InterconnectionTesting.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="570">
-          <caret line="156" lean-forward="true" selection-start-line="156" selection-end-line="156" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="method#testHubInterconnectionMultipleItems#0;class#InterconnectionTesting#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testing/FilterContextUsage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="546">
-          <caret line="45" selection-start-line="45" selection-end-line="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="class#MockCompleteComponent#0;class#FilterContextUsage#0" />
-            <element signature="class#MockParameterComponent#0;class#FilterContextUsage#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testing/ResultTesting.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="683">
-          <caret line="63" column="50" lean-forward="true" selection-start-line="63" selection-start-column="50" selection-end-line="63" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="class#MockResult#0;class#ResultTesting#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/SimpleRequestHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="735">
-          <caret line="42" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/application/infrastructure/IUrlBuilder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="42">
-          <caret line="2" column="17" selection-start-line="2" selection-start-column="17" selection-end-line="2" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -902,31 +752,344 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/notifier/IFilterHub.java">
+    <entry file="file://$PROJECT_DIR$/src/application/infrastructure/IUrlBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="5" column="17" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+        <state relative-caret-position="189">
+          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/notifier/ParameterNotifier.java">
+    <entry file="file://$PROJECT_DIR$/src/application/SimpleRequestHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="474">
+          <caret line="212" lean-forward="true" selection-start-line="212" selection-end-line="212" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/hub/IResultHubListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="63">
+          <caret line="3" column="13" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/FilterPropertyType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="9" selection-start-line="4" selection-start-column="9" selection-end-line="4" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/CompositeFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="266">
+          <caret line="42" column="8" lean-forward="true" selection-start-line="42" selection-start-column="8" selection-end-line="42" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/application/infrastructure/UrlQueryConverter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="36" column="4" lean-forward="true" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
+        <state relative-caret-position="546">
+          <caret line="44" column="53" selection-start-line="44" selection-start-column="53" selection-end-line="44" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/infrastructure/SimpleConsolePrinter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="579">
+          <caret line="38" column="29" selection-start-line="38" selection-start-column="29" selection-end-line="38" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/notifier/IFilterHub.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/notifier/ParameterNotifier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="40" selection-start-line="21" selection-start-column="40" selection-end-line="21" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/notifier/IParameterHub.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="11" column="52" selection-start-line="11" selection-start-column="52" selection-end-line="11" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/notifier/RequestNotifier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="21" column="28" selection-start-line="21" selection-start-column="28" selection-end-line="21" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/notifier/IRequestHub.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="12" column="50" selection-start-line="12" selection-start-column="50" selection-end-line="12" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/hub/IFilterHubListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" column="100" selection-start-line="8" selection-start-column="100" selection-end-line="8" selection-end-column="100" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/hub/IParameterHubListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="39" selection-start-line="7" selection-start-column="39" selection-end-line="7" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/hub/IRequestHubListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="7" column="37" selection-start-line="7" selection-start-column="37" selection-end-line="7" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/filters/AreaDistanceFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="13" column="4" selection-start-line="13" selection-start-column="4" selection-end-line="13" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testing/FilterTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="44">
+          <caret line="158" selection-start-line="158" selection-end-line="158" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/components/UrlManagerComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="94" selection-start-line="94" selection-end-line="94" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testing/mocks/MockCompositeFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="16" column="41" selection-start-line="16" selection-start-column="41" selection-end-line="16" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/components/FilterPreviewComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="569">
+          <caret line="51" selection-start-line="51" selection-end-line="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/application/components/FiltersTreeViewComponent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="378">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testing/mocks/MockCheckBoxFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="e#350#351#0" expanded="true" />
+            <element signature="e#391#392#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testing/FilterNotifierTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1405">
+          <caret line="84" selection-start-line="84" selection-end-line="84" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filtercontroller/FilterContainer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="67" column="20" selection-start-line="67" selection-start-column="20" selection-end-line="67" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/INotifier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/Filter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="25" column="31" lean-forward="true" selection-start-line="25" selection-start-column="31" selection-end-line="25" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/hub/HubCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#238#239#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/junit-4.12.jar!/org/junit/internal/runners/model/ReflectiveCallable.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="17" selection-start-line="17" selection-end-line="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/domain/filtercontroller/FilterController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="571">
-          <caret line="69" column="7" lean-forward="true" selection-start-line="69" selection-start-column="7" selection-end-line="69" selection-end-column="7" />
+        <state relative-caret-position="437">
+          <caret line="133" selection-start-line="133" selection-end-line="133" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testing/CommandExecution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4261">
+          <caret line="368" column="28" lean-forward="true" selection-start-line="368" selection-start-column="28" selection-end-line="368" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testing/BuilderTesting.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="35" column="19" lean-forward="true" selection-start-line="35" selection-start-column="19" selection-end-line="35" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testing/ChannelTesting.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6809">
+          <caret line="385" column="28" lean-forward="true" selection-start-line="385" selection-start-column="28" selection-end-line="385" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testing/InterconnectionTesting.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2649">
+          <caret line="156" lean-forward="true" selection-start-line="156" selection-end-line="156" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#testHubInterconnectionMultipleItems#0;class#InterconnectionTesting#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testing/FilterContextUsage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/CheckBoxFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="299">
+          <caret line="31" column="36" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
+          <folding>
+            <element signature="e#507#508#0" expanded="true" />
+            <element signature="e#526#527#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/notifier/FilterNotifier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="15" column="50" lean-forward="true" selection-start-line="15" selection-start-column="50" selection-end-line="15" selection-end-column="50" />
+          <folding>
+            <element signature="e#248#249#0" expanded="true" />
+            <element signature="e#275#276#0" expanded="true" />
+            <element signature="e#383#384#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/hub/Hub.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="291" selection-start-line="291" selection-end-line="291" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/configuration/Builder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="20" column="16" selection-start-line="20" selection-start-column="16" selection-end-line="20" selection-end-column="16" />
+          <folding>
+            <element signature="e#383#384#0" expanded="true" />
+            <element signature="e#427#428#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/FilterContext.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="189">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testing/ResultTesting.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="66" column="5" lean-forward="true" selection-start-line="66" selection-start-column="5" selection-end-line="66" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#MockResult#0;class#ResultTesting#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testing/FilterPropertyChangeTesting.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2346#2347#0" expanded="true" />
+            <element signature="e#2384#2385#0" expanded="true" />
+            <element signature="e#1200#1201#0" expanded="true" />
+            <element signature="e#1243#1244#0" expanded="true" />
+            <element signature="e#1314#1315#0" expanded="true" />
+            <element signature="e#1355#1356#0" expanded="true" />
+            <element signature="e#3116#3117#0" expanded="true" />
+            <element signature="e#3171#3172#0" expanded="true" />
+            <element signature="e#3118#3119#0" expanded="true" />
+            <element signature="e#3154#3155#0" expanded="true" />
+            <element signature="e#3225#3226#0" expanded="true" />
+            <element signature="e#3261#3262#0" expanded="true" />
+            <element signature="e#3329#3330#0" expanded="true" />
+            <element signature="e#3365#3366#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

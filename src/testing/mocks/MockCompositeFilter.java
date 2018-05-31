@@ -1,5 +1,7 @@
 package testing.mocks;
 
+import domain.filters.Filter;
+import domain.filters.FilterPropertyType;
 import domain.filters.INotifier;
 import domain.filters.types.CompositeFilter;
 
@@ -9,5 +11,10 @@ import domain.filters.types.CompositeFilter;
 public class MockCompositeFilter extends CompositeFilter {
     public MockCompositeFilter(Object id, String name, INotifier notifier) {
         super(id, name, notifier);
+    }
+
+    @Override
+    public void NotifyPropertyChanged(Filter filter, String old, String _new, FilterPropertyType propType) {
+
     }
 }

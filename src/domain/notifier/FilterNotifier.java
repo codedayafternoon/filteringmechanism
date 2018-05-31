@@ -1,6 +1,7 @@
 package domain.notifier;
 
 import domain.filters.Filter;
+import domain.filters.FilterPropertyType;
 import domain.filters.INotifier;
 
 public class FilterNotifier implements INotifier {
@@ -14,6 +15,11 @@ public class FilterNotifier implements INotifier {
 	@Override
 	public void NotifyFilterReset(Filter filter) {
 		this.filterHub.NotifyFilterReset(filter);
+	}
+
+	@Override
+	public void NotifyPropertyChanged(Filter filter, String old, String _new, FilterPropertyType propType) {
+		this.filterHub.NotifyFilterPropertyChanged(filter, old, _new, propType);
 	}
 
 	@Override

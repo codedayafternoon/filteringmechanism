@@ -1,6 +1,7 @@
 package domain.notifier;
 
 import domain.filters.Filter;
+import domain.filters.FilterPropertyType;
 import domain.hub.IFilterHubListener;
 import domain.hub.IRequestHubListener;
 
@@ -10,4 +11,5 @@ public interface IRequestHub {
 	void ClearRequestListeners();
 	void NotifyRequestReset(Filter filter);
 	void NotifyRequestStateChanged(Filter filter);
+    void NotifyRequestPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType);
 }
