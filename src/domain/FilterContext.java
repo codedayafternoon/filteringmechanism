@@ -19,11 +19,21 @@ public class FilterContext {
             this.handler = requestHandler;
         if(this.converter == null)
             this.converter = requestConverter;
+        this.initializeController();
+    }
+
+    private void initializeController() {
+        if(hub == null)
+            hub = new Hub();
+        if(controller == null) {
+            controller = new FilterController(this.hub, this.handler, this.converter);
+            hub.SetFilterController(controller);
+        }
     }
 
     public FilterController GetController(){
         if(controller == null)
-            controller = new FilterController(this.GetHub(), this.handler, this.converter);
+            throw new Error("controller has not initialized. Consider call Initialize before accessing any members");
         return controller;
     }
 
@@ -35,7 +45,7 @@ public class FilterContext {
 
     public Hub GetHub(){
         if(hub == null)
-            hub = new Hub();
+            throw new Error("hub has not initialized. Consider call Initialize before accessing any members");
         return hub;
     }
 }

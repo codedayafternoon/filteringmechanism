@@ -7,7 +7,7 @@ import domain.filters.types.FreeTextFilter;
 /**
  * Created by Jimfi on 5/27/2018.
  */
-public class MockFreeTextFilter extends FreeTextFilter implements ICountable {
+public class MockFreeTextFilter extends FreeTextFilter{
 
     int count;
 
@@ -15,13 +15,4 @@ public class MockFreeTextFilter extends FreeTextFilter implements ICountable {
         super(id, name, notifier);
     }
 
-    @Override
-    public void SetCount(int count) {
-        this.count = count;
-    }
-
-    @Override
-    public int GetCount() {
-        return this.count;
-    }
 }

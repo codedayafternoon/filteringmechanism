@@ -16,6 +16,7 @@ import domain.hub.IRequestHubListener;
 import domain.notifier.FilterNotifier;
 import domain.notifier.ParameterNotifier;
 import domain.notifier.RequestNotifier;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -369,7 +370,7 @@ public class ChannelTesting {
         }
 
         @Override
-        public void FilterPropertyChanged(domain.filters.Filter filter, String old, String _new, FilterPropertyType propType) {
+        public void FilterPropertyChanged(Filter filter, String old, String _new, FilterPropertyType propType) {
 
         }
     }
@@ -416,7 +417,7 @@ public class ChannelTesting {
         }
 
         @Override
-        public void ParameterPropertyChanged(domain.filters.Filter filter, String old, String aNew, FilterPropertyType propType) {
+        public void ParameterPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType) {
 
         }
 

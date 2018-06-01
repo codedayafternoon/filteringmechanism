@@ -185,12 +185,12 @@ public class CommandExecution {
         HubCommand singleContainerStateChangeCommand3 = new HubCommand(3, "singleContainer", "f3", "1"); // filterNotifiers +1 and -1 for reseting f2
 
         HubCommand checkBoxStateChangeCommand = new HubCommand(5, "checkContainer", "c2", "1"); // filter notifiers +1
-        HubCommand checkBoxStateChangeCountCommand2 = new HubCommand(4, "checkContainer", "c1", 10, "1"); // filter notifiers +1 for state +1 for count
-        HubCommand checkBoxStateChangeCountCommand3 = new HubCommand(5, "checkContainer", "c2",100, "0"); // filter notifiers -1 for resetting +1 for count
+        HubCommand checkBoxStateChangeCountCommand2 = new HubCommand(4, "checkContainer", "c1", 10, "1"); // filter notifiers +1 for propertyChanged +1 for count
+        HubCommand checkBoxStateChangeCountCommand3 = new HubCommand(5, "checkContainer", "c2",100, "0"); // filter notifiers -1 for propertyChanged +1 for count
 
         HubCommand freeContainerStateChangeCommand3 = new HubCommand(7, "freeContainer", "f1", "free_text"); // filter notifiers +1
 
-        HubCommand rangeStateChangeCommand1 = new HubCommand(11, "range", "r", 63, "from:100"); // filter notifiers +1 count +0 because range is not ICountable
+        HubCommand rangeStateChangeCommand1 = new HubCommand(11, "range", "r", 63, "from:100"); // filter notifiers +1 propertyChanged +1
         HubCommand rangeStateChangeCommand2 = new HubCommand(11, "range", "r", "to:400"); // filter notifiers +1
 
         this.hub.Execute(singleContainerStateChangeCommand);
@@ -207,25 +207,27 @@ public class CommandExecution {
         this.hub.Execute(rangeStateChangeCommand2);
 
         Assert.assertEquals(0, this.parameterFilterChannel.Parameter);
-        Assert.assertEquals(7, this.parameterFilterChannel.Filter);
-        Assert.assertEquals(7, this.filterChannel1.Filter);
-        Assert.assertEquals(7, this.filterChannel2.Filter);
+        Assert.assertEquals(5, this.parameterFilterChannel.Filter);
+        Assert.assertEquals(3, this.parameterFilterChannel.FilterPropertyChanged);
+        Assert.assertEquals(5, this.filterChannel1.Filter);
+        Assert.assertEquals(5, this.filterChannel2.Filter);
         Assert.assertEquals(0, this.completeChannel.Parameter);
         Assert.assertEquals(0, this.completeChannel.Request);
-        Assert.assertEquals(7, this.completeChannel.Filter);
+        Assert.assertEquals(5, this.completeChannel.Filter);
 
         controller.ChangeState("complex", "c1", "cs1:z");
         Assert.assertEquals(0, this.parameterFilterChannel.Parameter);
-        Assert.assertEquals(8, this.parameterFilterChannel.Filter);
-        Assert.assertEquals(8, this.filterChannel1.Filter);
-        Assert.assertEquals(8, this.filterChannel2.Filter);
+        Assert.assertEquals(6, this.parameterFilterChannel.Filter);
+        Assert.assertEquals(3, this.parameterFilterChannel.FilterPropertyChanged);
+        Assert.assertEquals(6, this.filterChannel1.Filter);
+        Assert.assertEquals(6, this.filterChannel2.Filter);
         Assert.assertEquals(0, this.completeChannel.Parameter);
         Assert.assertEquals(0, this.completeChannel.Request);
-        Assert.assertEquals(8, this.completeChannel.Filter);
+        Assert.assertEquals(6, this.completeChannel.Filter);
 
         // it should have all state changes besides change from controller
         Assert.assertTrue(handler.Request.contains("singleContainer=f3"));
-        Assert.assertTrue(handler.Request.contains("checkContainer=c2,c1") || handler.Request.contains("checkContainer=c1,c2"));
+        Assert.assertTrue(handler.Request.contains("checkContainer=c1") );
         Assert.assertTrue(handler.Request.contains("f1=free_text"));
         Assert.assertTrue(handler.Request.contains("r=from:100-to:400"));
         Assert.assertTrue(handler.Request.contains("cs1=z"));
@@ -251,12 +253,13 @@ public class CommandExecution {
         this.hub.Execute(rangeStateChangeCommand2reset);
 
         Assert.assertEquals(0, this.parameterFilterChannel.Parameter);
-        Assert.assertEquals(9, this.parameterFilterChannel.Filter);
-        Assert.assertEquals(9, this.filterChannel1.Filter);
-        Assert.assertEquals(9, this.filterChannel2.Filter);
+        Assert.assertEquals(7, this.parameterFilterChannel.Filter);
+        Assert.assertEquals(3, this.parameterFilterChannel.FilterPropertyChanged);
+        Assert.assertEquals(7, this.filterChannel1.Filter);
+        Assert.assertEquals(7, this.filterChannel2.Filter);
         Assert.assertEquals(0, this.completeChannel.Parameter);
         Assert.assertEquals(0, this.completeChannel.Request);
-        Assert.assertEquals(9, this.completeChannel.Filter);
+        Assert.assertEquals(7, this.completeChannel.Filter);
 
         controller.ChangeState("complex", "c1", "cs1:x");
         Assert.assertFalse(handler.Request.contains("singleContainer=f3"));
@@ -272,6 +275,8 @@ public class CommandExecution {
 
         public int Parameter;
         public int Filter;
+        public int FilterPropertyChanged;
+        public int ParameterPropertyChanged;
 
         public ParameterFilterChannel() {
             Parameter = 0;
@@ -292,7 +297,7 @@ public class CommandExecution {
 
         @Override
         public void ParameterPropertyChanged(domain.filters.Filter filter, String old, String aNew, FilterPropertyType propType) {
-
+            this.ParameterPropertyChanged++;
         }
 
         @Override
@@ -309,7 +314,7 @@ public class CommandExecution {
 
         @Override
         public void FilterPropertyChanged(domain.filters.Filter filter, String old, String _new, FilterPropertyType propType) {
-
+            this.FilterPropertyChanged++;
         }
     }
 

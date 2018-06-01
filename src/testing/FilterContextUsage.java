@@ -43,6 +43,7 @@ public class FilterContextUsage {
 
     }
 
+
     private class MockConfiguration extends Configuration{
 
         Hub hub;

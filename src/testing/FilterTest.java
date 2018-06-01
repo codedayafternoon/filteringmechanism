@@ -8,6 +8,7 @@ import domain.filters.Filter;
 import domain.filters.FilterPropertyType;
 import domain.filters.INotifier;
 import domain.hub.Hub;
+import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

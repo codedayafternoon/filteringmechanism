@@ -7,7 +7,7 @@ import domain.filters.types.CheckBoxFilter;
 /**
  * Created by Jimfi on 5/27/2018.
  */
-public class MockCheckBoxFilter extends CheckBoxFilter implements ICountable {
+public class MockCheckBoxFilter extends CheckBoxFilter {
 
     int Count = 0;
 
@@ -15,15 +15,4 @@ public class MockCheckBoxFilter extends CheckBoxFilter implements ICountable {
         super(id, name, notifier);
     }
 
-    @Override
-    public void SetCount(int count) {
-
-        this.Count = count;
-    }
-
-    @Override
-    public int GetCount() {
-
-        return this.Count;
-    }
 }

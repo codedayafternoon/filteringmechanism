@@ -39,11 +39,8 @@ public class FilterPropertyChangeTesting {
         context.GetBuilder().Build(new MockConfiguration(context.GetHub()));
 
         HubCommand command = new HubCommand(1, "c1", "cc", -1, "0"); // for property changed Name
-
-        HubCommand command2 = new HubCommand(1, "c1", "cc", 10, "0"); // for proeprty changed Count
-
+        HubCommand command2 = new HubCommand(1, "c1", "cc", 10, "0"); // for property changed Count
         HubCommand command3 = new HubCommand(1, "c1", "cc", 10, "1"); // for statechanged
-
         HubCommand command4 = new HubCommand(1, "c1", "cc", 10, "0"); // for Reset
 
         Assert.assertEquals(0, listener.FilterChangedCounter);
@@ -58,10 +55,22 @@ public class FilterPropertyChangeTesting {
         Assert.assertEquals(false, handler.MakeRequestTriggered);
 
         hub.Execute(command2);
-//        Assert.assertEquals(0, listener.FilterChangedCounter);
-//        Assert.assertEquals(0, listener.FilterResetCounter);
-//        Assert.assertEquals(2, listener.FilterPropertyChangedCounter);
-//        Assert.assertEquals(false, handler.MakeRequestTriggered);
+        Assert.assertEquals(0, listener.FilterChangedCounter);
+        Assert.assertEquals(0, listener.FilterResetCounter);
+        Assert.assertEquals(2, listener.FilterPropertyChangedCounter);
+        Assert.assertEquals(false, handler.MakeRequestTriggered);
+
+        hub.Execute(command3);
+        Assert.assertEquals(1, listener.FilterChangedCounter);
+        Assert.assertEquals(0, listener.FilterResetCounter);
+        Assert.assertEquals(2, listener.FilterPropertyChangedCounter);
+        Assert.assertEquals(false, handler.MakeRequestTriggered);
+
+        hub.Execute(command4);
+        Assert.assertEquals(1, listener.FilterChangedCounter);
+        Assert.assertEquals(1, listener.FilterResetCounter);
+        Assert.assertEquals(2, listener.FilterPropertyChangedCounter);
+        Assert.assertEquals(false, handler.MakeRequestTriggered);
 
     }
 

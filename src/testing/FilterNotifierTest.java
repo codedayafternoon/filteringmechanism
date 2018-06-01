@@ -92,7 +92,6 @@ public class FilterNotifierTest {
 
 		public MockSingleSelectFilter(IInvalidator invalidator, Object id, String name, INotifier notifier) {
 			super(invalidator, id, name, notifier);
-			// TODO Auto-generated constructor stub
 		}
 		
 	}
@@ -101,7 +100,6 @@ public class FilterNotifierTest {
 
 		public MockCheckBokFilter(Object id, String name, INotifier notifier) {
 			super(id, name, notifier);
-			// TODO Auto-generated constructor stub
 		}
 		
 	}
@@ -110,7 +108,6 @@ public class FilterNotifierTest {
 
 		public MockFreeTextFilter(Object id, String name, INotifier notifier) {
 			super(id, name, notifier);
-			// TODO Auto-generated constructor stub
 		}
 		
 	}

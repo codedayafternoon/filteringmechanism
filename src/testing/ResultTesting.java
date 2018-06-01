@@ -42,11 +42,12 @@ public class ResultTesting {
 
     MockResultListenerModule resultModule;
 
+    @Before
     public void Setup(){
         this.context = new FilterContext();
+        this.context.Initialize(this.requestHandler, this.requestConverter);
         this.requestHandler = new MockRequestHandler(this.context.GetHub());
         this.requestConverter = new MockRequestConverter();
-        this.context.Initialize(this.requestHandler, this.requestConverter);
 
         this.resultModule = new MockResultListenerModule(this.context.GetController());
         this.requestHandler = new MockRequestHandler(this.context.GetHub());
@@ -68,7 +69,7 @@ public class ResultTesting {
 
     @Test
     public void testPassResultToHub(){
-        this.Setup();
+
         context = new FilterContext();
 
         MockConfiguration configuration = new MockConfiguration();

@@ -98,19 +98,9 @@ public class FilterController {
 		Filter filter = this.GetFilterByName(container, filterName);
 		if (filter == null)
 			return;
-		if (!(filter instanceof ICountable))
-			return;
 
-		((ICountable)filter).SetCount(count);
-
-		// TODO replace with propertychanged from inside the filter
-		filter.TriggerStateChanged(); // TODO execute with flag? not always..
+		filter.SetCount(count);
 	}
-
-	private void updateCountHelper(String container, String filterName, int count) {
-
-	}
-
 
 	public void Update() {
 		Map<Filter, Date> s = getRequestParameters();
@@ -127,6 +117,7 @@ public class FilterController {
 			s.putAll(this.hub.GetParameters());
 		if(this.requestHandler.IsRetrieveFromRequest())
 			s.putAll(this.hub.GetRequests());
+
 		return s;
 	}
 
