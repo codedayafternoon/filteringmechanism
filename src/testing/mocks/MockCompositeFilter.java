@@ -17,4 +17,9 @@ public class MockCompositeFilter extends CompositeFilter {
     public void NotifyPropertyChanged(Filter filter, String old, String _new, FilterPropertyType propType) {
 
     }
+
+    @Override
+    public void NotifyFilterUpdated(Filter filter) {
+
+    }
 }

@@ -39,7 +39,7 @@ public class InterconnectionTesting {
     public void Setup(){
         this.hub = new Hub();
         this.filterNotifier = new FilterNotifier(hub);
-        this.container1 = new FilterContainer("c1");
+        this.container1 = new FilterContainer(1, "c1");
         this.checkBox1 = new MockCheckBoxFilter(1, "f1", this.filterNotifier);
         List<String> singleTextBox2Values = new ArrayList<>();
         singleTextBox2Values.add("x");
@@ -55,16 +55,16 @@ public class InterconnectionTesting {
         toValues.add("200");
         toValues.add("300");
         toValues.add("400");
-        this.range1 = new MockRangeFilter(3, "f3", this.filterNotifier);
-        this.range1.AddFromValues(fromValues);
-        this.range1.AddToValues(toValues);
+        this.range1 = new MockRangeFilter(3, "f3", this.filterNotifier,fromValues,toValues);
+//        this.range1.UpdateFromValues(fromValues);
+//        this.range1.UpdateToValues(toValues);
         this.range1.SetDefaultFrom("100");
         this.range1.SetDefaultTo("400");
         this.container1.AddFilter(checkBox1);
         this.container1.AddFilter(singleTextBox2);
         this.container1.AddFilter(range1);
 
-        this.container2 = new FilterContainer("c2");
+        this.container2 = new FilterContainer(2, "c2");
         this.freeFilter = new MockFreeTextFilter(4, "f1", filterNotifier);
         this.freeFilter.SetDefaultValue("");
         List<String> fromValues2 = new ArrayList<>();
@@ -75,9 +75,9 @@ public class InterconnectionTesting {
         toValues2.add("2000");
         toValues2.add("3000");
         toValues2.add("4000");
-        this.range2 = new MockRangeFilter(5, "f2", this.filterNotifier);
-        this.range2.AddFromValues(fromValues2);
-        this.range2.AddToValues(toValues2);
+        this.range2 = new MockRangeFilter(5, "f2", this.filterNotifier,fromValues2,toValues2);
+//        this.range2.UpdateFromValues(fromValues2);
+//        this.range2.UpdateToValues(toValues2);
         this.range2.SetDefaultFrom("1000");
         this.range2.SetDefaultTo("4000");
         List<String> singleText3Values = new ArrayList<>();
@@ -90,7 +90,7 @@ public class InterconnectionTesting {
         this.container2.AddFilter(range2);
         this.container2.AddFilter(this.singleText3);
 
-        this.container3 = new FilterContainer("c3");
+        this.container3 = new FilterContainer(3,"c3");
         this.single1 = new MockSingleSelectFilter(this.container3,  7, "f1", this.filterNotifier);
         this.single2 = new MockSingleSelectFilter(this.container3, 8, "f2", this.filterNotifier);
         this.container3.AddFilter(single1);

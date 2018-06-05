@@ -11,4 +11,5 @@ public interface IFilterHub {
 	void NotifyFilterReset(Filter filter);
 	void NotifyFilterStateChanged(Filter filter);
     void NotifyFilterPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType);
+    void NotifyFilterUpdated(Filter filter);
 }

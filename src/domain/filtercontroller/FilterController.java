@@ -14,7 +14,6 @@ public class FilterController {
 	protected Hub hub;
 	protected IRequestHandler requestHandler;
 	protected IRequestConverter requestConverter;
-	private Builder builder;
 
 	public FilterController(List<FilterContainer> containers, Hub hub, IRequestHandler handler,
 			IRequestConverter requestConverter) {
@@ -38,18 +37,26 @@ public class FilterController {
 	}
 
 	public void AddContainer(FilterContainer container){
+		if(container == null)
+			return;
+		if(this.containers.contains(container))
+			return;
+		if(this.containers.stream().anyMatch(x->x.GetId().equals(container.GetId())))
+			throw new Error("there is already a container with the same id " + container.GetId());
+
 		this.containers.add(container);
+	}
+
+
+	public void RemoveContainerById(FilterContainer container) {
+		if(container == null)
+			return;
+		FilterContainer c = this.GetContainerById(container.GetId());
+		this.containers.remove(c);
 	}
 
 	public List<FilterContainer> GetContainers(){
 		return this.containers;
-	}
-
-	public Builder GetBuilder(){
-		if(this.builder == null)
-			this.builder = new Builder(this);
-
-		return this.builder;
 	}
 
 	public void ChangeState(String containerName, String filterName, ReservedState state) {
@@ -58,6 +65,8 @@ public class FilterController {
 	}
 
 	public void ChangeState(String containerName, String filterName, String state) {
+		if(containerName == null || filterName == null || state == null)
+			return;
 		if(this.DoChangeState(containerName, filterName, state))
 			this.Update();
 	}
@@ -69,7 +78,9 @@ public class FilterController {
 	 * @param state
 	 */
 	public boolean DoChangeState(String containerName, String filterName, String state) {
-		System.out.println("ChangeState of " + containerName + "==>" + filterName + " to " + state);
+		if(containerName == null || filterName == null || state == null)
+			return false;
+
 		FilterContainer container = this.GetContainerByName(containerName);
 		if (container == null)
 			return false;
@@ -80,8 +91,14 @@ public class FilterController {
 		return true;
 	}
 
-	protected FilterContainer GetContainerByName(String name) {
+	public FilterContainer GetContainerByName(String name) {
 		FilterContainer container = this.containers.stream().filter(x -> x.GetName().equals(name)).findFirst().get();
+		return container;
+	}
+
+
+	public FilterContainer GetContainerById(Object id) {
+		FilterContainer container = this.containers.stream().filter(x -> x.GetId().equals(id)).findFirst().get();
 		return container;
 	}
 
@@ -125,5 +142,17 @@ public class FilterController {
 		FilterContainer container = this.GetContainerByName(containerName);
 		Filter filter = container.GetFilterById(id);
 		return filter;
+    }
+
+	public FilterContainer FindContainer(Object id) {
+		for(FilterContainer c : this.containers){
+			if(c.GetId().equals(id))
+				return c;
+		}
+		return null;
+	}
+
+    public void Clear() {
+		this.containers.clear();
     }
 }

@@ -1,6 +1,7 @@
 package domain;
 
 import domain.configuration.Builder;
+import domain.configuration.Configuration;
 import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IRequestConverter;
 import domain.filtercontroller.IRequestHandler;
@@ -12,13 +13,20 @@ public class FilterContext {
     private static Hub hub;
     private IRequestHandler handler;
     private IRequestConverter converter;
+    private Configuration configuration;
     private Builder builder;
 
-    public void Initialize(IRequestHandler requestHandler, IRequestConverter requestConverter ){
+    public void Initialize(IRequestHandler requestHandler, IRequestConverter requestConverter,Configuration configuration ){
+        if(requestHandler == null || requestConverter == null || configuration == null)
+            throw new Error("context cannot be initialized with null parameter");
+
         if(this.handler == null)
             this.handler = requestHandler;
         if(this.converter == null)
             this.converter = requestConverter;
+        if(this.configuration == null)
+            this.configuration = configuration;
+
         this.initializeController();
     }
 
@@ -39,7 +47,7 @@ public class FilterContext {
 
     public Builder GetBuilder(){
         if(this.builder == null)
-            this.builder = new Builder(this.GetController());
+            this.builder = new Builder(this.GetController(), this.configuration);
         return this.builder;
     }
 

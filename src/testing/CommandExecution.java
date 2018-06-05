@@ -71,7 +71,7 @@ public class CommandExecution {
         ParameterNotifier parameterNotifier = new ParameterNotifier(hub);
         RequestNotifier requestNotifier = new RequestNotifier(hub);
 
-        this.singleSelectContainer = new MockContainer("singleContainer");
+        this.singleSelectContainer = new MockContainer(1, "singleContainer");
         this.singleSelect1 = new MockSingleSelectFilter(this.singleSelectContainer, 1, "f1", filterNotifier);
         this.singleSelect2 = new MockSingleSelectFilter(this.singleSelectContainer, 2, "f2", filterNotifier);
         this.singleSelect3 = new MockSingleSelectFilter(this.singleSelectContainer, 3, "f3", filterNotifier);
@@ -82,13 +82,13 @@ public class CommandExecution {
         this.checkBox1 = new MockCheckBoxFilter(4, "c1", filterNotifier);
         this.checkBox2 = new MockCheckBoxFilter(5, "c2", filterNotifier);
         this.checkBox3 = new MockCheckBoxFilter(6, "c3", filterNotifier);
-        this.checkBoxContainer = new MockContainer("checkContainer");
+        this.checkBoxContainer = new MockContainer(2,"checkContainer");
         this.checkBoxContainer.AddFilter(checkBox1);
         this.checkBoxContainer.AddFilter(checkBox2);
         this.checkBoxContainer.AddFilter(checkBox3);
 
         this.freeText1 = new MockFreeTextFilter(7, "f1", filterNotifier);
-        this.freeTextContainer = new MockContainer("freeContainer");
+        this.freeTextContainer = new MockContainer(3,"freeContainer");
         this.freeTextContainer.AddFilter(freeText1);
 
         this.compositeFilter = new MockCompositeFilter(10, "c1", filterNotifier);
@@ -102,10 +102,9 @@ public class CommandExecution {
 
         this.compositeFilter.AddFilter(complexFreeText);
         this.compositeFilter.AddFilter(complexSingleText);
-        this.complexContainer = new MockContainer("complex");
+        this.complexContainer = new MockContainer(4,"complex");
         this.complexContainer.AddFilter(this.compositeFilter);
 
-        this.range = new MockRangeFilter(11, "r", filterNotifier);
         List<String> fromValues = new ArrayList<>();
         fromValues.add("100");
         fromValues.add("200");
@@ -115,11 +114,13 @@ public class CommandExecution {
         toValues.add("300");
         toValues.add("400");
         toValues.add("500");
-        this.range.AddFromValues(fromValues);
-        this.range.AddToValues(toValues);
+        this.range = new MockRangeFilter(11, "r", filterNotifier,fromValues,toValues);
+
+//        this.range.UpdateFromValues(fromValues);
+//        this.range.UpdateToValues(toValues);
         this.range.SetDefaultFrom("200");
         this.range.SetDefaultTo("300");
-        this.rangeContainer = new MockContainer("range");
+        this.rangeContainer = new MockContainer(5,"range");
         this.rangeContainer.AddFilter(range);
 
         List<String> pageFilterValues = new ArrayList<>();
@@ -129,7 +130,7 @@ public class CommandExecution {
         pageFilterValues.add("4");
         this.pageFilter = new MockSingleTextFilter(12, "page", requestNotifier,pageFilterValues);
         this.pageFilter.SetDefaultValue("1");
-        this.pageContainer = new MockContainer("paging");
+        this.pageContainer = new MockContainer(6,"paging");
         this.pageContainer.AddFilter(pageFilter);
 
         List<String> sortFilterValues = new ArrayList<>();
@@ -137,7 +138,7 @@ public class CommandExecution {
         sortFilterValues.add("desc");
         this.sortFilter = new MockSingleTextFilter(13, "s", requestNotifier,sortFilterValues);
         this.sortFilter.SetDefaultValue("asc");
-        this.sortContainer = new MockContainer("sorting");
+        this.sortContainer = new MockContainer(7,"sorting");
         this.sortContainer.AddFilter(sortFilter);
 
         List<String> localeFilterValues = new ArrayList<>();
@@ -146,7 +147,7 @@ public class CommandExecution {
         localeFilterValues.add("en-au");
         this.locale = new MockSingleTextFilter(14, "locale", parameterNotifier, localeFilterValues);
         this.locale.SetDefaultValue("en-au");
-        this.localeContainer = new MockContainer("locale");
+        this.localeContainer = new MockContainer(8,"locale");
         this.localeContainer.AddFilter(locale);
 
         this.parameterFilterChannel = new ParameterFilterChannel();
@@ -301,6 +302,11 @@ public class CommandExecution {
         }
 
         @Override
+        public void ParameterUpdated(domain.filters.Filter filter) {
+
+        }
+
+        @Override
         public void FilterChanged(Filter filter) {
             System.out.println("ParameterFilterChannel->RequestChanged:"+filter);
             this.Filter++;
@@ -315,6 +321,11 @@ public class CommandExecution {
         @Override
         public void FilterPropertyChanged(domain.filters.Filter filter, String old, String _new, FilterPropertyType propType) {
             this.FilterPropertyChanged++;
+        }
+
+        @Override
+        public void FilterUpdated(domain.filters.Filter filter) {
+
         }
     }
 
@@ -338,6 +349,11 @@ public class CommandExecution {
         public void FilterPropertyChanged(domain.filters.Filter filter, String old, String _new, FilterPropertyType propType) {
 
         }
+
+        @Override
+        public void FilterUpdated(domain.filters.Filter filter) {
+
+        }
     }
 
     private class FilterChannel2 implements IFilterHubListener{
@@ -358,6 +374,11 @@ public class CommandExecution {
 
         @Override
         public void FilterPropertyChanged(domain.filters.Filter filter, String old, String _new, FilterPropertyType propType) {
+
+        }
+
+        @Override
+        public void FilterUpdated(domain.filters.Filter filter) {
 
         }
     }
@@ -392,6 +413,11 @@ public class CommandExecution {
         }
 
         @Override
+        public void FilterUpdated(domain.filters.Filter filter) {
+
+        }
+
+        @Override
         public void ParameterChanged(Filter filter) {
             System.out.println("CompleteChannel->ParameterChanged:"+filter);
             this.Parameter++;
@@ -405,6 +431,11 @@ public class CommandExecution {
 
         @Override
         public void ParameterPropertyChanged(domain.filters.Filter filter, String old, String aNew, FilterPropertyType propType) {
+
+        }
+
+        @Override
+        public void ParameterUpdated(domain.filters.Filter filter) {
 
         }
 
@@ -424,6 +455,11 @@ public class CommandExecution {
         public void RequestPropertyChanged(domain.filters.Filter filter, String old, String aNew, FilterPropertyType propType) {
 
         }
+
+        @Override
+        public void RequestUpdated(domain.filters.Filter filter) {
+
+        }
     }
 
     private class MockFilterController extends FilterController {
@@ -435,8 +471,8 @@ public class CommandExecution {
 
     private class MockContainer extends FilterContainer{
 
-        protected MockContainer(String name) {
-            super(name);
+        protected MockContainer(Object id,String name) {
+            super(id, name);
         }
     }
 

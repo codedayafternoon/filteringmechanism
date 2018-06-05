@@ -11,13 +11,19 @@ import javax.management.openmbean.KeyAlreadyExistsException;
 public class FilterContainer implements IInvalidator{
 	protected List<Filter> filters;
 	protected String name;
+	protected Object id;
 	
-	public FilterContainer(String name) {
+	public FilterContainer(Object id, String name) {
+		if(id == null || name == null)
+			throw new Error("id or name cannot be null for container");
 		this.filters = new ArrayList<Filter>();
+		this.id = id;
 		this.name = name;
 	}
 	
 	public void AddFilter(Filter filter) {
+		if(filter == null)
+			return;
 		filter.SetContainer(this);
 		this.checkForSameId(filter.Id);
 		this.checkForSameName(filter.getName());
@@ -38,7 +44,6 @@ public class FilterContainer implements IInvalidator{
 		}
 	}
 
-
 	public void InvalidateAll(IInvalidatable except) {
 		for (Filter filter : this.filters) {
 			if(filter == except)
@@ -46,6 +51,14 @@ public class FilterContainer implements IInvalidator{
 			if(filter instanceof IInvalidatable)
 				filter.Reset();
 		}
+	}
+
+	public Object GetId(){
+		return this.id;
+	}
+
+	public void SetId(Object id){
+		this.id = id;
 	}
 
 	public void Clear(){
@@ -66,5 +79,16 @@ public class FilterContainer implements IInvalidator{
 				return f;
 		}
 		return null;
+    }
+
+    @Override
+	public String toString(){
+		return "[id:" + this.id + "] " + this.name + " (" + filters.size() + ")";
+	}
+
+    public void RemoveFilter(Filter f) {
+		if(!this.filters.contains(f))
+			return;
+		this.filters.remove(f);
     }
 }

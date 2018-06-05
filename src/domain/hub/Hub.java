@@ -92,6 +92,12 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 			listener.FilterPropertyChanged(filter, old, aNew, propType);
 	}
 
+	@Override
+	public void NotifyFilterUpdated(Filter filter) {
+		for(IFilterHubListener listener : this.filterListeners)
+			listener.FilterUpdated(filter);
+	}
+
 	private void addFilter(Filter filter) {
 		if (this.filters.containsKey(filter))
 			return;
@@ -152,6 +158,12 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 			listener.ParameterPropertyChanged(filter, old, aNew, propType);
 	}
 
+	@Override
+	public void NotifyParameterUpdated(Filter filter) {
+		for(IParameterHubListener listener : this.parameterListeners)
+			listener.ParameterUpdated(filter);
+	}
+
 	private void addParameter(Filter filter) {
 		if (this.filters.containsKey(filter))
 			return;
@@ -210,6 +222,12 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	public void NotifyRequestPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType) {
 		for(IRequestHubListener listener : this.requestListeners)
 			listener.RequestPropertyChanged(filter, old, aNew, propType);
+	}
+
+	@Override
+	public void NotifyRequestUpdated(Filter filter) {
+		for(IRequestHubListener listener : this.requestListeners)
+			listener.RequestUpdated(filter);
 	}
 
 	private void addRequest(Filter filter) {
@@ -330,6 +348,14 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	@Override
 	public void ClearResultListeners() {
 		this.resultListeners.clear();
+	}
+
+	@Override
+	public void ClearAll() {
+		this.ClearResultListeners();
+		this.ClearRequestListeners();
+		this.ClearParameterListeners();
+		this.ClearFilterListeners();
 	}
 
 	// ============================================= END IHub =====================================================

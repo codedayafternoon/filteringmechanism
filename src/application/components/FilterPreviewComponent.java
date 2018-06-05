@@ -52,4 +52,9 @@ public class FilterPreviewComponent implements IFilterHubListener {
 
 	}
 
+	@Override
+	public void FilterUpdated(Filter filter) {
+
+	}
+
 }

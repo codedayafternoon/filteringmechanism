@@ -5,60 +5,88 @@ import java.util.List;
 import domain.filters.Filter;
 import domain.filters.FilterMode;
 import domain.filters.INotifier;
+import domain.filters.structures.RangePart;
 
 public abstract class RangeFilter extends Filter {
 
-	private String SelectedFrom;
-	private String SelectedTo;
+	private RangePart rangeFrom;
+	private RangePart rangeTo;
 
-	private String defaultFrom;
-	private String defaultTo;
-
-	private List<String> FromValues;
-	private List<String> ToValues;
+//	protected String SelectedFrom;
+//	protected String SelectedTo;
+//
+//	protected String defaultFrom;
+//	protected String defaultTo;
+//
+//	protected List<String> FromValues;
+//	protected List<String> ToValues;
 
 	private boolean fromIsReset;
 	private boolean toIsReset;
 
 
-	public RangeFilter(Object id, String name, INotifier notifier) {
+	public RangeFilter(Object id, String name, INotifier notifier, List<String> fromValues, List<String> toValues) {
 		super(id, name, notifier);
+		if(fromValues == null || toValues == null || fromValues.size() == 0 || toValues.size() == 0)
+			throw new Error("range values cannot be null or empty");
+
+		this.rangeFrom = new RangePart(fromValues, fromValues.get(0));
+		this.rangeTo = new RangePart(toValues, toValues.get(0));
+	}
+
+	public RangePart getRangeFrom() {
+		return rangeFrom;
+	}
+
+	public RangePart getRangeTo() {
+		return rangeTo;
 	}
 
 	@Override
 	public void Reset() {
-		this.SelectedFrom = this.defaultFrom;
-		this.SelectedTo = this.defaultTo;
+		this.rangeFrom.setSelectedValue(this.rangeFrom.getDefaultValue());
+		this.rangeTo.setSelectedValue(this.rangeTo.getDefaultValue());
 		super.notifier.NotifyFilterReset(this);// NotifyStateChanged(this, true);
 	}
 
-	public void AddFromValues(List<String> from) {
-		this.FromValues = from;
+	public void UpdateFromValues(List<String> from) {
+		this.rangeFrom.setItems( from );
 	}
 
-	public void AddToValues(List<String> to) {
-		this.ToValues = to;
+	public void UpdateToValues(List<String> to) {
+		this.rangeTo.setItems( to );
 	}
 
 	public void SetDefaultFrom(String from) {
-		if (!this.FromValues.contains(from))
+		if (!this.rangeFrom.getItems().contains(from))
 			return;
-		this.defaultFrom = from;
-		if (this.SelectedFrom == null)
-			this.SelectedFrom = this.defaultFrom;
+		this.rangeFrom.setDefaultValue( from );
+		if (this.rangeFrom.getSelectedValue() == null)
+			this.rangeFrom.setSelectedValue(this.rangeFrom.getDefaultValue() );
 	}
 
 	public void SetDefaultTo(String to) {
-		if (!this.ToValues.contains(to))
+		if (!this.rangeTo.getItems().contains(to))
 			return;
-		this.defaultTo = to;
-		if (this.SelectedTo == null)
-			this.SelectedTo = this.defaultTo;
+		this.rangeTo.setDefaultValue( to );
+		if (this.rangeTo.getSelectedValue() == null)
+			this.rangeTo.setSelectedValue( this.rangeTo.getDefaultValue() );
 	}
 
 	@Override
 	public String GetState() {
-		return "from:" + this.SelectedFrom + "-" + "to:" + this.SelectedTo;
+		return "from:" + this.rangeFrom.getSelectedValue() + "-" + "to:" + this.rangeTo.getSelectedValue();
+	}
+
+	@Override
+	protected boolean DoUpdateFrom(Filter filter){
+		RangeFilter rf = (RangeFilter)filter;
+		if(rf == null)
+			return false;
+
+		boolean fromUpdated = this.rangeTo.UpdateFrom(rf.getRangeTo());
+		boolean toUpdated = this.rangeFrom.UpdateFrom(rf.getRangeFrom());
+		return fromUpdated || toUpdated;
 	}
 
 	@Override
@@ -74,18 +102,18 @@ public abstract class RangeFilter extends Filter {
 		for (String part : parts) {
 			if (part.contains("to:")) {
 				String to = part.split("to:")[1];
-				if (this.ToValues.contains(to)) {
-					if(!this.SelectedTo.equals(to)) {
-						this.SelectedTo = to;
+				if (this.rangeTo.getItems().contains(to)) {
+					if(!this.rangeTo.getSelectedValue().equals(to)) {
+						this.rangeTo.setSelectedValue(to);
 						this.checkToReset();
 						changed = true;
 					}
 				}
 			} else if (part.contains("from:")) {
 				String from = part.split("from:")[1];
-				if (this.FromValues.contains(from)) {
-					if(!this.SelectedFrom.equals(from)) {
-						this.SelectedFrom = from;
+				if (this.rangeFrom.getItems().contains(from)) {
+					if(!this.rangeFrom.getSelectedValue().equals(from)) {
+						this.rangeFrom.setSelectedValue(from );
 						this.checkFromReset();
 						changed = true;
 					}
@@ -101,22 +129,39 @@ public abstract class RangeFilter extends Filter {
 	}
 
 	private void checkToReset() {
-		if(this.SelectedTo.equals(this.defaultTo))
+		if(this.rangeTo.getSelectedValue().equals(this.rangeTo.getDefaultValue()))
 			this.toIsReset = true;
 		else
 			this.toIsReset = false;
 	}
 
 	private void checkFromReset() {
-		if(this.SelectedFrom.equals(this.defaultFrom))
+		if(this.rangeFrom.getSelectedValue().equals(this.rangeFrom.getDefaultValue()))
 			this.fromIsReset = true;
 		else
 			this.fromIsReset = false;
 	}
 
 	@Override
-	public FilterMode GetMode() {
-		return FilterMode.RANGED;
+	public String GetParameterKey(){
+		return this.Name;
 	}
 
+	@Override
+	public String GetParameterValue(){
+		return this.GetState();
+	}
+
+	@Override
+	public FilterMode GetMode() {
+		return FilterMode.SIMPLE;
+	}
+
+	public void SetFrom(String from) {
+		this.DoChangeState("from:"+from);
+	}
+
+	public void SetTo(String to){
+		this.DoChangeState("to:" + to);
+	}
 }

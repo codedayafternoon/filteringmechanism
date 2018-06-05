@@ -1,7 +1,7 @@
 package testing;
 
 import domain.FilterContext;
-import domain.configuration.Configuration;
+import domain.configuration.*;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IRequestConverter;
@@ -29,9 +29,9 @@ public class FilterContextUsage {
         FilterContext context = new FilterContext();
         MockHandler handler = new MockHandler();
         MockRequestConverter converter = new MockRequestConverter();
-        context.Initialize(handler, converter);
+        context.Initialize(handler, converter, new MockConfiguration());
 
-        context.GetBuilder().Build(new MockConfiguration(context.GetHub()));
+        context.GetBuilder().Build(new MockBuilderItems(context.GetHub()));
 
         FilterController controller = context.GetController();
         MockParameterComponent component1 = new MockParameterComponent(controller);
@@ -43,18 +43,35 @@ public class FilterContextUsage {
 
     }
 
-
     private class MockConfiguration extends Configuration{
 
+        @Override
+        public MissingContainerActionType getMissingContainerActionType() {
+            return MissingContainerActionType.Nothing;
+        }
+
+        @Override
+        public NewContainerActionType getNewContainerActionType() {
+            return NewContainerActionType.AddFilters;
+        }
+
+        @Override
+        public ExistingContainerActionType getExistingContainerActionType() {
+            return ExistingContainerActionType.Nothing;
+        }
+    }
+
+    private class MockBuilderItems extends BuilderItems {
+
         Hub hub;
-        public MockConfiguration(Hub hub) {
+        public MockBuilderItems(Hub hub) {
             this.hub = hub;
         }
 
         @Override
         public List<FilterContainer> GetContainers() {
             List<FilterContainer> res = new ArrayList<>();
-            FilterContainer c1 = new FilterContainer("c1");
+            FilterContainer c1 = new FilterContainer(1,"c1");
             MockFreeTextFilter f1 = new MockFreeTextFilter(1, "f1", new FilterNotifier(this.hub));
             c1.AddFilter(f1);
             res.add(c1);
@@ -63,6 +80,7 @@ public class FilterContextUsage {
     }
 
     private class MockCompleteComponent implements IParameterHubListener, IFilterHubListener, IRequestHubListener{
+
         public MockCompleteComponent(FilterController controller) {
             controller.GetHub().AddParameterListener(this);
             controller.GetHub().AddFilterListener(this);
@@ -85,6 +103,11 @@ public class FilterContextUsage {
         }
 
         @Override
+        public void FilterUpdated(Filter filter) {
+
+        }
+
+        @Override
         public void ParameterChanged(Filter filter) {
 
         }
@@ -100,6 +123,11 @@ public class FilterContextUsage {
         }
 
         @Override
+        public void ParameterUpdated(Filter filter) {
+
+        }
+
+        @Override
         public void RequestChanged(Filter filter) {
 
         }
@@ -111,6 +139,11 @@ public class FilterContextUsage {
 
         @Override
         public void RequestPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType) {
+
+        }
+
+        @Override
+        public void RequestUpdated(Filter filter) {
 
         }
     }
@@ -133,6 +166,11 @@ public class FilterContextUsage {
 
         @Override
         public void ParameterPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType) {
+
+        }
+
+        @Override
+        public void ParameterUpdated(Filter filter) {
 
         }
     }

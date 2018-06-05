@@ -29,7 +29,7 @@ public abstract class CheckBoxFilter extends Filter {
 		if(!this._isChecked)
 			return;
 		this._isChecked = false;
-		super.notifier.NotifyFilterReset(this); // NotifyStateChanged(this, true);
+		super.notifier.NotifyFilterReset(this);
 	}
 
 	@Override
@@ -47,8 +47,18 @@ public abstract class CheckBoxFilter extends Filter {
 	}
 
 	@Override
+	public String GetParameterKey(){
+		return this.GetContainer().GetName();
+	}
+
+	@Override
+	public String GetParameterValue(){
+		return this.Name;
+	}
+
+	@Override
 	public FilterMode GetMode() {
-		return FilterMode.BOOLEAN;
+		return FilterMode.SIMPLE;
 	}
 
     public boolean IsChecked() {

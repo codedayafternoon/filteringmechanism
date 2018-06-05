@@ -23,6 +23,11 @@ public class RequestNotifier implements INotifier {
 	}
 
 	@Override
+	public void NotifyFilterUpdated(Filter filter) {
+
+	}
+
+	@Override
 	public void NotifyFilterStateChanged(Filter filter) {
 		this.requestHub.NotifyRequestStateChanged(filter);
 	}

@@ -21,4 +21,9 @@ public class FiltersTreeViewComponent implements IFilterHubListener {
 
 	}
 
+	@Override
+	public void FilterUpdated(Filter filter) {
+
+	}
+
 }

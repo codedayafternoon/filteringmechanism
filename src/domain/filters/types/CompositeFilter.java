@@ -42,6 +42,12 @@ public abstract class CompositeFilter extends Filter implements INotifier {
 		f.ChangeState(s);
 		
 	}
+
+	// TODO implement this method
+	@Override
+	protected boolean DoUpdateFrom(Filter filter){
+		return false;
+	}
 	
 	@Override
 	public String GetState() {
@@ -55,7 +61,17 @@ public abstract class CompositeFilter extends Filter implements INotifier {
 	public FilterMode GetMode() {
 		return FilterMode.COMPLEX;
 	}
-	
+
+	@Override
+	public String GetParameterKey(){
+		return this.GetContainer().GetName();
+	}
+
+	@Override
+	public String GetParameterValue(){
+		return this.Name;
+	}
+
 	@Override
 	public void Reset() {
 		for(Filter f : this.filters)

@@ -10,4 +10,6 @@ public interface IHub {
 	void AddResultListener(IResultHubListener listener);
 	void RemoveResultListener(IResultHubListener listener);
 	void ClearResultListeners();
+
+	void ClearAll();
 }

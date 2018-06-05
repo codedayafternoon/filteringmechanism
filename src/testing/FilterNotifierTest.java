@@ -22,7 +22,7 @@ public class FilterNotifierTest {
 	 */
 	@Test
 	public void filterContainerCreation() {
-		Container filterContainer = new Container("c");
+		Container filterContainer = new Container(1,"c");
 		Hub filterHub = new Hub();
 		FilterNotifier notifier = new FilterNotifier(filterHub);
 		MockFilterHubListener listener = new MockFilterHubListener();
@@ -82,6 +82,11 @@ public class FilterNotifierTest {
 
 		@Override
 		public void FilterPropertyChanged(Filter filter, String old, String _new, FilterPropertyType propType) {
+
+		}
+
+		@Override
+		public void FilterUpdated(Filter filter) {
 
 		}
 

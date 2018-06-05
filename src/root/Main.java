@@ -45,19 +45,19 @@ public class Main {
 		ParameterNotifier parameterNotifier = new ParameterNotifier(hub);
 		FilterNotifier filterNotifier = new FilterNotifier(hub);
 
-		Container group = new Container("manufacturer");
+		Container group = new Container(1, "manufacturer");
 		group.AddFilter(new ManufacturerFilter(1, "samsung", filterNotifier));
 		group.AddFilter(new ManufacturerFilter(2, "apple", filterNotifier));
 		group.AddFilter(new ManufacturerFilter(3, "xiaomi", filterNotifier));
 		group.AddFilter(new ManufacturerFilter(4, "sony", filterNotifier));
 
-		Container group2 = new Container("screen");
+		Container group2 = new Container(2,"screen");
 		group2.AddFilter(new ScreenSizeFilter(group2, 5, "small", filterNotifier));
 		group2.AddFilter(new ScreenSizeFilter(group2, 6, "medium", filterNotifier));
 		group2.AddFilter(new ScreenSizeFilter(group2, 7, "large", filterNotifier));
 
-		Container group3 = new Container("price");
-		PriceFilter priceFilter = new PriceFilter(9, "price", filterNotifier);
+		Container group3 = new Container(3,"price");
+
 		List<String> toValues = new ArrayList<String>();
 		toValues.add("50");
 		toValues.add("100");
@@ -72,14 +72,16 @@ public class Main {
 		fromValues.add("150");
 		fromValues.add("200");
 		fromValues.add("300");
-		priceFilter.AddToValues(toValues);
-		priceFilter.AddFromValues(fromValues);
+		PriceFilter priceFilter = new PriceFilter(9, "price", filterNotifier,fromValues, toValues);
+
+//		priceFilter.UpdateToValues(toValues);
+//		priceFilter.UpdateFromValues(fromValues);
 
 		priceFilter.SetDefaultFrom("100");
 		priceFilter.SetDefaultTo("100");
 		group3.AddFilter(priceFilter);
 
-		Container customContainer = new Container("params");
+		Container customContainer = new Container(4,"params");
 		List<String> sortValues = new ArrayList<String>();
 		sortValues.add("asc");
 		sortValues.add("desc");
@@ -119,7 +121,7 @@ public class Main {
 		areaDistance.AddFilter(distance);
 		areaDistance.AddFilter(area);
 		
-		Container complexContainer = new Container("complex");
+		Container complexContainer = new Container(5,"complex");
 		complexContainer.AddFilter(areaDistance);
 		groups.add(complexContainer);
 		
@@ -188,13 +190,13 @@ public class Main {
 		ParameterNotifier parameterNotifier = new ParameterNotifier(hub);
 		FilterNotifier filterNotifier = new FilterNotifier(hub);
 
-		Container group = new Container("manufacturer");
+		Container group = new Container(6,"manufacturer");
 		group.AddFilter(new ManufacturerFilter(1, "samsung", filterNotifier));
 		group.AddFilter(new ManufacturerFilter(2, "apple", filterNotifier));
 		group.AddFilter(new ManufacturerFilter(3, "xiaomi", filterNotifier));
 		group.AddFilter(new ManufacturerFilter(4, "sony", filterNotifier));
 
-		Container group2 = new Container("screen");
+		Container group2 = new Container(7,"screen");
 		group2.AddFilter(new ScreenSizeFilter(group2, 5, "small", filterNotifier));
 		group2.AddFilter(new ScreenSizeFilter(group2, 6, "medium", filterNotifier));
 		group2.AddFilter(new ScreenSizeFilter(group2, 7, "large", filterNotifier));
@@ -240,13 +242,13 @@ public class Main {
 		ParameterNotifier parameterNotifier = new ParameterNotifier(hub);
 		FilterNotifier filterNotifier = new FilterNotifier(hub);
 
-		Container group = new Container("kataskeuastes");
+		Container group = new Container(8,"kataskeuastes");
 		group.AddFilter(new ManufacturerFilter(1, "samsung", filterNotifier));
 		group.AddFilter(new ManufacturerFilter(2, "lg", filterNotifier));
 		group.AddFilter(new ManufacturerFilter(3, "xiaomi", filterNotifier));
 		group.AddFilter(new ManufacturerFilter(4, "sony", filterNotifier));
 
-		Container group2 = new Container("othoni");
+		Container group2 = new Container(9,"othoni");
 		group2.AddFilter(new ScreenSizeFilter(group2, 5, "mikri", filterNotifier));
 		group2.AddFilter(new ScreenSizeFilter(group2, 6, "mesaia", filterNotifier));
 		group2.AddFilter(new ScreenSizeFilter(group2, 7, "megali", filterNotifier));

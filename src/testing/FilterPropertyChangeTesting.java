@@ -3,7 +3,7 @@ package testing;
 import application.infrastructure.UrlBuilder;
 import application.infrastructure.UrlQueryConverter;
 import domain.FilterContext;
-import domain.configuration.Configuration;
+import domain.configuration.*;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IRequestHandler;
@@ -28,7 +28,7 @@ public class FilterPropertyChangeTesting {
 
         FilterContext context = new FilterContext();
         MockRequestHandler handler = new MockRequestHandler();
-        context.Initialize(handler, new UrlQueryConverter(new UrlBuilder(",", "&")));
+        context.Initialize(handler, new UrlQueryConverter(new UrlBuilder(",", "&")), new MockConfiguration());
         FilterController controller = context.GetController();
         Hub hub = context.GetHub();
 
@@ -36,7 +36,7 @@ public class FilterPropertyChangeTesting {
         MockFilterHubListener listener = new MockFilterHubListener();
         hub.AddFilterListener(listener);
 
-        context.GetBuilder().Build(new MockConfiguration(context.GetHub()));
+        context.GetBuilder().Build(new MockBuilderItems(context.GetHub()));
 
         HubCommand command = new HubCommand(1, "c1", "cc", -1, "0"); // for property changed Name
         HubCommand command2 = new HubCommand(1, "c1", "cc", 10, "0"); // for property changed Count
@@ -74,10 +74,10 @@ public class FilterPropertyChangeTesting {
 
     }
 
-    private class MockConfiguration extends Configuration{
+    private class MockBuilderItems extends BuilderItems {
 
         Hub hub;
-        public MockConfiguration(Hub hub){
+        public MockBuilderItems(Hub hub){
             this.hub = hub;
         }
 
@@ -85,7 +85,7 @@ public class FilterPropertyChangeTesting {
         public List<FilterContainer> GetContainers() {
             FilterNotifier filterNotifier = new FilterNotifier(hub);
             List<FilterContainer> containers = new ArrayList<>();
-            FilterContainer container = new FilterContainer("c1");
+            FilterContainer container = new FilterContainer(1,"c1");
 
             CheckBoxFilter checkBox = new MockCheckBoxFilter(1, "c1", filterNotifier);
             container.AddFilter(checkBox);
@@ -93,6 +93,24 @@ public class FilterPropertyChangeTesting {
             containers.add(container);
 
             return containers;
+        }
+    }
+
+    private class MockConfiguration extends Configuration{
+
+        @Override
+        public MissingContainerActionType getMissingContainerActionType() {
+            return MissingContainerActionType.Nothing;
+        }
+
+        @Override
+        public NewContainerActionType getNewContainerActionType() {
+            return NewContainerActionType.AddFilters;
+        }
+
+        @Override
+        public ExistingContainerActionType getExistingContainerActionType() {
+            return ExistingContainerActionType.Nothing;
         }
     }
 
@@ -115,6 +133,11 @@ public class FilterPropertyChangeTesting {
         @Override
         public void FilterPropertyChanged(Filter filter, String old, String _new, FilterPropertyType propType) {
             FilterPropertyChangedCounter++;
+        }
+
+        @Override
+        public void FilterUpdated(Filter filter) {
+
         }
     }
 

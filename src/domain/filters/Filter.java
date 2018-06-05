@@ -5,17 +5,25 @@ import domain.filtercontroller.FilterContainer;
 public abstract class Filter implements ICountable {
 
 	public Object Id;
-	private String Name;
+	protected String Name;
 	protected INotifier notifier;
 	protected FilterContainer _container;
 	private int count;
 
 	public abstract FilterMode GetMode();
+
+	public abstract String GetParameterKey();
+	public abstract String GetParameterValue();
 	
 	public Filter(Object id, String name, INotifier notifier) {
+		if(id == null || name == null)
+			throw new Error("id or name of a filter cannot be null");
+		if(notifier == null)
+			throw new Error("the notifier of a filter cannot be null");
 		this.Id = id;
 		this.notifier = notifier;
 		this.Name = name;
+		this.count = -1;
 	}
 
 	public String getName() {
@@ -23,7 +31,7 @@ public abstract class Filter implements ICountable {
 	}
 
 	public void setName(String name) {
-		if(this.Name.equals(name))
+		if(name == null || this.Name.equals(name))
 			return;
 		String old = this.Name;
 		this.Name = name;
@@ -32,7 +40,7 @@ public abstract class Filter implements ICountable {
 
 	@Override
 	public void SetCount(int count){
-		if(this.count == count)
+		if(count < 0 || this.count == count)
 			return;
 		int old = this.count;
 		this.count = count;
@@ -63,7 +71,16 @@ public abstract class Filter implements ICountable {
 	}
 
 	protected abstract void DoChangeState(String state);
-	
+	public void UpdateFrom(Filter filter){
+		if(filter == null)
+			return;
+		this.setName(filter.getName());
+		if(this.DoUpdateFrom(filter))
+			this.notifier.NotifyFilterUpdated(this);
+	}
+
+	protected boolean DoUpdateFrom(Filter filter){return false;}
+
 	@Override
 	public String toString() {
 		return this.Name + "[" + this.Id + "]:"+this.GetState();

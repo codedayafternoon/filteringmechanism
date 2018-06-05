@@ -1,13 +1,12 @@
 package testing;
 
 import domain.FilterContext;
-import domain.configuration.Configuration;
+import domain.configuration.*;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IRequestConverter;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.Filter;
-import domain.filters.ICountable;
 import domain.hub.Hub;
 import domain.hub.HubCommand;
 import domain.hub.IResultHubListener;
@@ -45,21 +44,21 @@ public class ResultTesting {
     @Before
     public void Setup(){
         this.context = new FilterContext();
-        this.context.Initialize(this.requestHandler, this.requestConverter);
-        this.requestHandler = new MockRequestHandler(this.context.GetHub());
         this.requestConverter = new MockRequestConverter();
+        this.requestHandler = new MockRequestHandler();
+        this.context.Initialize(this.requestHandler, this.requestConverter, new MockConfiguration());
+        this.requestHandler.SetHub(this.context.GetHub());
 
         this.resultModule = new MockResultListenerModule(this.context.GetController());
-        this.requestHandler = new MockRequestHandler(this.context.GetHub());
 
         this.notifier = new FilterNotifier(this.context.GetHub());
-        this.container1 = new FilterContainer("c1");
+        this.container1 = new FilterContainer(1,"c1");
         this.checkBox1 = new MockCheckBoxFilter(1, "f1", this.notifier );
         this.checkBox2 = new MockCheckBoxFilter(2, "f2", this.notifier );
         this.container1.AddFilter(checkBox1);
         this.container1.AddFilter(checkBox2);
 
-        this.container2 = new FilterContainer("c2");
+        this.container2 = new FilterContainer(2,"c2");
         this.checkBox3 = new MockCheckBoxFilter(3, "f3", this.notifier);
         this.checkBox4 = new MockCheckBoxFilter(4, "f4", this.notifier);
         this.container2.AddFilter(this.checkBox3);
@@ -70,10 +69,8 @@ public class ResultTesting {
     @Test
     public void testPassResultToHub(){
 
-        context = new FilterContext();
-
-        MockConfiguration configuration = new MockConfiguration();
-        context.GetBuilder().Build(configuration);
+        MockBuilderItems builderItems = new MockBuilderItems();
+        context.GetBuilder().Build(builderItems);
 
         Assert.assertEquals(2, this.context.GetController().GetContainers().size());
         Assert.assertEquals(2, this.context.GetController().GetContainers().get(0).GetFilters().size());
@@ -87,16 +84,32 @@ public class ResultTesting {
         Assert.assertEquals(false, this.checkBox3.IsChecked());
         Assert.assertEquals(false, this.checkBox4.IsChecked());
 
-        Assert.assertEquals(0, this.checkBox1.GetCount());
-        Assert.assertEquals(0, this.checkBox2.GetCount());
-        Assert.assertEquals(0, this.checkBox3.GetCount());
-        Assert.assertEquals(0, this.checkBox4.GetCount());
+        Assert.assertEquals(-1, this.checkBox1.GetCount());
+        Assert.assertEquals(-1, this.checkBox2.GetCount());
+        Assert.assertEquals(-1, this.checkBox3.GetCount());
+        Assert.assertEquals(-1, this.checkBox4.GetCount());
 
 
        // HubCommand command1 = new HubCommand("c1", "f1", 10, "1" );
     }
 
+    private class MockConfiguration extends Configuration{
 
+        @Override
+        public MissingContainerActionType getMissingContainerActionType() {
+            return MissingContainerActionType.Nothing;
+        }
+
+        @Override
+        public NewContainerActionType getNewContainerActionType() {
+            return NewContainerActionType.AddFilters;
+        }
+
+        @Override
+        public ExistingContainerActionType getExistingContainerActionType() {
+            return ExistingContainerActionType.Nothing;
+        }
+    }
 
     private class MockResultListenerModule implements IResultHubListener{
 
@@ -140,7 +153,11 @@ public class ResultTesting {
 
         Hub hub;
 
-        public MockRequestHandler(Hub hub) {
+        public MockRequestHandler() {
+
+        }
+
+        public void SetHub(Hub hub){
             this.hub = hub;
         }
 
@@ -209,7 +226,7 @@ public class ResultTesting {
         }
     }
 
-    private class MockConfiguration extends Configuration{
+    private class MockBuilderItems extends BuilderItems {
 
         @Override
         public List<FilterContainer> GetContainers() {

@@ -16,4 +16,9 @@ public class AreaDistanceFilter extends CompositeFilter {
 
 	}
 
+	@Override
+	public void NotifyFilterUpdated(Filter filter) {
+
+	}
+
 }

@@ -31,7 +31,7 @@ public class FilterTest {
     @Before
     public void Setup(){
         this.notifier = new MockFilterNotifier(0);
-        this.filterContainer = new MockContainer("c");
+        this.filterContainer = new MockContainer(1,"c");
 
     }
 
@@ -140,8 +140,8 @@ public class FilterTest {
 
     private class MockContainer extends FilterContainer{
 
-        protected MockContainer(String name) {
-            super(name);
+        protected MockContainer(Object id, String name) {
+            super(id, name);
         }
     }
 
@@ -160,6 +160,11 @@ public class FilterTest {
 
         @Override
         public void NotifyPropertyChanged(Filter filter, String old, String _new, FilterPropertyType propType) {
+
+        }
+
+        @Override
+        public void NotifyFilterUpdated(Filter filter) {
 
         }
 

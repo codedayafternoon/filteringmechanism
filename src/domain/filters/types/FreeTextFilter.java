@@ -15,7 +15,7 @@ public abstract class FreeTextFilter extends Filter {
 
 	@Override
 	public FilterMode GetMode() {
-		return FilterMode.SINGLE_VALUE;
+		return FilterMode.SIMPLE;
 	}
 	
 	public void SetDefaultValue(String value) {
@@ -28,7 +28,17 @@ public abstract class FreeTextFilter extends Filter {
 		this.selectedValue = value;
 		super.notifier.NotifyFilterStateChanged(this);
 	}
-	
+
+	@Override
+	public String GetParameterKey(){
+		return this.Name;
+	}
+
+	@Override
+	public String GetParameterValue(){
+		return this.GetState();
+	}
+
 	@Override
 	protected void DoChangeState(String state) {
 		this.SetText(state);

@@ -23,6 +23,11 @@ public class FilterNotifier implements INotifier {
 	}
 
 	@Override
+	public void NotifyFilterUpdated(Filter filter) {
+		this.filterHub.NotifyFilterUpdated(filter);
+	}
+
+	@Override
 	public void NotifyFilterStateChanged(Filter filter) {
 		this.filterHub.NotifyFilterStateChanged(filter);
 	}

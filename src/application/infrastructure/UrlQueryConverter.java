@@ -37,12 +37,8 @@ public class UrlQueryConverter implements IRequestConverter {
 	
 	private void addToUrlBuilder(Filter f) {
 		switch (f.GetMode()) {
-		case BOOLEAN:
-			this._urlBuilder.AddParameter(f.GetContainer().GetName(), f.getName());
-			break;
-		case RANGED:
-		case SINGLE_VALUE:
-			this._urlBuilder.AddParameter(f.getName(), f.GetState());
+			case SIMPLE:
+			this._urlBuilder.AddParameter(f.GetParameterKey(), f.GetParameterValue());
 			break;
 		case COMPLEX:
 			List<Filter> activeFilters = ((CompositeFilter)f).GetActiveFilters();

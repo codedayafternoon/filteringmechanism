@@ -2,8 +2,8 @@ package testing;
 
 import application.infrastructure.UrlBuilder;
 import application.infrastructure.UrlQueryConverter;
-import domain.configuration.Builder;
-import domain.configuration.Configuration;
+import domain.FilterContext;
+import domain.configuration.*;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IRequestConverter;
@@ -30,10 +30,11 @@ public class BuilderTesting {
 
     @Test
     public void testBuilder(){
-
-        FilterController controller = new MockController( hub, new MockRequestHandler(), new UrlQueryConverter(new UrlBuilder(",", "&")));
-        Builder builder = controller.GetBuilder();
-        builder.Build(new MockConfiguration(controller));
+        FilterContext filterContext = new FilterContext();
+        filterContext.Initialize(new MockRequestHandler(), new UrlQueryConverter(new UrlBuilder(",", "&")), new MockConfiguration());
+        FilterController controller = filterContext.GetController();// new MockController( hub, new MockRequestHandler(), new UrlQueryConverter(new UrlBuilder(",", "&")));
+        Builder builder = filterContext.GetBuilder();
+        builder.Build(new MockBuilderItems(controller));
 
         Assert.assertEquals(2, controller.GetContainers().size());
         Assert.assertEquals("c1", controller.GetContainers().get(0).GetName());
@@ -48,27 +49,53 @@ public class BuilderTesting {
         Assert.assertEquals("r1", controller.GetContainers().get(1).GetFilters().get(0).getName());
     }
 
-    private class MockConfiguration extends Configuration
+    private class MockConfiguration extends Configuration{
+
+        @Override
+        public MissingContainerActionType getMissingContainerActionType() {
+            return MissingContainerActionType.Nothing;
+        }
+
+        @Override
+        public NewContainerActionType getNewContainerActionType() {
+            return NewContainerActionType.AddFilters;
+        }
+
+        @Override
+        public ExistingContainerActionType getExistingContainerActionType() {
+            return ExistingContainerActionType.Nothing;
+        }
+    }
+
+    private class MockBuilderItems extends BuilderItems
     {
         List<FilterContainer> containers ;
 
-        public MockConfiguration(FilterController controller) {
+        public MockBuilderItems(FilterController controller) {
             this.containers = new ArrayList<>();
-            this.containers.add(new FilterContainer("c1"));
-            this.containers.add(new FilterContainer("c2"));
+            this.containers.add(new FilterContainer(1,"c1"));
+            this.containers.add(new FilterContainer(2,"c2"));
 
             CheckBoxFilter checkBoxFilter1 = new MockCheckBoxFilter(1, "c1", new FilterNotifier(controller.GetHub()) );
             CheckBoxFilter checkBoxFilter2 = new MockCheckBoxFilter(2 ,"c2", new FilterNotifier(controller.GetHub()) );
             this.containers.get(0).AddFilter(checkBoxFilter1);
             this.containers.get(0).AddFilter(checkBoxFilter2);
 
-            RangeFilter range = new MockRangeFilter(3, "r1", new ParameterNotifier(controller.GetHub()));
+            MockCheckBoxFilter range = new MockCheckBoxFilter(3, "r1", new ParameterNotifier(controller.GetHub()));
             this.containers.get(1).AddFilter(range);
         }
 
         @Override
         public List<FilterContainer> GetContainers() {
             return this.containers;
+        }
+    }
+
+    private class MockBuilderItems2 extends BuilderItems {
+
+        @Override
+        public List<FilterContainer> GetContainers() {
+            return null;
         }
     }
 

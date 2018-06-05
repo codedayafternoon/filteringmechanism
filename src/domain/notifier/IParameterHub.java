@@ -11,4 +11,5 @@ public interface IParameterHub {
 	void NotifyParameterReset(Filter filter);
 	void NotifyParameterStateChanged(Filter filter);
 	void NotifyParameterPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType);
+	void NotifyParameterUpdated(Filter filter);
 }

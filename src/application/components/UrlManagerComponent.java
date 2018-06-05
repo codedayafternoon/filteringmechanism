@@ -23,21 +23,30 @@ public class UrlManagerComponent implements IFilterHubListener, IParameterHubLis
 	
 	private void AddToUrlBuilder(Filter f) {
 		switch (f.GetMode()) {
-		case BOOLEAN:
-			this._urlBuilder.AddParameter(f.GetContainer().GetName(), f.getName());
-			break;
-		case RANGED:
-			this._urlBuilder.ReplaceParameter(f.getName(), f.GetState());
-			break;
-		case SINGLE_VALUE:
-			this._urlBuilder.AddParameter(f.getName(), f.GetState());
-			break;
-		case COMPLEX:
-			List<Filter> activeFilters = ((CompositeFilter)f).GetActiveFilters();
-			for(Filter activeFilter : activeFilters)
-				this.AddToUrlBuilder(activeFilter);
-			break;
+			case SIMPLE:
+				this._urlBuilder.AddParameter(f.GetParameterKey(), f.GetParameterValue());
+				break;
+			case COMPLEX:
+				List<Filter> activeFilters = ((CompositeFilter)f).GetActiveFilters();
+				for(Filter activeFilter : activeFilters)
+					this.AddToUrlBuilder(activeFilter);
 		}
+//		switch (f.GetMode()) {
+//		case BOOLEAN:
+//			this._urlBuilder.AddParameter(f.GetContainer().GetName(), f.getName());
+//			break;
+//		case RANGED:
+//			this._urlBuilder.ReplaceParameter(f.getName(), f.GetState());
+//			break;
+//		case SINGLE_VALUE:
+//			this._urlBuilder.AddParameter(f.getName(), f.GetState());
+//			break;
+//		case COMPLEX:
+//			List<Filter> activeFilters = ((CompositeFilter)f).GetActiveFilters();
+//			for(Filter activeFilter : activeFilters)
+//				this.AddToUrlBuilder(activeFilter);
+//			break;
+//		}
 	}
 
 	private void Remove(Filter f) {
@@ -47,18 +56,27 @@ public class UrlManagerComponent implements IFilterHubListener, IParameterHubLis
 	
 	private void RemoveFromUrlBuilder(Filter f) {
 		switch (f.GetMode()) {
-		case BOOLEAN:
-			this._urlBuilder.RemoveParameter(f.GetContainer().GetName(), f.getName());
-			break;
-		case RANGED:
-		case SINGLE_VALUE:
-			this._urlBuilder.RemoveParameter(f.getName(), f.GetState());
-			break;
-		case COMPLEX:
-			List<Filter> activeFilters = ((CompositeFilter)f).GetActiveFilters();
-			for(Filter activeFilter : activeFilters)
-				this.RemoveFromUrlBuilder(activeFilter);
+			case SIMPLE:
+				this._urlBuilder.RemoveParameter(f.GetParameterKey(), f.GetParameterValue());
+				break;
+			case COMPLEX:
+				List<Filter> activeFilters = ((CompositeFilter)f).GetActiveFilters();
+				for(Filter activeFilter : activeFilters)
+					this.RemoveFromUrlBuilder(activeFilter);
 		}
+//		switch (f.GetMode()) {
+//		case BOOLEAN:
+//			this._urlBuilder.RemoveParameter(f.GetContainer().GetName(), f.getName());
+//			break;
+//		case RANGED:
+//		case SINGLE_VALUE:
+//			this._urlBuilder.RemoveParameter(f.getName(), f.GetState());
+//			break;
+//		case COMPLEX:
+//			List<Filter> activeFilters = ((CompositeFilter)f).GetActiveFilters();
+//			for(Filter activeFilter : activeFilters)
+//				this.RemoveFromUrlBuilder(activeFilter);
+//		}
 	}
 	
 	public void print() {
@@ -81,6 +99,11 @@ public class UrlManagerComponent implements IFilterHubListener, IParameterHubLis
 	}
 
 	@Override
+	public void ParameterUpdated(Filter filter) {
+
+	}
+
+	@Override
 	public void FilterChanged(Filter filter) {
 		this.Add(filter);
 	}
@@ -92,6 +115,11 @@ public class UrlManagerComponent implements IFilterHubListener, IParameterHubLis
 
 	@Override
 	public void FilterPropertyChanged(Filter filter, String old, String _new, FilterPropertyType propType) {
+
+	}
+
+	@Override
+	public void FilterUpdated(Filter filter) {
 
 	}
 

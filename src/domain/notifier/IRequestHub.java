@@ -12,4 +12,5 @@ public interface IRequestHub {
 	void NotifyRequestReset(Filter filter);
 	void NotifyRequestStateChanged(Filter filter);
     void NotifyRequestPropertyChanged(Filter filter, String old, String aNew, FilterPropertyType propType);
+    void NotifyRequestUpdated(Filter filter);
 }
