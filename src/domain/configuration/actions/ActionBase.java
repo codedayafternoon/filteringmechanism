@@ -11,18 +11,12 @@ import java.util.List;
 public abstract class ActionBase implements IAction, IActionObservable {
 
     protected FilterController controller;
-    //protected List<FilterContainer> arrivedContainers;
     private IActionObserver observer;
 
     public ActionBase(FilterController controller, IActionObserver observer) {
         this.controller = controller;
         this.observer = observer;
     }
-//
-//    @Override
-//    public void SetContainers(List<FilterContainer> containers){
-//        this.arrivedContainers = containers;
-//    }
 
     protected void ContainerAdded(IAction action, FilterContainer container) {
         this.observer.ContainerAdded(action.GetType(), container);
@@ -38,5 +32,9 @@ public abstract class ActionBase implements IAction, IActionObservable {
 
     protected void FilterRemoved(IAction action, Filter f) {
         this.observer.FilterRemoved(action.GetType(), f);
+    }
+
+    protected void ContainerUpdated(IAction action, FilterContainer container){
+        this.observer.ContainerUpdated(action.GetType(), container);
     }
 }

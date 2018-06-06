@@ -47,6 +47,7 @@ public class BuilderTesting {
         Assert.assertEquals("c2", controller.GetContainers().get(0).GetFilters().get(1).getName());
 
         Assert.assertEquals("r1", controller.GetContainers().get(1).GetFilters().get(0).getName());
+        filterContext.Dispose();
     }
 
     private class MockConfiguration extends Configuration{

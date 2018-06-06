@@ -91,4 +91,17 @@ public class FilterContainer implements IInvalidator{
 			return;
 		this.filters.remove(f);
     }
+
+    public boolean UpdateFrom(FilterContainer container) {
+		if(container == null)
+			return false;
+		boolean updated = false;
+		if(!this.name.equals(container.GetName()))
+		{
+			this.name = container.GetName();
+			updated = true;
+		}
+
+		return updated;
+    }
 }

@@ -56,4 +56,13 @@ public class FilterContext {
             throw new Error("hub has not initialized. Consider call Initialize before accessing any members");
         return hub;
     }
+
+    public void Dispose(){
+        this.handler = null;
+        this.builder = null;
+        hub = null;
+        controller = null;
+        this.converter = null;
+        this.configuration = null;
+    }
 }

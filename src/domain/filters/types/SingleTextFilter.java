@@ -60,23 +60,6 @@ public abstract class SingleTextFilter extends Filter {
 			return false;
 
 		return this.range.UpdateFrom(stf.getRange());
-
-
-
-//		if(stf.Values != null){
-//			int selectedValueIndex = this.Values.indexOf(this.selectedValue);
-//			this.Values.clear();
-//			for(String x : stf.Values){
-//				this.Values.add(x);
-//			}
-//			this.selectedValue = this.Values.get(selectedValueIndex);
-//		}
-//		if(stf.defaultValue != null)
-//		{
-//			this.SetDefaultValue(stf.defaultValue);
-//		}
-
-		//return true;
 	}
 
 	@Override

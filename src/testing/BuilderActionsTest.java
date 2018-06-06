@@ -5,18 +5,23 @@ import application.infrastructure.UrlQueryConverter;
 import domain.FilterContext;
 import domain.configuration.*;
 import domain.filtercontroller.FilterContainer;
+import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.Filter;
+import domain.filters.FilterPropertyType;
 import domain.hub.Hub;
+import domain.hub.IFilterHubListener;
 import domain.notifier.FilterNotifier;
 import org.junit.Assert;
 import org.junit.Test;
-import testing.mocks.MockCheckBoxFilter;
+import testing.mocks.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BuilderActionsTest {
+
+
 
     @Test
     public void DetectAndAddNewContainersAndFilters(){
@@ -33,6 +38,8 @@ public class BuilderActionsTest {
         Assert.assertEquals(0, builderObserver.ContainerRemovedCounter);
         Assert.assertEquals(6, builderObserver.FilterAddedCounter);
         Assert.assertEquals(0, builderObserver.FilterRemovedCounter);
+
+        context.Dispose();
 
     }
 
@@ -68,6 +75,8 @@ public class BuilderActionsTest {
         Assert.assertEquals(3, context.GetController().GetContainers().get(1).GetFilters().size());
         Assert.assertTrue(context.GetController().GetContainers().get(0).GetId().equals(10) || context.GetController().GetContainers().get(0).GetId().equals(2));
         Assert.assertTrue(context.GetController().GetContainers().get(1).GetId().equals(10) || context.GetController().GetContainers().get(1).GetId().equals(2));
+
+        context.Dispose();
     }
 
     @Test
@@ -85,7 +94,6 @@ public class BuilderActionsTest {
         Assert.assertEquals(0, builderObserver.ContainerRemovedCounter);
         Assert.assertEquals(3, builderObserver.FilterAddedCounter);
         Assert.assertEquals(0, builderObserver.FilterRemovedCounter);
-        Assert.assertEquals(0, builderObserver.FilterUpdatedCounter);
 
         MockItemsOneContainerAfter itemsAfter = new MockItemsOneContainerAfter(context.GetHub());
 
@@ -94,7 +102,8 @@ public class BuilderActionsTest {
         Assert.assertEquals(0, builderObserver.ContainerRemovedCounter);
         Assert.assertEquals(4, builderObserver.FilterAddedCounter);
         Assert.assertEquals(1, builderObserver.FilterRemovedCounter);
-        Assert.assertEquals(0, builderObserver.FilterUpdatedCounter);
+
+        context.Dispose();
 
     }
 
@@ -170,6 +179,7 @@ public class BuilderActionsTest {
         Assert.assertEquals(10, builderObserver.FilterAddedCounter);
         Assert.assertEquals(3, builderObserver.FilterRemovedCounter);
 
+        context.Dispose();
     }
 
     private class MockBuilderItemsBefore extends BuilderItems{
@@ -316,13 +326,253 @@ public class BuilderActionsTest {
         }
     }
 
+
+    @Test
+    public void testComplexUseCase(){
+        FilterContext context = new FilterContext();
+        context.Initialize(new MockRequestHandler(), new UrlQueryConverter(new UrlBuilder(",", "&")), new FullConfiguration());
+
+        MockFilterHubListener filterHubListener = new MockFilterHubListener();
+        context.GetHub().AddFilterListener(filterHubListener);
+
+        MockBuilderObserver builderObserver = new MockBuilderObserver();
+        context.GetBuilder().AddObserver(builderObserver);
+
+        MockBuilderItemsUseCase1Before items = new MockBuilderItemsUseCase1Before(context.GetHub());
+        context.GetBuilder().Build(items);
+
+        Assert.assertEquals(3, builderObserver.ContainerAddedCounter);
+        Assert.assertEquals(0, builderObserver.ContainerRemovedCounter);
+        Assert.assertEquals(8, builderObserver.FilterAddedCounter);
+        Assert.assertEquals(0, builderObserver.FilterRemovedCounter);
+        Assert.assertEquals(0, filterHubListener.Update);
+
+        Assert.assertEquals(3, context.GetController().GetContainers().size());
+        Assert.assertEquals("c1", context.GetController().GetContainers().get(0).GetName());
+        Assert.assertEquals("c2", context.GetController().GetContainers().get(1).GetName());
+        Assert.assertEquals("c3", context.GetController().GetContainers().get(2).GetName());
+        Assert.assertEquals("f1", context.GetController().GetContainers().get(0).GetFilters().get(0).getName());
+        Assert.assertEquals("f2", context.GetController().GetContainers().get(0).GetFilters().get(1).getName());
+        Assert.assertEquals("f3", context.GetController().GetContainers().get(0).GetFilters().get(2).getName());
+        Assert.assertEquals("f1", context.GetController().GetContainers().get(1).GetFilters().get(0).getName());
+        Assert.assertEquals("f2", context.GetController().GetContainers().get(1).GetFilters().get(1).getName());
+        Assert.assertEquals("f3", context.GetController().GetContainers().get(1).GetFilters().get(2).getName());
+        Assert.assertEquals("comp1", context.GetController().GetContainers().get(2).GetFilters().get(0).getName());
+        Assert.assertEquals("f3", context.GetController().GetContainers().get(2).GetFilters().get(1).getName());
+
+        context.GetController().ChangeState("c1", "f3", "y_gr");
+        System.out.println("----------------------------------------------------");
+        System.out.println("");
+        builderObserver.ResetAllCounters();
+        MockBuilderItemsUseCase1After itemsAfter = new MockBuilderItemsUseCase1After(context.GetHub());
+        context.GetBuilder().Build(itemsAfter);
+
+        Assert.assertEquals(1, builderObserver.ContainerAddedCounter);
+        Assert.assertEquals(0, builderObserver.ContainerRemovedCounter);
+        Assert.assertEquals(4, builderObserver.FilterAddedCounter);
+        Assert.assertEquals(1, builderObserver.FilterRemovedCounter);
+        Assert.assertEquals(2, builderObserver.ContainerUpdated);
+        Assert.assertEquals(2, filterHubListener.Update);
+        Assert.assertEquals(9, filterHubListener.PropertyChanged);
+
+
+        Assert.assertEquals(4, context.GetController().GetContainers().size());
+        Assert.assertEquals("c1_b", context.GetController().GetContainers().get(0).GetName());
+        Assert.assertEquals("c2", context.GetController().GetContainers().get(1).GetName());
+        Assert.assertEquals("c3_b", context.GetController().GetContainers().get(2).GetName());
+        Assert.assertEquals("c4", context.GetController().GetContainers().get(3).GetName());
+
+        Assert.assertEquals("f1_b", context.GetController().GetContainers().get(0).GetFilters().get(0).getName());
+        Assert.assertEquals("f2", context.GetController().GetContainers().get(0).GetFilters().get(1).getName());
+        Assert.assertEquals("f3", context.GetController().GetContainers().get(0).GetFilters().get(2).getName());
+        Assert.assertEquals("x_gr", ((MockSingleTextFilter)context.GetController().GetContainers().get(0).GetFilters().get(2)).GetValues().get(0));
+        Assert.assertEquals("y_gr", ((MockSingleTextFilter)context.GetController().GetContainers().get(0).GetFilters().get(2)).GetValues().get(1));
+        Assert.assertEquals("z_gr", ((MockSingleTextFilter)context.GetController().GetContainers().get(0).GetFilters().get(2)).GetValues().get(2));
+        Assert.assertEquals("x_gr", ((MockSingleTextFilter)context.GetController().GetContainers().get(0).GetFilters().get(2)).GetDefaultValue());
+        Assert.assertEquals("f5", context.GetController().GetContainers().get(0).GetFilters().get(3).getName());
+
+        Assert.assertEquals("f2", context.GetController().GetContainers().get(1).GetFilters().get(0).getName());
+        Assert.assertEquals("f3_b", context.GetController().GetContainers().get(1).GetFilters().get(1).getName());
+        Assert.assertEquals("f4", context.GetController().GetContainers().get(1).GetFilters().get(2).getName());
+
+        context.Dispose();
+    }
+
+    private class MockFilterHubListener implements IFilterHubListener {
+
+        public int Update = 0;
+        public int PropertyChanged = 0;
+
+
+        @Override
+        public void FilterChanged(Filter filter) {
+
+        }
+
+        @Override
+        public void FilterReset(Filter filter) {
+
+        }
+
+        @Override
+        public void FilterPropertyChanged(Filter filter, String old, String _new, FilterPropertyType propType) {
+            this.PropertyChanged++;
+            System.out.println("MockFilterHubListener->FilterPropertyChanged(" + propType + "):" + filter);
+        }
+
+        @Override
+        public void FilterUpdated(Filter filter) {
+            Update++;
+            System.out.println("MockFilterHubListener->FilterUpdated:" + filter);
+        }
+
+        public void ResetAllCounters(){
+            Update = 0;
+            PropertyChanged = 0;
+        }
+    }
+
+    private class MockBuilderItemsUseCase1Before extends BuilderItems{
+
+        Hub hub;
+
+        public MockBuilderItemsUseCase1Before(Hub hub) {
+            this.hub = hub;
+        }
+
+        @Override
+        public List<FilterContainer> GetContainers() {
+            FilterNotifier notifier = new FilterNotifier(this.hub);
+            List<FilterContainer> containers = new ArrayList<>();
+
+            FilterContainer c1 = new FilterContainer(1, "c1");
+            MockCheckBoxFilter c1f1 = new MockCheckBoxFilter(1, "f1", notifier);
+            MockFreeTextFilter c1f2 = new MockFreeTextFilter(2, "f2", notifier);
+            List<String> c1f3Values = new ArrayList<>();
+            c1f3Values.add("x_en");
+            c1f3Values.add("y_en");
+            c1f3Values.add("z_en");
+            MockSingleTextFilter c1f3 = new MockSingleTextFilter(3, "f3", notifier, c1f3Values);
+            c1.AddFilter(c1f1);
+            c1.AddFilter(c1f2);
+            c1.AddFilter(c1f3);
+
+            FilterContainer c2 = new FilterContainer(2, "c2");
+            MockSingleSelectFilter c2f1 = new MockSingleSelectFilter(c2, 1, "f1", notifier);
+            MockSingleSelectFilter c2f2 = new MockSingleSelectFilter(c2, 2, "f2", notifier);
+            MockCheckBoxFilter c2f3 = new MockCheckBoxFilter(3, "f3", notifier);
+            c2.AddFilter(c2f1);
+            c2.AddFilter(c2f2);
+            c2.AddFilter(c2f3);
+
+            FilterContainer c3 = new FilterContainer(3, "c3");
+            MockCheckBoxFilter c3f1 = new MockCheckBoxFilter(1, "f1", notifier);
+            MockFreeTextFilter c3f2 = new MockFreeTextFilter(2, "f2", notifier);
+            MockCompositeFilter c3comp = new MockCompositeFilter(1, "comp1", notifier);
+            c3comp.AddFilter(c3f1);
+            c3comp.AddFilter(c3f2);
+
+            List<String> c3f3FromValues = new ArrayList<>();
+            c3f3FromValues.add("x_from_en");
+            c3f3FromValues.add("y_from_en");
+            c3f3FromValues.add("z_from_en");
+            List<String> c3f3ToValues = new ArrayList<>();
+            c3f3ToValues.add("x_to_en");
+            c3f3ToValues.add("y_to_en");
+            c3f3ToValues.add("z_to_en");
+            MockRangeFilter c3f3 = new MockRangeFilter(3, "f3", notifier,c3f3FromValues,c3f3ToValues);
+            c3.AddFilter(c3comp);
+            c3.AddFilter(c3f3);
+
+            containers.add(c1);
+            containers.add(c2);
+            containers.add(c3);
+
+            return containers;
+        }
+    }
+
+    private class MockBuilderItemsUseCase1After extends BuilderItems{
+
+        Hub hub;
+
+        public MockBuilderItemsUseCase1After(Hub hub) {
+            this.hub = hub;
+        }
+
+        @Override
+        public List<FilterContainer> GetContainers() {
+            FilterNotifier notifier = new FilterNotifier(this.hub);
+            List<FilterContainer> containers = new ArrayList<>();
+
+            FilterContainer c1 = new FilterContainer(1, "c1_b");
+            MockCheckBoxFilter c1f5 = new MockCheckBoxFilter(5, "f5", notifier);
+            MockCheckBoxFilter c1f1 = new MockCheckBoxFilter(1, "f1_b", notifier);
+            c1f1.SetCount(3);
+            MockFreeTextFilter c1f2 = new MockFreeTextFilter(2, "f2", notifier);
+
+            List<String> c1f3Values = new ArrayList<>();
+            c1f3Values.add("x_gr");
+            c1f3Values.add("y_gr");
+            c1f3Values.add("z_gr");
+            MockSingleTextFilter c1f3 = new MockSingleTextFilter(3, "f3", notifier, c1f3Values);
+            c1f3.SetCount(5);
+            c1.AddFilter(c1f1);
+            c1.AddFilter(c1f2);
+            c1.AddFilter(c1f3);
+            c1.AddFilter(c1f5);
+
+            FilterContainer c2 = new FilterContainer(2, "c2");
+            MockSingleSelectFilter c2f2 = new MockSingleSelectFilter(c2, 2, "f2", notifier);
+            MockCheckBoxFilter c2f3 = new MockCheckBoxFilter(3, "f3_b", notifier);
+            MockSingleSelectFilter c2f4 = new MockSingleSelectFilter(c2,4, "f4", notifier);
+            c2.AddFilter(c2f2);
+            c2.AddFilter(c2f3);
+            c2.AddFilter(c2f4);
+
+            FilterContainer c4 = new FilterContainer(4, "c4");
+            MockCheckBoxFilter c4f1 = new MockCheckBoxFilter(1, "f1", notifier);
+            c4f1.SetCount(5);
+            MockCheckBoxFilter c4f2 = new MockCheckBoxFilter(2, "f2", notifier);
+            c4f2.SetCount(6);
+            c4.AddFilter(c4f1);
+            c4.AddFilter(c4f2);
+
+            FilterContainer c3 = new FilterContainer(3, "c3_b");
+            MockCheckBoxFilter c3f1 = new MockCheckBoxFilter(1, "f1_b", notifier);
+            MockFreeTextFilter c3f2 = new MockFreeTextFilter(2, "f2", notifier);
+            MockCompositeFilter c3comp = new MockCompositeFilter(1, "composite", notifier);
+            c3comp.AddFilter(c3f1);
+            c3comp.AddFilter(c3f2);
+            List<String> c3f3FromValues = new ArrayList<>();
+            c3f3FromValues.add("x_from_gr");
+            c3f3FromValues.add("y_from_gr");
+            c3f3FromValues.add("z_from_gr");
+            List<String> c3f3ToValues = new ArrayList<>();
+            c3f3ToValues.add("x_to_gr");
+            c3f3ToValues.add("y_to_gr");
+            c3f3ToValues.add("z_to_gr");
+            MockRangeFilter c3f3 = new MockRangeFilter(3, "f3", notifier,c3f3FromValues,c3f3ToValues);
+            c3f3.SetCount(10);
+            c3.AddFilter(c3comp);
+            c3.AddFilter(c3f3);
+
+            containers.add(c1);
+            containers.add(c2);
+            containers.add(c3);
+            containers.add(c4);
+
+            return containers;
+        }
+    }
+
     private class MockBuilderObserver implements IBuilderObserver {
 
         public int ContainerAddedCounter = 0;
         public int FilterAddedCounter = 0;
-        public int FilterUpdatedCounter = 0;
         public int ContainerRemovedCounter = 0;
         public int FilterRemovedCounter = 0;
+        public int ContainerUpdated = 0;
 
         @Override
         public void ContainerAdded(ActionType actionType, FilterContainer container) {
@@ -343,15 +593,23 @@ public class BuilderActionsTest {
         }
 
         @Override
+        public void ContainerUpdated(ActionType actionType, FilterContainer container) {
+            ContainerUpdated++;
+            System.out.println("MockBuilderObserver->ContainerUpdated:" + container);
+        }
+
+        @Override
         public void FilterRemoved(ActionType actionType, Filter f) {
             FilterRemovedCounter++;
             System.out.println("MockBuilderObserver->FilterRemoved:" + f);
         }
 
-        @Override
-        public void FilterUpdated(ActionType actionType, Filter f) {
-            FilterUpdatedCounter++;
-            System.out.println("MockBuilderObserver->FilterUpdated:" + f);
+
+        public void ResetAllCounters() {
+            ContainerAddedCounter = 0;
+            FilterAddedCounter = 0;
+            ContainerRemovedCounter = 0;
+            FilterRemovedCounter = 0;
         }
     }
 

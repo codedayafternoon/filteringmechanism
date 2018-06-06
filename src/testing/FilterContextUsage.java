@@ -41,6 +41,7 @@ public class FilterContextUsage {
         Assert.assertEquals(1, context.GetController().GetContainers().get(0).GetFilters().size());
         Assert.assertEquals("f1", context.GetController().GetContainers().get(0).GetFilters().get(0).getName());
 
+        context.Dispose();
     }
 
     private class MockConfiguration extends Configuration{

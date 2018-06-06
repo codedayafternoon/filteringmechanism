@@ -17,7 +17,11 @@ public abstract class CompositeFilter extends Filter implements INotifier {
 		this.filters = new ArrayList<Filter>();
 		this.activeFilters = new ArrayList<>();
 	}
-	
+
+	public List<Filter> getFilters() {
+		return filters;
+	}
+
 	public void AddFilter(Filter f) {
 		if(this.filters.contains(f))
 			return;
@@ -43,12 +47,29 @@ public abstract class CompositeFilter extends Filter implements INotifier {
 		
 	}
 
-	// TODO implement this method
 	@Override
 	protected boolean DoUpdateFrom(Filter filter){
+		CompositeFilter cf = (CompositeFilter) filter;
+		if(cf == null)
+			return false;
+
+		for(Filter f : cf.getFilters()){
+			Filter curr = this.getFilterById(f.Id);
+			if(curr == null)
+				continue;
+			curr.UpdateFrom(f);
+		}
 		return false;
 	}
-	
+
+	private Filter getFilterById(Object id) {
+		for(Filter f : this.filters){
+			if(f.Id.equals(id))
+				return f;
+		}
+		return null;
+	}
+
 	@Override
 	public String GetState() {
 		String state = "";

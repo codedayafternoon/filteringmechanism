@@ -285,6 +285,8 @@ public class ChannelTesting {
         Assert.assertTrue(handler.Request.contains("cf1=free_text2"));
         Assert.assertTrue(handler.Request.contains("r=from:200-to:200"));
 
+
+
     }
 
     private class ParameterFilterChannel implements IParameterHubListener, IFilterHubListener{

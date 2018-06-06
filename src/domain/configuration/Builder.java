@@ -95,32 +95,21 @@ public class Builder implements IActionObserver {
         if(containers == null)
             return;
 
+        this.existingContainerAction.Execute(containers);
+
         this.newContainersAction.Execute(containers);
         //this.initializeActionAndExecute(this.newContainersAction, containers);
 
         this.missingContainersAction.Execute(containers);
        // this.initializeActionAndExecute(this.missingContainersAction, containers);
 
-        this.existingContainerAction.Execute(containers);
-        //this.initializeActionAndExecute(this.existingContainerAction, containers);
 
     }
-
-  //  private void initializeActionAndExecute(IAction action, List<FilterContainer> containers){
-        //action.SetContainers(containers);
-       // action.Execute();
-    //}
 
     @Override
     public void ContainerAdded(ActionType actionType, FilterContainer container) {
         for(IBuilderObserver bo : this._observers)
             bo.ContainerAdded(actionType, container);
-    }
-
-    @Override
-    public void FilterAdded(ActionType actionType, Filter f) {
-        for(IBuilderObserver bo : this._observers)
-            bo.FilterAdded(actionType, f);
     }
 
     @Override
@@ -130,8 +119,20 @@ public class Builder implements IActionObserver {
     }
 
     @Override
+    public void FilterAdded(ActionType actionType, Filter f) {
+        for(IBuilderObserver bo : this._observers)
+            bo.FilterAdded(actionType, f);
+    }
+
+    @Override
     public void FilterRemoved(ActionType actionType, Filter f) {
         for(IBuilderObserver bo : this._observers)
             bo.FilterRemoved(actionType, f);
+    }
+
+    @Override
+    public void ContainerUpdated(ActionType actionType, FilterContainer container) {
+        for(IBuilderObserver bo : this._observers)
+            bo.ContainerUpdated(actionType, container);
     }
 }

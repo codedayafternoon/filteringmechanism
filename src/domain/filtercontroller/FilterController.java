@@ -98,8 +98,13 @@ public class FilterController {
 
 
 	public FilterContainer GetContainerById(Object id) {
-		FilterContainer container = this.containers.stream().filter(x -> x.GetId().equals(id)).findFirst().get();
-		return container;
+		for(FilterContainer c : this.containers){
+			if(c.GetId().equals(id))
+				return c;
+		}
+		return null;
+		//FilterContainer container = this.containers.stream().filter(x -> x.GetId().equals(id)).findFirst().get();
+		//return container;
 	}
 
 	protected Filter GetFilterByName(FilterContainer container, String name) {

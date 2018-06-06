@@ -72,6 +72,7 @@ public class FilterPropertyChangeTesting {
         Assert.assertEquals(2, listener.FilterPropertyChangedCounter);
         Assert.assertEquals(false, handler.MakeRequestTriggered);
 
+        context.Dispose();
     }
 
     private class MockBuilderItems extends BuilderItems {

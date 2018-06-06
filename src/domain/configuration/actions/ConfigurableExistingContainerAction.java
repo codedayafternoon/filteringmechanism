@@ -40,6 +40,12 @@ public class ConfigurableExistingContainerAction extends ActionBase {
         if(this.update){
             for(FilterContainer existingContainer : existingContainers){
                 FilterContainer arrivedContainer = this.ExtractContainerById(arrivedContainers, existingContainer.GetId());
+                if(arrivedContainer == null)
+                    continue;
+
+                if(existingContainer.UpdateFrom(arrivedContainer))
+                    super.ContainerUpdated(this, existingContainer);
+
                 List<Filter> existingFilters = this.findSameFilters(existingContainer, arrivedContainer);
                 for(Filter f : existingFilters){
                     Filter arrived = arrivedContainer.GetFilterById(f.Id);
@@ -87,6 +93,8 @@ public class ConfigurableExistingContainerAction extends ActionBase {
         List<Filter> res = new ArrayList<>();
 
         FilterContainer existingContainer = this.controller.GetContainerById(arrivedContainer.GetId());
+        if(existingContainer == null)
+            return res;
         for(Filter arrivedFilter : arrivedContainer.GetFilters()){
             Filter newFilter = existingContainer.GetFilterById(arrivedFilter.Id);
             if(newFilter == null){
