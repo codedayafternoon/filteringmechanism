@@ -122,7 +122,7 @@ public class ConfigurableExistingContainerAction extends ActionBase {
     private List<FilterContainer> findExistingContainers(List<FilterContainer> containers) {
         List<FilterContainer> res = new ArrayList<>();
         for(FilterContainer c : containers){
-            FilterContainer existing = this.controller.FindContainer(c.GetId());
+            FilterContainer existing = this.controller.GetContainerById(c.GetId());
             if(existing != null)
                 res.add(existing);
         }

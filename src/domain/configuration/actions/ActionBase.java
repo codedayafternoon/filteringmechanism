@@ -1,14 +1,11 @@
 package domain.configuration.actions;
 
 import domain.configuration.IAction;
-import domain.configuration.IActionObservable;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.FilterController;
 import domain.filters.Filter;
 
-import java.util.List;
-
-public abstract class ActionBase implements IAction, IActionObservable {
+public abstract class ActionBase implements IAction {
 
     protected FilterController controller;
     private IActionObserver observer;

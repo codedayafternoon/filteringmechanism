@@ -24,7 +24,7 @@ public class ParameterNotifier implements INotifier{
 
 	@Override
 	public void NotifyFilterUpdated(Filter filter) {
-
+		this.parameterHub.NotifyParameterUpdated(filter);
 	}
 
 	@Override

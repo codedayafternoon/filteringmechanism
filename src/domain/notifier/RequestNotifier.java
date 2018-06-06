@@ -24,7 +24,7 @@ public class RequestNotifier implements INotifier {
 
 	@Override
 	public void NotifyFilterUpdated(Filter filter) {
-
+		this.requestHub.NotifyRequestUpdated(filter);
 	}
 
 	@Override

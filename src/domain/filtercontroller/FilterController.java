@@ -103,8 +103,6 @@ public class FilterController {
 				return c;
 		}
 		return null;
-		//FilterContainer container = this.containers.stream().filter(x -> x.GetId().equals(id)).findFirst().get();
-		//return container;
 	}
 
 	protected Filter GetFilterByName(FilterContainer container, String name) {
@@ -149,13 +147,13 @@ public class FilterController {
 		return filter;
     }
 
-	public FilterContainer FindContainer(Object id) {
-		for(FilterContainer c : this.containers){
-			if(c.GetId().equals(id))
-				return c;
-		}
-		return null;
-	}
+//	public FilterContainer FindContainer(Object id) {
+//		for(FilterContainer c : this.containers){
+//			if(c.GetId().equals(id))
+//				return c;
+//		}
+//		return null;
+//	}
 
     public void Clear() {
 		this.containers.clear();

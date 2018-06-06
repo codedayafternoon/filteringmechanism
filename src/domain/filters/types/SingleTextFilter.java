@@ -32,7 +32,7 @@ public abstract class SingleTextFilter extends Filter {
 	public FilterMode GetMode() {
 		return FilterMode.SIMPLE;
 	}
-	
+
 	public void SetDefaultValue(String value) {
 		if(!this.range.getItems().contains(value))
 			return;
@@ -40,7 +40,7 @@ public abstract class SingleTextFilter extends Filter {
 		if(this.range.getSelectedValue() == null)
 			this.range.setSelectedValue(this.range.getDefaultValue() );
 	}
-	
+
 	public void SetSelectedValue(String value) {
 		if(!this.range.getItems().contains(value))
 			return;
