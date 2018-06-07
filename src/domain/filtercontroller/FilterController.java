@@ -8,7 +8,7 @@ import domain.filters.ICountable;
 import domain.filters.ReservedState;
 import domain.hub.Hub;
 
-public class FilterController {
+public class FilterController implements IFilterController {
 
 	protected List<FilterContainer> containers;
 	protected Hub hub;
@@ -32,10 +32,7 @@ public class FilterController {
 		this.hub.SetFilterController(this);
 	}
 
-	public Hub GetHub(){
-		return this.hub;
-	}
-
+	@Override
 	public void AddContainer(FilterContainer container){
 		if(container == null)
 			return;
@@ -47,7 +44,7 @@ public class FilterController {
 		this.containers.add(container);
 	}
 
-
+	@Override
 	public void RemoveContainerById(FilterContainer container) {
 		if(container == null)
 			return;
@@ -55,6 +52,7 @@ public class FilterController {
 		this.containers.remove(c);
 	}
 
+	@Override
 	public List<FilterContainer> GetContainers(){
 		return this.containers;
 	}
@@ -66,6 +64,7 @@ public class FilterController {
 			this.Update();
 	}
 
+	@Override
 	public void ChangeState(Object containerId, Object filterId, String state) {
 		if(containerId == null || filterId == null || state == null)
 			return;
@@ -93,12 +92,7 @@ public class FilterController {
 		return true;
 	}
 
-//	public FilterContainer GetContainerByName(String name) {
-//		FilterContainer container = this.containers.stream().filter(x -> x.GetName().equals(name)).findFirst().get();
-//		return container;
-//	}
-
-
+	@Override
 	public FilterContainer GetContainerById(Object id) {
 		for(FilterContainer c : this.containers){
 			if(c.GetId().equals(id))
@@ -107,13 +101,10 @@ public class FilterController {
 		return null;
 	}
 
-//	protected Filter GetFilterByName(FilterContainer container, String name) {
-//		Filter filter = container.GetFilters().stream().filter(x -> x.getName().equals(name)).findFirst().get();
-//		return filter;
-//	}
-
 	// TODO composite filters are not supported
 	public void UpdateCount(Object containerId, Object filterId, int count) {
+		if(containerId == null || filterId == null)
+			return;
 		FilterContainer container = this.GetContainerById(containerId);
 		if (container == null)
 			return;
@@ -143,6 +134,7 @@ public class FilterController {
 		return s;
 	}
 
+	@Override
     public Filter GetFilterById(FilterContainer container, Object filterId) {
 		if(container == null)
 			return null;
@@ -150,14 +142,7 @@ public class FilterController {
 		return filter;
     }
 
-//	public FilterContainer FindContainer(Object id) {
-//		for(FilterContainer c : this.containers){
-//			if(c.GetId().equals(id))
-//				return c;
-//		}
-//		return null;
-//	}
-
+    @Override
     public void Clear() {
 		this.containers.clear();
     }

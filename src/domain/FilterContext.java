@@ -3,6 +3,7 @@ package domain;
 import domain.configuration.Builder;
 import domain.configuration.Configuration;
 import domain.filtercontroller.FilterController;
+import domain.filtercontroller.IFilterController;
 import domain.filtercontroller.IRequestConverter;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.Filter;
@@ -39,15 +40,17 @@ public class FilterContext {
         }
     }
 
-    public FilterController GetController(){
+    public IFilterController GetController(){
         if(controller == null)
             throw new Error("controller has not initialized. Consider call Initialize before accessing any members");
         return controller;
     }
 
     public Builder GetBuilder(){
+        if(FilterContext.controller == null)
+            throw new Error("controller has not initialized. Consider call Initialize before accessing any members");
         if(this.builder == null)
-            this.builder = new Builder(this.GetController(), this.configuration);
+            this.builder = new Builder(FilterContext.controller, this.configuration);
         return this.builder;
     }
 

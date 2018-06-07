@@ -4,10 +4,7 @@ import application.infrastructure.UrlBuilder;
 import application.infrastructure.UrlQueryConverter;
 import domain.FilterContext;
 import domain.configuration.*;
-import domain.filtercontroller.FilterContainer;
-import domain.filtercontroller.FilterController;
-import domain.filtercontroller.IRequestConverter;
-import domain.filtercontroller.IRequestHandler;
+import domain.filtercontroller.*;
 import domain.filters.types.CheckBoxFilter;
 import domain.filters.types.RangeFilter;
 import domain.hub.Hub;
@@ -32,9 +29,9 @@ public class BuilderTesting {
     public void testBuilder(){
         FilterContext filterContext = new FilterContext();
         filterContext.Initialize(new MockRequestHandler(), new UrlQueryConverter(new UrlBuilder(",", "&")), new MockConfiguration());
-        FilterController controller = filterContext.GetController();// new MockController( hub, new MockRequestHandler(), new UrlQueryConverter(new UrlBuilder(",", "&")));
+        IFilterController controller = filterContext.GetController();// new MockController( hub, new MockRequestHandler(), new UrlQueryConverter(new UrlBuilder(",", "&")));
         Builder builder = filterContext.GetBuilder();
-        builder.Build(new MockBuilderItems(controller));
+        builder.Build(new MockBuilderItems(filterContext.GetHub()));
 
         Assert.assertEquals(2, controller.GetContainers().size());
         Assert.assertEquals("c1", controller.GetContainers().get(0).GetName());
@@ -71,18 +68,20 @@ public class BuilderTesting {
     private class MockBuilderItems extends BuilderItems
     {
         List<FilterContainer> containers ;
+        Hub hub;
 
-        public MockBuilderItems(FilterController controller) {
+        public MockBuilderItems(Hub hub) {
+            this.hub = hub;
             this.containers = new ArrayList<>();
             this.containers.add(new FilterContainer(1,"c1"));
             this.containers.add(new FilterContainer(2,"c2"));
 
-            CheckBoxFilter checkBoxFilter1 = new MockCheckBoxFilter(1, "c1", new FilterNotifier(controller.GetHub()) );
-            CheckBoxFilter checkBoxFilter2 = new MockCheckBoxFilter(2 ,"c2", new FilterNotifier(controller.GetHub()) );
+            CheckBoxFilter checkBoxFilter1 = new MockCheckBoxFilter(1, "c1", new FilterNotifier(this.hub) );
+            CheckBoxFilter checkBoxFilter2 = new MockCheckBoxFilter(2 ,"c2", new FilterNotifier(this.hub) );
             this.containers.get(0).AddFilter(checkBoxFilter1);
             this.containers.get(0).AddFilter(checkBoxFilter2);
 
-            MockCheckBoxFilter range = new MockCheckBoxFilter(3, "r1", new ParameterNotifier(controller.GetHub()));
+            MockCheckBoxFilter range = new MockCheckBoxFilter(3, "r1", new ParameterNotifier(this.hub));
             this.containers.get(1).AddFilter(range);
         }
 

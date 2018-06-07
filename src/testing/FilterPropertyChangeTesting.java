@@ -6,6 +6,7 @@ import domain.FilterContext;
 import domain.configuration.*;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.FilterController;
+import domain.filtercontroller.IFilterController;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.Filter;
 import domain.filters.FilterPropertyType;
@@ -29,7 +30,7 @@ public class FilterPropertyChangeTesting {
         FilterContext context = new FilterContext();
         MockRequestHandler handler = new MockRequestHandler();
         context.Initialize(handler, new UrlQueryConverter(new UrlBuilder(",", "&")), new MockConfiguration());
-        FilterController controller = context.GetController();
+        IFilterController controller = context.GetController();
         Hub hub = context.GetHub();
 
 

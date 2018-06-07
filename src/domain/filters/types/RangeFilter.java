@@ -12,15 +12,6 @@ public abstract class RangeFilter extends Filter {
 	private RangePart rangeFrom;
 	private RangePart rangeTo;
 
-//	protected String SelectedFrom;
-//	protected String SelectedTo;
-//
-//	protected String defaultFrom;
-//	protected String defaultTo;
-//
-//	protected List<String> FromValues;
-//	protected List<String> ToValues;
-
 	private boolean fromIsReset;
 	private boolean toIsReset;
 
@@ -103,7 +94,7 @@ public abstract class RangeFilter extends Filter {
 			if (part.contains("to:")) {
 				String to = part.split("to:")[1];
 				if (this.rangeTo.getItems().contains(to)) {
-					if(!this.rangeTo.getSelectedValue().equals(to)) {
+					if(this.rangeTo.getSelectedValue() == null || !this.rangeTo.getSelectedValue().equals(to)) {
 						this.rangeTo.setSelectedValue(to);
 						this.checkToReset();
 						changed = true;
@@ -112,7 +103,7 @@ public abstract class RangeFilter extends Filter {
 			} else if (part.contains("from:")) {
 				String from = part.split("from:")[1];
 				if (this.rangeFrom.getItems().contains(from)) {
-					if(!this.rangeFrom.getSelectedValue().equals(from)) {
+					if(this.rangeFrom.getSelectedValue() == null || !this.rangeFrom.getSelectedValue().equals(from)) {
 						this.rangeFrom.setSelectedValue(from );
 						this.checkFromReset();
 						changed = true;
@@ -149,7 +140,26 @@ public abstract class RangeFilter extends Filter {
 
 	@Override
 	public String GetParameterValue(){
-		return this.GetState();
+		String[]parts = this.GetState().split("-");
+		String from = parts[0].split(":")[1];
+		String to = parts[1].split(":")[1];
+		return this.EncodeParameterValueFrom(from) + this.GetIntermediateSymbol() + this.GetParameterKey2() + this.EncodeParameterValueTo(to);
+	}
+
+	protected String GetParameterKey2() {
+		return "";
+	}
+
+	protected String GetIntermediateSymbol() {
+		return "-";
+	}
+
+	protected String EncodeParameterValueFrom(String from){
+		return "from:" + from;
+	}
+
+	protected String EncodeParameterValueTo(String to){
+		return "to:" + to;
 	}
 
 	@Override
