@@ -59,42 +59,44 @@ public class FilterController {
 		return this.containers;
 	}
 
-	public void ChangeState(String containerName, String filterName, ReservedState state) {
-		if(this.DoChangeState(containerName, filterName, state.toString()))
+	public void ChangeState(Object containerId, Object filterId, ReservedState state) {
+		if(containerId == null || filterId == null)
+			return;
+		if(this.DoChangeState(containerId, filterId, state.toString()))
 			this.Update();
 	}
 
-	public void ChangeState(String containerName, String filterName, String state) {
-		if(containerName == null || filterName == null || state == null)
+	public void ChangeState(Object containerId, Object filterId, String state) {
+		if(containerId == null || filterId == null || state == null)
 			return;
-		if(this.DoChangeState(containerName, filterName, state))
+		if(this.DoChangeState(containerId, filterId, state))
 			this.Update();
 	}
 
 	/**
 	 * change filters states without notify request handler
-	 * @param containerName
-	 * @param filterName
+	 * @param containerId
+	 * @param filterId
 	 * @param state
 	 */
-	public boolean DoChangeState(String containerName, String filterName, String state) {
-		if(containerName == null || filterName == null || state == null)
+	public boolean DoChangeState(Object containerId, Object filterId, String state) {
+		if(containerId == null || filterId == null || state == null)
 			return false;
 
-		FilterContainer container = this.GetContainerByName(containerName);
+		FilterContainer container = this.GetContainerById(containerId);
 		if (container == null)
 			return false;
-		Filter filter = this.GetFilterByName(container, filterName);
+		Filter filter = this.GetFilterById(container, filterId);
 		if (filter == null)
 			return false;
 		filter.ChangeState(state);
 		return true;
 	}
 
-	public FilterContainer GetContainerByName(String name) {
-		FilterContainer container = this.containers.stream().filter(x -> x.GetName().equals(name)).findFirst().get();
-		return container;
-	}
+//	public FilterContainer GetContainerByName(String name) {
+//		FilterContainer container = this.containers.stream().filter(x -> x.GetName().equals(name)).findFirst().get();
+//		return container;
+//	}
 
 
 	public FilterContainer GetContainerById(Object id) {
@@ -105,17 +107,17 @@ public class FilterController {
 		return null;
 	}
 
-	protected Filter GetFilterByName(FilterContainer container, String name) {
-		Filter filter = container.GetFilters().stream().filter(x -> x.getName().equals(name)).findFirst().get();
-		return filter;
-	}
+//	protected Filter GetFilterByName(FilterContainer container, String name) {
+//		Filter filter = container.GetFilters().stream().filter(x -> x.getName().equals(name)).findFirst().get();
+//		return filter;
+//	}
 
 	// TODO composite filters are not supported
-	public void UpdateCount(String containerName, String filterName, int count) {
-		FilterContainer container = this.GetContainerByName(containerName);
+	public void UpdateCount(Object containerId, Object filterId, int count) {
+		FilterContainer container = this.GetContainerById(containerId);
 		if (container == null)
 			return;
-		Filter filter = this.GetFilterByName(container, filterName);
+		Filter filter = this.GetFilterById(container, filterId);
 		if (filter == null)
 			return;
 
@@ -141,9 +143,10 @@ public class FilterController {
 		return s;
 	}
 
-    public Filter GetFilterById(String containerName, Object id) {
-		FilterContainer container = this.GetContainerByName(containerName);
-		Filter filter = container.GetFilterById(id);
+    public Filter GetFilterById(FilterContainer container, Object filterId) {
+		if(container == null)
+			return null;
+		Filter filter = container.GetFilterById(filterId);
 		return filter;
     }
 

@@ -38,10 +38,10 @@ public class FilterPropertyChangeTesting {
 
         context.GetBuilder().Build(new MockBuilderItems(context.GetHub()));
 
-        HubCommand command = new HubCommand(1, "c1", "cc", -1, "0"); // for property changed Name
-        HubCommand command2 = new HubCommand(1, "c1", "cc", 10, "0"); // for property changed Count
-        HubCommand command3 = new HubCommand(1, "c1", "cc", 10, "1"); // for statechanged
-        HubCommand command4 = new HubCommand(1, "c1", "cc", 10, "0"); // for Reset
+        HubCommand command = new HubCommand(1, "c1",1, "cc", -1, "0"); // for property changed Name
+        HubCommand command2 = new HubCommand(1, "c1",1, "cc", 10, "0"); // for property changed Count
+        HubCommand command3 = new HubCommand(1, "c1", 1,"cc", 10, "1"); // for statechanged
+        HubCommand command4 = new HubCommand(1, "c1",1, "cc", 10, "0"); // for Reset
 
         Assert.assertEquals(0, listener.FilterChangedCounter);
         Assert.assertEquals(0, listener.FilterResetCounter);

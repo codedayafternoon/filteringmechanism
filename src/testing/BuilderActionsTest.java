@@ -326,7 +326,6 @@ public class BuilderActionsTest {
         }
     }
 
-
     @Test
     public void testComplexUseCase(){
         FilterContext context = new FilterContext();

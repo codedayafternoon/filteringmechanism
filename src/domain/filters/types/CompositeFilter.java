@@ -38,13 +38,14 @@ public abstract class CompositeFilter extends Filter implements INotifier {
 		String[] parts = state.split(":");
 		if(parts.length != 2)
 			return;
-		String filterName = parts[0];
+		Object filterId = parts[0];
 		String s = parts[1];
-		
-		Filter f = this.filters.stream().filter(x->x.getName().equals(filterName)).findFirst().get();
+
+		Filter f = this.getFilterById(filterId);
+		if(f == null)
+			return;
 
 		f.ChangeState(s);
-		
 	}
 
 	@Override
@@ -64,7 +65,7 @@ public abstract class CompositeFilter extends Filter implements INotifier {
 
 	private Filter getFilterById(Object id) {
 		for(Filter f : this.filters){
-			if(f.Id.equals(id))
+			if(f.Id.toString().equals( id.toString()))
 				return f;
 		}
 		return null;

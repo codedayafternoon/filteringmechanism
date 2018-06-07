@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.FilterController;
 import domain.filters.Filter;
 import domain.filters.FilterPropertyType;
@@ -291,7 +292,11 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 		if(this.filterController == null)
 			return;
 
-		Filter filter = this.filterController.GetFilterById(command.ContainerName, command.GetId());
+		FilterContainer container = this.filterController.GetContainerById(command.ContainerId);
+		if(container == null)
+			return;
+
+		Filter filter = this.filterController.GetFilterById(container, command.FilterId);
 		if(filter == null)
 			return;
 
@@ -300,12 +305,12 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 		}
 
 		if(command.State != null ){
-			this.filterController.DoChangeState(command.ContainerName, command.FilterName, command.State);
+			this.filterController.DoChangeState(command.ContainerId, command.FilterId, command.State);
 		}
 
 		if( command.Count >= 0)
 		{
-			this.filterController.UpdateCount(command.ContainerName, command.FilterName, command.Count);
+			this.filterController.UpdateCount(command.ContainerId, command.FilterId, command.Count);
 		}
 	}
 

@@ -185,16 +185,16 @@ public class ChannelTesting {
         MockRequestHandler handler = new MockRequestHandler();
         MockController controller = new MockController(containers, hub, handler, new UrlQueryConverter(new UrlBuilder(",", "&")));
 
-        controller.ChangeState(this.singleSelectContainer.GetName(), "f2", "1"); // should all filter listeners notified
+        controller.ChangeState(this.singleSelectContainer.GetId(), 2, "1"); // should all filter listeners notified
         Assert.assertEquals(this.singleSelectContainer.GetName() + "=" + "f2", handler.Request);
         Assert.assertEquals(1, this.parameterFilterChannel.Filter);
         Assert.assertEquals(1, this.filterChannel1.Filter);
         Assert.assertEquals(1, this.filterChannel2.Filter);
         Assert.assertEquals(1, this.completeChannel.Filter);
 
-        controller.ChangeState("checkContainer", "c1", "1");
-        controller.ChangeState("checkContainer", "c2", "0"); // already false, do nothing
-        controller.ChangeState("checkContainer", "c2", "1");
+        controller.ChangeState(checkBoxContainer.GetId(), checkBox1.Id, "1");
+        controller.ChangeState(checkBoxContainer.GetId(), checkBox2.Id, "0"); // already false, do nothing
+        controller.ChangeState(checkBoxContainer.GetId(), checkBox2.Id, "1");
 
         Assert.assertEquals(3, this.parameterFilterChannel.Filter);
         Assert.assertEquals(3, this.filterChannel1.Filter);
@@ -204,13 +204,13 @@ public class ChannelTesting {
         Assert.assertTrue(handler.Request.contains("checkContainer=c1,c2") || handler.Request.contains("checkContainer=c2,c1"));
 
         // change a request notifier
-        controller.ChangeState("sorting", "s", "asc"); // do nothing already set as default value
-        controller.ChangeState("sorting", "s", "desc");
+        controller.ChangeState(sortContainer.GetId(), sortFilter.Id, "asc"); // do nothing already set as default value
+        controller.ChangeState(sortContainer.GetId(), sortFilter.Id, "desc");
 
         //change a parameter notifier
-        controller.ChangeState("locale", "locale", "en-au"); // en-au is set as selected do nothing
-        controller.ChangeState("locale", "locale", "abc"); // do nothing because is not in list
-        controller.ChangeState("locale", "locale", "el"); // +1 for parameter
+        controller.ChangeState(localeContainer.GetId(), locale.Id, "en-au"); // en-au is set as selected do nothing
+        controller.ChangeState(localeContainer.GetId(), locale.Id, "abc"); // do nothing because is not in list
+        controller.ChangeState(localeContainer.GetId(), locale.Id, "el"); // +1 for parameter
 
         Assert.assertEquals(1, this.parameterFilterChannel.Parameter);
         Assert.assertEquals(3, this.filterChannel1.Filter);
@@ -224,11 +224,11 @@ public class ChannelTesting {
         Assert.assertTrue(handler.Request.contains("s=desc"));
 
 
-        controller.ChangeState("freeContainer", "f1", "text");
-        controller.ChangeState("complex", "c1", "cs1:x"); // to set state of a filter inside a composite filter,
+        controller.ChangeState(freeTextContainer.GetId(), freeText1.Id, "text");
+        controller.ChangeState(complexContainer.GetId(), compositeFilter.Id, complexSingleText.Id + ":x"); // to set state of a filter inside a composite filter,
         // for filter name you enter composite_filter_name and for state you have the filters name first following by : and then the state
-        // is already x from the begining
-        controller.ChangeState("complex", "c1", "cf1:free_text");
+        // is already x from the beginning
+        controller.ChangeState(complexContainer.GetId(), compositeFilter.Id, complexFreeText.Id + ":free_text");
         Assert.assertEquals(1, this.parameterFilterChannel.Parameter);
         Assert.assertEquals(6, this.parameterFilterChannel.Filter);
         Assert.assertEquals(6, this.filterChannel1.Filter);
@@ -243,10 +243,10 @@ public class ChannelTesting {
         Assert.assertTrue(handler.Request.contains("cs1=x")); // for complex the inside fiter is shown
         Assert.assertTrue(handler.Request.contains("cf1=free_text"));
 
-        controller.ChangeState("range", "r", "from:200"); // already set, do nothing
-        controller.ChangeState("range", "r", "to:400");
-        controller.ChangeState("range", "r", "from:100");
-        controller.ChangeState("range", "r", "from:200-to:200");
+        controller.ChangeState(rangeContainer.GetId(), range.Id, "from:200"); // already set, do nothing
+        controller.ChangeState(rangeContainer.GetId(), range.Id, "to:400");
+        controller.ChangeState(rangeContainer.GetId(), range.Id, "from:100");
+        controller.ChangeState(rangeContainer.GetId(), range.Id, "from:200-to:200");
         Assert.assertEquals(1, this.parameterFilterChannel.Parameter);
         Assert.assertEquals(9, this.parameterFilterChannel.Filter);
         Assert.assertEquals(9, this.filterChannel1.Filter);
@@ -262,13 +262,13 @@ public class ChannelTesting {
         Assert.assertTrue(handler.Request.contains("cf1=free_text"));
         Assert.assertTrue(handler.Request.contains("r=from:200-to:200"));
 
-        controller.ChangeState("checkContainer", "c3", "1"); // filterNotifiers +1
-        controller.ChangeState("checkContainer", "c2", ReservedState.reset); // filterNotifiers -1
-        controller.ChangeState("complex", "c1", "cf1:free_text2"); // filterNotifiers +1
-        controller.ChangeState("freeContainer", "f1", "text22"); // filterNotifiers +1
-        controller.ChangeState("locale", "locale", ReservedState.reset); // parameterNotifiers -1
-        controller.ChangeState("sorting", "s", "asc"); // requestNotifiers -1
-        controller.ChangeState("singleContainer", "f1", "1"); // filterNotifiers +1, also reset f2, so filterNotifiers -1
+        controller.ChangeState(checkBoxContainer.GetId(), checkBox3.Id, "1"); // filterNotifiers +1
+        controller.ChangeState(checkBoxContainer.GetId(), checkBox2.Id, ReservedState.reset); // filterNotifiers -1
+        controller.ChangeState(complexContainer.GetId(), compositeFilter.Id, complexFreeText.Id + ":free_text2"); // filterNotifiers +1
+        controller.ChangeState(freeTextContainer.GetId(), freeText1.Id, "text22"); // filterNotifiers +1
+        controller.ChangeState(localeContainer.GetId(), locale.Id, ReservedState.reset); // parameterNotifiers -1
+        controller.ChangeState(sortContainer.GetId(), sortFilter.Id, "asc"); // requestNotifiers -1
+        controller.ChangeState(singleSelectContainer.GetId(), singleSelect1.Id, "1"); // filterNotifiers +1, also reset f2, so filterNotifiers -1
         Assert.assertEquals(0, this.parameterFilterChannel.Parameter);
         Assert.assertEquals(11, this.parameterFilterChannel.Filter);
         Assert.assertEquals(11, this.filterChannel1.Filter);
@@ -284,9 +284,6 @@ public class ChannelTesting {
         Assert.assertTrue(handler.Request.contains("cs1=x")); // for complex the inside fiter is shown
         Assert.assertTrue(handler.Request.contains("cf1=free_text2"));
         Assert.assertTrue(handler.Request.contains("r=from:200-to:200"));
-
-
-
     }
 
     private class ParameterFilterChannel implements IParameterHubListener, IFilterHubListener{

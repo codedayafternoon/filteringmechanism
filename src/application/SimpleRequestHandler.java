@@ -200,16 +200,16 @@ public class SimpleRequestHandler implements IRequestHandler {
 				large++;
 		}
 
-		HubCommand manufacturer_samsung = new HubCommand(1, "manufacturer", this.samsung, samsung, "0");
-		HubCommand manufacturer_apple = new HubCommand(2, "manufacturer", this.apple, apple, "0");
-		HubCommand manufacturer_xiaomi = new HubCommand(3, "manufacturer", this.xiaomi, xiaomi, "0");
-		HubCommand manufacturer_sony = new HubCommand(4, "manufacturer", this.sony, sony, "0");
+		HubCommand manufacturer_samsung = new HubCommand(1, "manufacturer",1, this.samsung, samsung, "0");
+		HubCommand manufacturer_apple = new HubCommand(2, "manufacturer",2, this.apple, apple, "0");
+		HubCommand manufacturer_xiaomi = new HubCommand(3, "manufacturer",3, this.xiaomi, xiaomi, "0");
+		HubCommand manufacturer_sony = new HubCommand(4, "manufacturer",4, this.sony, sony, "0");
 
-		HubCommand screen_small = new HubCommand(5, "screen", this.small, small, "0");
-		HubCommand screen_large = new HubCommand(6, "screen", this.large, large, "0");
-		HubCommand screen_medium = new HubCommand(7, "screen", this.medium, medium, "0");
+		HubCommand screen_small = new HubCommand(5, "screen", 5,this.small, small, "0");
+		HubCommand screen_large = new HubCommand(6, "screen",6, this.large, large, "0");
+		HubCommand screen_medium = new HubCommand(7, "screen",7, this.medium, medium, "0");
 
-		HubCommand price = new HubCommand(8, "price", "price", priceList.size(), "");
+		HubCommand price = new HubCommand(8, "price",8, "price", priceList.size(), "");
 
 		List<HubCommand> hubCommands = new ArrayList<HubCommand>();
 		hubCommands.add(manufacturer_samsung);
