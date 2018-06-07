@@ -115,6 +115,11 @@ public class FilterController implements IFilterController {
 		filter.SetCount(count);
 	}
 
+	@Override
+	public void MakeRequestWithCurrentState(){
+		this.Update();
+	}
+
 	public void Update() {
 		Map<Filter, Date> s = getRequestParameters();
 		String request = this.requestConverter.Convert(s);

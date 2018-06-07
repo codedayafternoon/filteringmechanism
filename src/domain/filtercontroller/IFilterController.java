@@ -11,5 +11,6 @@ public interface IFilterController {
     List<FilterContainer> GetContainers();
     void ChangeState(Object containerId, Object filterId, String state);
     Filter GetFilterById(FilterContainer container, Object filterId);
+    void MakeRequestWithCurrentState();
     void Clear();
 }
