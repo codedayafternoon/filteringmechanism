@@ -1,6 +1,7 @@
 package domain.filters;
 
 import domain.filtercontroller.FilterContainer;
+import domain.filters.formatters.DefaultValuePostFormatter;
 
 public abstract class Filter implements ICountable {
 
@@ -8,13 +9,9 @@ public abstract class Filter implements ICountable {
 	protected String Name;
 	protected INotifier notifier;
 	protected FilterContainer _container;
+
 	private int count;
 
-	public abstract FilterMode GetMode();
-
-	public abstract String GetParameterKey();
-	public abstract String GetParameterValue();
-	
 	public Filter(Object id, String name, INotifier notifier) {
 		if(id == null || name == null)
 			throw new Error("id or name of a filter cannot be null");
@@ -37,6 +34,11 @@ public abstract class Filter implements ICountable {
 		this.Name = name;
 		this.notifier.NotifyPropertyChanged(this, old, name, FilterPropertyType.Name);
 	}
+
+	public abstract FilterMode GetMode();
+	public abstract String GetParameterKey();
+	public abstract String GetParameterValue();
+
 
 	@Override
 	public void SetCount(int count){
@@ -71,6 +73,7 @@ public abstract class Filter implements ICountable {
 	}
 
 	protected abstract void DoChangeState(String state);
+
 	public void UpdateFrom(Filter filter){
 		if(filter == null)
 			return;

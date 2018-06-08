@@ -1,10 +1,11 @@
 package domain.filters.types;
 
+import domain.filters.BoolValueFilter;
 import domain.filters.Filter;
 import domain.filters.FilterMode;
 import domain.filters.INotifier;
 
-public abstract class CheckBoxFilter extends Filter {
+public abstract class CheckBoxFilter extends BoolValueFilter {
 	
 	protected boolean _isChecked;
 	

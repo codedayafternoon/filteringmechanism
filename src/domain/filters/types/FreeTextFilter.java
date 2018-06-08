@@ -3,8 +3,9 @@ package domain.filters.types;
 import domain.filters.Filter;
 import domain.filters.FilterMode;
 import domain.filters.INotifier;
+import domain.filters.TextValueFilter;
 
-public abstract class FreeTextFilter extends Filter {
+public abstract class FreeTextFilter extends TextValueFilter {
 
 	protected String selectedValue;
 	protected String defaultValue;
@@ -35,7 +36,7 @@ public abstract class FreeTextFilter extends Filter {
 	}
 
 	@Override
-	public String GetParameterValue(){
+	public String DoGetParameterValue(){
 		return this.GetState();
 	}
 

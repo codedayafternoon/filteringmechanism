@@ -5,9 +5,10 @@ import java.util.List;
 import domain.filters.Filter;
 import domain.filters.FilterMode;
 import domain.filters.INotifier;
+import domain.filters.TextValueFilter;
 import domain.filters.structures.RangePart;
 
-public abstract class RangeFilter extends Filter {
+public abstract class RangeFilter extends TextValueFilter {
 
 	private RangePart rangeFrom;
 	private RangePart rangeTo;
@@ -139,7 +140,7 @@ public abstract class RangeFilter extends Filter {
 	}
 
 	@Override
-	public String GetParameterValue(){
+	public String DoGetParameterValue(){
 		String[]parts = this.GetState().split("-");
 		String from = parts[0].split(":")[1];
 		String to = parts[1].split(":")[1];

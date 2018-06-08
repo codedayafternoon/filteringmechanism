@@ -5,13 +5,10 @@ import java.util.List;
 import domain.filters.Filter;
 import domain.filters.FilterMode;
 import domain.filters.INotifier;
+import domain.filters.TextValueFilter;
 import domain.filters.structures.RangePart;
 
-public abstract class SingleTextFilter extends Filter {
-
-//	protected String selectedValue;
-//	protected String defaultValue;
-//	protected List<String> Values;
+public abstract class SingleTextFilter extends TextValueFilter {
 
 	protected RangePart range;
 
@@ -21,7 +18,6 @@ public abstract class SingleTextFilter extends Filter {
 			throw new Error("values cannot be null or empty");
 
 		this.range = new RangePart(values, values.get(0));
-		//this.Values = values;
 	}
 
 	public RangePart getRange() {
@@ -73,7 +69,7 @@ public abstract class SingleTextFilter extends Filter {
 	}
 
 	@Override
-	public String GetParameterValue(){
+	public String DoGetParameterValue(){
 		return this.GetState();
 	}
 
