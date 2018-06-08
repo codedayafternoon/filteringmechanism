@@ -28,6 +28,11 @@ public class RequestNotifier implements INotifier {
 	}
 
 	@Override
+	public NotifierChannelType GetType() {
+		return NotifierChannelType.RequestChannel;
+	}
+
+	@Override
 	public void NotifyFilterStateChanged(Filter filter) {
 		this.requestHub.NotifyRequestStateChanged(filter);
 	}

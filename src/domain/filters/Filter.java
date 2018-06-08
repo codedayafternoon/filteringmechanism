@@ -2,6 +2,7 @@ package domain.filters;
 
 import domain.filtercontroller.FilterContainer;
 import domain.filters.formatters.DefaultValuePostFormatter;
+import domain.notifier.NotifierChannelType;
 
 public abstract class Filter implements ICountable {
 
@@ -9,7 +10,6 @@ public abstract class Filter implements ICountable {
 	protected String Name;
 	protected INotifier notifier;
 	protected FilterContainer _container;
-
 	private int count;
 	protected IValuePostFormatter postValueFormatter;
 
@@ -22,6 +22,10 @@ public abstract class Filter implements ICountable {
 		this.notifier = notifier;
 		this.Name = name;
 		this.count = -1;
+	}
+
+	public NotifierChannelType GetNotifierType(){
+		return this.notifier.GetType();
 	}
 
 	public String getName() {

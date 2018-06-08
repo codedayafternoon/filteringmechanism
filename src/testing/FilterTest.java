@@ -9,6 +9,7 @@ import domain.filters.FilterPropertyType;
 import domain.filters.INotifier;
 import domain.hub.Hub;
 import domain.notifier.FilterNotifier;
+import domain.notifier.NotifierChannelType;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -164,6 +165,11 @@ public class FilterTest {
         @Override
         public void NotifyFilterUpdated(Filter filter) {
 
+        }
+
+        @Override
+        public NotifierChannelType GetType() {
+            return NotifierChannelType.FilterChannel;
         }
 
         @Override

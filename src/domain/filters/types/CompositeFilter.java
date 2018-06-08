@@ -6,6 +6,7 @@ import java.util.List;
 import domain.filters.Filter;
 import domain.filters.FilterMode;
 import domain.filters.INotifier;
+import domain.notifier.NotifierChannelType;
 
 public abstract class CompositeFilter extends Filter implements INotifier {
 
@@ -31,6 +32,16 @@ public abstract class CompositeFilter extends Filter implements INotifier {
 	public void RemoveFilter(Filter f) {
 		if(this.filters.contains(f))
 			this.filters.remove(f);
+	}
+
+	@Override
+	public NotifierChannelType GetNotifierType(){
+		return this.GetType();
+	}
+
+	@Override
+	public NotifierChannelType GetType() {
+		return NotifierChannelType.Complex;
 	}
 	
 	@Override

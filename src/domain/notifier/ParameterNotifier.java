@@ -28,6 +28,11 @@ public class ParameterNotifier implements INotifier{
 	}
 
 	@Override
+	public NotifierChannelType GetType() {
+		return NotifierChannelType.ParameterChannel;
+	}
+
+	@Override
 	public void NotifyFilterStateChanged(Filter filter) {
 		this.parameterHub.NotifyParameterStateChanged(filter);
 	}

@@ -2,9 +2,9 @@ package domain.filtercontroller;
 
 import java.util.*;
 
-import domain.configuration.Builder;
 import domain.filters.Filter;
-import domain.filters.ICountable;
+import domain.filters.types.CompositeFilter;
+import domain.notifier.NotifierChannelType;
 import domain.filters.ReservedState;
 import domain.hub.Hub;
 
@@ -120,6 +120,11 @@ public class FilterController implements IFilterController {
 		this.Update();
 	}
 
+	@Override
+	public void MakeDirectRequest(String url) {
+		this.requestHandler.makeRequest(url);
+	}
+
 	public void Update() {
 		Map<Filter, Date> s = getRequestParameters();
 		String request = this.requestConverter.Convert(s);
@@ -147,7 +152,27 @@ public class FilterController implements IFilterController {
 		return filter;
     }
 
-    @Override
+	@Override
+	public List<Filter> GetFiltersByChannel(NotifierChannelType filterChannel) {
+		List<Filter> filters = new ArrayList<>();
+		for(FilterContainer container : this.containers){
+			this.checkAndAddFilters(container.GetFilters(), filters, filterChannel);
+		}
+		return filters;
+	}
+
+	private void checkAndAddFilters(List<Filter> filtersToCheck, List<Filter> listToAdd, NotifierChannelType filterChannel){
+		for(Filter f : filtersToCheck){
+			if(f.GetNotifierType() == filterChannel)
+				listToAdd.add(f);
+			else if(f.GetNotifierType() == NotifierChannelType.Complex){
+				List<Filter> innerFilters = ((CompositeFilter)f ).getFilters();
+				this.checkAndAddFilters(innerFilters, listToAdd, filterChannel);
+			}
+		}
+	}
+
+	@Override
     public void Clear() {
 		this.containers.clear();
     }
