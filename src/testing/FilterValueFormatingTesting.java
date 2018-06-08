@@ -11,6 +11,7 @@ import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.Filter;
 import domain.filters.INotifier;
+import domain.filters.formatters.NumberValueFormatPolicy;
 import domain.filters.formatters.NumberValuePostFormatter;
 import domain.notifier.FilterNotifier;
 import org.junit.Assert;
@@ -25,7 +26,7 @@ public class FilterValueFormatingTesting {
 
     @Test
     public void testNumberExtractionLogic(){
-        NumberValuePostFormatter formatter = new NumberValuePostFormatter(NumberValuePostFormatter.Policy.CONVERT_COMMA_TO_DOT);
+        NumberValuePostFormatter formatter = new NumberValuePostFormatter(NumberValueFormatPolicy.CONVERT_COMMA_TO_DOT);
         List<String> numbers = formatter.Extract("jdj7jhb2.33sjd23,33dd0-09=-=234");
         // 7 2.33 23,33 0 09 234
 
@@ -55,7 +56,7 @@ public class FilterValueFormatingTesting {
         numbers.add("1.,22");
         numbers.add("1#,F#22,2");
 
-        NumberValuePostFormatter formatter = new NumberValuePostFormatter(NumberValuePostFormatter.Policy.CONVERT_COMMA_TO_DOT);
+        NumberValuePostFormatter formatter = new NumberValuePostFormatter(NumberValueFormatPolicy.CONVERT_COMMA_TO_DOT);
 
         for(int i = 0; i < numbers.size(); i++){
             String formatted = formatter.Format(numbers.get(i));
@@ -84,7 +85,7 @@ public class FilterValueFormatingTesting {
         String res = f1.GetParameterValue();
         Assert.assertEquals("77s7s,dw2,3wdq,dd", res);
 
-        NumberValuePostFormatter formatter = new NumberValuePostFormatter(NumberValuePostFormatter.Policy.CONVERT_COMMA_TO_DOT);
+        NumberValuePostFormatter formatter = new NumberValuePostFormatter(NumberValueFormatPolicy.CONVERT_COMMA_TO_DOT);
         f1.SetValuePostFormatter(formatter);
         res=  f1.GetParameterValue();
         Assert.assertEquals("77s7s,dw2.3wdq,dd", res);

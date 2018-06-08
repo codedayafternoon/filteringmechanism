@@ -8,14 +8,9 @@ import java.util.List;
 public class NumberValuePostFormatter implements IValuePostFormatter {
 
     List<Character> innerNumberChars;
-    private Policy policy;
+    private NumberValueFormatPolicy policy;
 
-    public enum Policy{
-        CONVERT_DOT_TO_COMMA,
-        CONVERT_COMMA_TO_DOT
-    }
-
-    public NumberValuePostFormatter(Policy policy) {
+    public NumberValuePostFormatter(NumberValueFormatPolicy policy) {
         this.innerNumberChars = new ArrayList<>();
         this.innerNumberChars.add('.');
         this.innerNumberChars.add(',');

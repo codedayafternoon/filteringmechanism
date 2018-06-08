@@ -2,18 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4cb998c-79ff-4600-979e-12edf2390fb1" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/domain/filters/BoolValueFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/domain/filters/IValuePostFormatter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/domain/filters/TextValueFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/domain/filters/formatters/DefaultValuePostFormatter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/domain/filters/formatters/NumberValuePostFormatter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/testing/FilterValueFormatingTesting.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/filters/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/Filter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/filters/types/CheckBoxFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/types/CheckBoxFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/filters/types/FreeTextFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/types/FreeTextFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/filters/types/RangeFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/types/RangeFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/filters/types/SingleTextFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/types/SingleTextFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/domain/filters/formatters/NumberValueFormatPolicy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/filters/TextValueFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/TextValueFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/filters/formatters/NumberValuePostFormatter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/formatters/NumberValuePostFormatter.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -39,19 +30,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="RangeFilter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/domain/filters/types/RangeFilter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-2382">
-              <caret line="10" column="57" selection-start-line="10" selection-start-column="57" selection-end-line="10" selection-end-column="57" />
-              <folding>
-                <element signature="e#4259#4260#0" expanded="true" />
-                <element signature="e#4276#4277#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="OveridingParametersKeyValuesInFilters.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/testing/OveridingParametersKeyValuesInFilters.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -67,11 +45,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FilterValueFormatingTesting.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FilterValueFormatingTesting.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/testing/FilterValueFormatingTesting.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="320">
-              <caret line="93" column="52" lean-forward="true" selection-start-line="93" selection-start-column="52" selection-end-line="93" selection-end-column="52" />
+            <state relative-caret-position="362">
+              <caret line="95" column="55" lean-forward="true" selection-start-line="95" selection-start-column="55" selection-end-line="95" selection-end-column="55" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="class#MockConfiguration#0;class#FilterValueFormatingTesting#0" />
@@ -91,24 +69,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MockFreeTextFilter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/testing/mocks/MockFreeTextFilter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="147">
-              <caret line="9" column="46" lean-forward="true" selection-start-line="9" selection-start-column="46" selection-end-line="9" selection-end-column="46" />
-              <folding>
-                <element signature="e#325#326#0" expanded="true" />
-                <element signature="e#366#367#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="BoolValueFilter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/domain/filters/BoolValueFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="84">
-              <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+            <state relative-caret-position="147">
+              <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
               <folding>
                 <element signature="e#152#153#0" expanded="true" />
                 <element signature="e#193#194#0" expanded="true" />
@@ -117,14 +82,53 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NumberValuePostFormatter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/domain/filters/formatters/NumberValuePostFormatter.java">
+      <file leaf-file-name="IValuePostFormatter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/domain/filters/IValuePostFormatter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="143">
-              <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
+            <state relative-caret-position="84">
+              <caret line="4" selection-start-line="4" selection-end-line="7" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="DefaultValuePostFormatter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/domain/filters/formatters/DefaultValuePostFormatter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TextValueFilter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/domain/filters/TextValueFilter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="437">
+              <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NumberValuePostFormatter.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/domain/filters/formatters/NumberValuePostFormatter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="12" column="59" selection-start-line="12" selection-start-column="59" selection-end-line="12" selection-end-column="59" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NumberValueFormatPolicy.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/domain/filters/formatters/NumberValueFormatPolicy.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="84">
+              <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
             </state>
           </provider>
         </entry>
@@ -152,23 +156,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SingleSelectFilter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/domain/filters/types/SingleSelectFilter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -212,7 +207,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/root/Main.java" />
         <option value="$PROJECT_DIR$/src/domain/hub/IHub.java" />
         <option value="$PROJECT_DIR$/src/testing/UpdateFiltersFromFilters.java" />
         <option value="$PROJECT_DIR$/src/domain/configuration/IAction.java" />
@@ -260,9 +254,10 @@
         <option value="$PROJECT_DIR$/src/domain/filters/types/RangeFilter.java" />
         <option value="$PROJECT_DIR$/src/domain/filters/types/SingleSelectFilter.java" />
         <option value="$PROJECT_DIR$/src/domain/filters/types/SingleTextFilter.java" />
-        <option value="$PROJECT_DIR$/src/domain/filters/TextValueFilter.java" />
-        <option value="$PROJECT_DIR$/src/domain/filters/formatters/NumberValuePostFormatter.java" />
         <option value="$PROJECT_DIR$/src/testing/FilterValueFormatingTesting.java" />
+        <option value="$PROJECT_DIR$/src/domain/filters/TextValueFilter.java" />
+        <option value="$PROJECT_DIR$/src/domain/filters/formatters/NumberValueFormatPolicy.java" />
+        <option value="$PROJECT_DIR$/src/domain/filters/formatters/NumberValuePostFormatter.java" />
       </list>
     </option>
   </component>
@@ -324,6 +319,14 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="domain" type="462c0819:PsiDirectoryNode" />
               <item name="filters" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="filteringmechanism" type="b2602c69:ProjectViewProjectNode" />
+              <item name="filteringmechanism" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
+              <item name="filters" type="462c0819:PsiDirectoryNode" />
+              <item name="formatters" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="filteringmechanism" type="b2602c69:ProjectViewProjectNode" />
@@ -618,13 +621,13 @@
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29280648" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.29280648" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="right" id="Coverage" order="3" side_tool="true" weight="0.19895834" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20364584" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20364584" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
@@ -811,13 +814,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/domain/configuration/actions/NullNewContainerAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="23" column="1" lean-forward="true" selection-start-line="23" selection-start-column="1" selection-end-line="23" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/domain/configuration/actions/RemoveFiltersMissingContainerAction.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="282">
@@ -1079,23 +1075,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/formatters/DefaultValuePostFormatter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/IValuePostFormatter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="5" column="6" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/testing/BuilderActionsTest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="287">
@@ -1192,17 +1171,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/BoolValueFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
-          <folding>
-            <element signature="e#152#153#0" expanded="true" />
-            <element signature="e#193#194#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/domain/filters/types/FreeTextFilter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="411">
@@ -1235,29 +1203,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/TextValueFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="185">
-          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
-          <folding>
-            <element signature="e#151#152#0" expanded="true" />
-            <element signature="e#192#193#0" expanded="true" />
-            <element signature="e#584#585#0" expanded="true" />
-            <element signature="e#621#622#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/formatters/NumberValuePostFormatter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="143">
-          <caret line="30" column="8" selection-start-line="30" selection-start-column="8" selection-end-line="30" selection-end-column="8" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/testing/InterconnectionTesting.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
@@ -1267,8 +1212,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/testing/FilterValueFormatingTesting.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="320">
-          <caret line="93" column="52" lean-forward="true" selection-start-line="93" selection-start-column="52" selection-end-line="93" selection-end-column="52" />
+        <state relative-caret-position="362">
+          <caret line="95" column="55" lean-forward="true" selection-start-line="95" selection-start-column="55" selection-end-line="95" selection-end-column="55" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="class#MockConfiguration#0;class#FilterValueFormatingTesting#0" />
@@ -1283,6 +1228,58 @@
             <element signature="e#2709#2710#0" expanded="true" />
             <element signature="e#2777#2778#0" expanded="true" />
             <element signature="e#2813#2814#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/BoolValueFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="147">
+          <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
+          <folding>
+            <element signature="e#152#153#0" expanded="true" />
+            <element signature="e#193#194#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/IValuePostFormatter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" selection-start-line="4" selection-end-line="7" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/TextValueFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/formatters/DefaultValuePostFormatter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/formatters/NumberValueFormatPolicy.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="4" column="24" selection-start-line="4" selection-start-column="24" selection-end-line="4" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/formatters/NumberValuePostFormatter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="12" column="59" selection-start-line="12" selection-start-column="59" selection-end-line="12" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

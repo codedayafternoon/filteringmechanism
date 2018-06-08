@@ -32,5 +32,4 @@ public abstract class TextValueFilter extends Filter {
 
     protected abstract String DoGetParameterValue();
 
-
 }
