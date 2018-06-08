@@ -2,13 +2,13 @@ package domain.filters.types;
 
 import java.util.List;
 
+import domain.filtercontroller.FilterContainer;
 import domain.filters.Filter;
 import domain.filters.FilterMode;
 import domain.filters.INotifier;
-import domain.filters.TextValueFilter;
 import domain.filters.structures.RangePart;
 
-public abstract class RangeFilter extends TextValueFilter {
+public abstract class RangeFilter extends Filter {
 
 	private RangePart rangeFrom;
 	private RangePart rangeTo;

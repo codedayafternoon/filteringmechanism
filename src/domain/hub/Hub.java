@@ -256,7 +256,7 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	}
 
 	private List<FilterInterconnection> getFilterActorsFromInterconnections(Filter filter, FilterEvent state) {
-		return this.Interconnections.stream().filter(x -> x.When.Event == state && x.When.GetFilters().contains(filter)).collect(Collectors.toList());
+		return this.Interconnections.stream().filter(x -> x.When.Event == state && x.When.GetSubjects().contains(filter)).collect(Collectors.toList());
 	}
 
 	private void notifySubjectsFromInterconnections(List<FilterInterconnection> filtered) {
@@ -277,7 +277,7 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	}
 
 	private void notifyClause(EventSubjectPair clause) {
-		List<Filter> subjects = clause.GetFilters();
+		List<Filter> subjects = clause.GetSubjects();
 		FilterEvent event = clause.Event;
 		for(Filter f : subjects){
 			if(event == FilterEvent.Reset)

@@ -104,4 +104,10 @@ public class FilterContainer implements IInvalidator{
 
 		return updated;
     }
+
+    public boolean isEmpty() {
+		if(this.filters == null || this.filters.size() == 0)
+			return true;
+		return false;
+    }
 }

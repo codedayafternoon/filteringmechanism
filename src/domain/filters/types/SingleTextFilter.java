@@ -5,10 +5,9 @@ import java.util.List;
 import domain.filters.Filter;
 import domain.filters.FilterMode;
 import domain.filters.INotifier;
-import domain.filters.TextValueFilter;
 import domain.filters.structures.RangePart;
 
-public abstract class SingleTextFilter extends TextValueFilter {
+public abstract class SingleTextFilter extends Filter {
 
 	protected RangePart range;
 

@@ -11,6 +11,7 @@ public abstract class Filter implements ICountable {
 	protected FilterContainer _container;
 
 	private int count;
+	protected IValuePostFormatter postValueFormatter;
 
 	public Filter(Object id, String name, INotifier notifier) {
 		if(id == null || name == null)
@@ -27,6 +28,16 @@ public abstract class Filter implements ICountable {
 		return Name;
 	}
 
+	public IValuePostFormatter GetPostFormatter(){
+		if(this.postValueFormatter == null)
+			this.postValueFormatter = new DefaultValuePostFormatter();
+		return this.postValueFormatter;
+	}
+
+	public void SetValuePostFormatter(IValuePostFormatter formatter){
+		this.postValueFormatter = formatter;
+	}
+
 	public void setName(String name) {
 		if(name == null || this.Name.equals(name))
 			return;
@@ -37,8 +48,18 @@ public abstract class Filter implements ICountable {
 
 	public abstract FilterMode GetMode();
 	public abstract String GetParameterKey();
-	public abstract String GetParameterValue();
 
+	public final String GetParameterValue(){
+		String res = this.DoGetParameterValue();
+		for(String number : this.GetPostFormatter().Extract(res)) {
+			String formattedNumber = this.GetPostFormatter().Format(number);
+			if(!number.equals(formattedNumber))
+				res = res.replace(number, formattedNumber);
+		}
+		return res;
+	}
+
+	protected abstract String DoGetParameterValue();
 
 	@Override
 	public void SetCount(int count){

@@ -1,11 +1,10 @@
 package domain.filters.types;
 
-import domain.filters.BoolValueFilter;
 import domain.filters.Filter;
 import domain.filters.FilterMode;
 import domain.filters.INotifier;
 
-public abstract class CheckBoxFilter extends BoolValueFilter {
+public abstract class CheckBoxFilter extends Filter {
 	
 	protected boolean _isChecked;
 	
@@ -53,7 +52,7 @@ public abstract class CheckBoxFilter extends BoolValueFilter {
 	}
 
 	@Override
-	public String GetParameterValue(){
+	public String DoGetParameterValue(){
 		return this.Name;
 	}
 

@@ -90,7 +90,7 @@ public abstract class CompositeFilter extends Filter implements INotifier {
 	}
 
 	@Override
-	public String GetParameterValue(){
+	public String DoGetParameterValue(){
 		return this.Name;
 	}
 

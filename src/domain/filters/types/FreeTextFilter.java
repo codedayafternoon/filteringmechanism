@@ -3,9 +3,8 @@ package domain.filters.types;
 import domain.filters.Filter;
 import domain.filters.FilterMode;
 import domain.filters.INotifier;
-import domain.filters.TextValueFilter;
 
-public abstract class FreeTextFilter extends TextValueFilter {
+public abstract class FreeTextFilter extends Filter {
 
 	protected String selectedValue;
 	protected String defaultValue;
