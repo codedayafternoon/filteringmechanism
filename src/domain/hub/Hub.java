@@ -33,8 +33,7 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 
 	private List<IResultHubListener> resultListeners;
 
-	public List<FilterInterconnection> Interconnections;
-
+	private List<FilterInterconnection> interconnections;
 
 	public Hub() {
 		this.filters = new HashMap<>();
@@ -47,7 +46,7 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 
 		this.resultListeners = new ArrayList<>();
 
-		this.Interconnections = new ArrayList<>();
+		this.interconnections = new ArrayList<>();
 	}
 
 	// ===================================== REGION Filters ==============================================
@@ -256,7 +255,7 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	}
 
 	private List<FilterInterconnection> getFilterActorsFromInterconnections(Filter filter, FilterEvent state) {
-		return this.Interconnections.stream().filter(x -> x.When.Event == state && x.When.GetSubjects().contains(filter)).collect(Collectors.toList());
+		return this.interconnections.stream().filter(x -> x.When.Event == state && x.When.GetSubjects().contains(filter)).collect(Collectors.toList());
 	}
 
 	private void notifySubjectsFromInterconnections(List<FilterInterconnection> filtered) {
@@ -327,7 +326,6 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 		this.filterController = controller;
 	}
 
-
 	@Override
 	public void ResultReceived(IResult result) {
 		Object resultObject = result.GetResults();
@@ -353,6 +351,43 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 	@Override
 	public void ClearResultListeners() {
 		this.resultListeners.clear();
+	}
+
+	@Override
+	public void AddInterconnection(FilterInterconnection interconnection) {
+		if(this.interconnections.contains(interconnection))
+			return;
+		if(this.getInterconnectionById(interconnection.getId() )!= null)
+			return;
+
+		this.interconnections.add(interconnection);
+	}
+
+	@Override
+	public void RemoveInterconnection(FilterInterconnection interconnection) {
+		if(this.interconnections.contains(interconnection))
+			this.interconnections.remove(interconnection);
+		FilterInterconnection i = this.getInterconnectionById(interconnection.getId());
+		if(i == null)
+			return;
+
+		this.interconnections.remove(i);
+	}
+
+	@Override
+	public boolean HasInterconnection(FilterInterconnection interconnection) {
+		FilterInterconnection i = this.getInterconnectionById(interconnection.getId());
+		if(i == null)
+			return false;
+		return true;
+	}
+
+	private FilterInterconnection getInterconnectionById(Object interconnectionId) {
+		for(FilterInterconnection i : this.interconnections){
+			if(i.getId().toString().equals(interconnectionId.toString()))
+				return i;
+		}
+		return null;
 	}
 
 	@Override

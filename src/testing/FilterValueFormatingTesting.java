@@ -44,6 +44,9 @@ public class FilterValueFormatingTesting {
         Assert.assertEquals("7", numbers.get(1));
         Assert.assertEquals("2,3", numbers.get(2));
 
+        numbers = formatter.Extract("2,8 - 3,5");
+
+
     }
 
     @Test
