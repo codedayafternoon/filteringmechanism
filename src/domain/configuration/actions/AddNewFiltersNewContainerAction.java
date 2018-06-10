@@ -39,7 +39,7 @@ public class AddNewFiltersNewContainerAction extends  ActionBase{
     private List<FilterContainer> findNewContainers(List<FilterContainer> containers) {
         List<FilterContainer> res = new ArrayList<>();
         for(FilterContainer c : containers){
-            FilterContainer existing = this.controller.FindContainer(c.GetId());
+            FilterContainer existing = this.controller.GetContainerById(c.GetId());
             if(existing == null)
                 res.add(c);
         }

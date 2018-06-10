@@ -8,6 +8,8 @@ import domain.filters.Filter;
 import domain.filters.FilterPropertyType;
 import domain.filters.INotifier;
 import domain.hub.Hub;
+import domain.notifier.FilterNotifier;
+import domain.notifier.NotifierChannelType;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -96,9 +98,6 @@ public class FilterTest {
         Assert.assertEquals(false, checkBox2.IsChecked() );
         Assert.assertEquals(false, checkBox3.IsChecked() );
         Assert.assertEquals(4, notifier.Notified );
-
-
-
     }
 
     @Test
@@ -166,6 +165,11 @@ public class FilterTest {
         @Override
         public void NotifyFilterUpdated(Filter filter) {
 
+        }
+
+        @Override
+        public NotifierChannelType GetType() {
+            return NotifierChannelType.FilterChannel;
         }
 
         @Override

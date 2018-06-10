@@ -35,7 +35,7 @@ public abstract class FreeTextFilter extends Filter {
 	}
 
 	@Override
-	public String GetParameterValue(){
+	public String DoGetParameterValue(){
 		return this.GetState();
 	}
 

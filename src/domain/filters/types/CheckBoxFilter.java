@@ -52,7 +52,7 @@ public abstract class CheckBoxFilter extends Filter {
 	}
 
 	@Override
-	public String GetParameterValue(){
+	public String DoGetParameterValue(){
 		return this.Name;
 	}
 

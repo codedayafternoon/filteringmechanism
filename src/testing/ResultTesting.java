@@ -49,7 +49,7 @@ public class ResultTesting {
         this.context.Initialize(this.requestHandler, this.requestConverter, new MockConfiguration());
         this.requestHandler.SetHub(this.context.GetHub());
 
-        this.resultModule = new MockResultListenerModule(this.context.GetController());
+        this.resultModule = new MockResultListenerModule(this.context.GetHub());
 
         this.notifier = new FilterNotifier(this.context.GetHub());
         this.container1 = new FilterContainer(1,"c1");
@@ -115,8 +115,8 @@ public class ResultTesting {
 
         public Object Result;
 
-        public MockResultListenerModule(FilterController controller) {
-            controller.GetHub().AddResultListener(this);
+        public MockResultListenerModule(Hub hub) {
+            hub.AddResultListener(this);
         }
 
         @Override

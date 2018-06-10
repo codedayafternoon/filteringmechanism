@@ -181,18 +181,18 @@ public class CommandExecution {
         MockRequestHandler handler = new MockRequestHandler();
         MockController controller = new MockController(containers, hub, handler, new UrlQueryConverter(new UrlBuilder(",", "&")));
 
-        HubCommand singleContainerStateChangeCommand = new HubCommand(1, "singleContainer", "f1", "1"); // filter notifiers +1
-        HubCommand singleContainerStateChangeCommand2 = new HubCommand(2, "singleContainer", "f2", "1"); // filterNotifiers +1 and -1 for reseting f1
-        HubCommand singleContainerStateChangeCommand3 = new HubCommand(3, "singleContainer", "f3", "1"); // filterNotifiers +1 and -1 for reseting f2
+        HubCommand singleContainerStateChangeCommand = new HubCommand(1, "singleContainer",1, "f1", "1"); // filter notifiers +1
+        HubCommand singleContainerStateChangeCommand2 = new HubCommand(1, "singleContainer",2, "f2", "1"); // filterNotifiers +1 and -1 for reseting f1
+        HubCommand singleContainerStateChangeCommand3 = new HubCommand(1, "singleContainer",3, "f3", "1"); // filterNotifiers +1 and -1 for reseting f2
 
-        HubCommand checkBoxStateChangeCommand = new HubCommand(5, "checkContainer", "c2", "1"); // filter notifiers +1
-        HubCommand checkBoxStateChangeCountCommand2 = new HubCommand(4, "checkContainer", "c1", 10, "1"); // filter notifiers +1 for propertyChanged +1 for count
-        HubCommand checkBoxStateChangeCountCommand3 = new HubCommand(5, "checkContainer", "c2",100, "0"); // filter notifiers -1 for propertyChanged +1 for count
+        HubCommand checkBoxStateChangeCommand = new HubCommand(2, "checkContainer",5, "c2", "1"); // filter notifiers +1
+        HubCommand checkBoxStateChangeCountCommand2 = new HubCommand(2, "checkContainer",4, "c1", 10, "1"); // filter notifiers +1 for propertyChanged +1 for count
+        HubCommand checkBoxStateChangeCountCommand3 = new HubCommand(2, "checkContainer",5, "c2",100, "0"); // filter notifiers -1 for propertyChanged +1 for count
 
-        HubCommand freeContainerStateChangeCommand3 = new HubCommand(7, "freeContainer", "f1", "free_text"); // filter notifiers +1
+        HubCommand freeContainerStateChangeCommand3 = new HubCommand(3, "freeContainer",7, "f1", "free_text"); // filter notifiers +1
 
-        HubCommand rangeStateChangeCommand1 = new HubCommand(11, "range", "r", 63, "from:100"); // filter notifiers +1 propertyChanged +1
-        HubCommand rangeStateChangeCommand2 = new HubCommand(11, "range", "r", "to:400"); // filter notifiers +1
+        HubCommand rangeStateChangeCommand1 = new HubCommand(5, "range",11, "r", 63, "from:100"); // filter notifiers +1 propertyChanged +1
+        HubCommand rangeStateChangeCommand2 = new HubCommand(5, "range",11, "r", "to:400"); // filter notifiers +1
 
         this.hub.Execute(singleContainerStateChangeCommand);
         this.hub.Execute(singleContainerStateChangeCommand2);
@@ -216,7 +216,7 @@ public class CommandExecution {
         Assert.assertEquals(0, this.completeChannel.Request);
         Assert.assertEquals(5, this.completeChannel.Filter);
 
-        controller.ChangeState("complex", "c1", "cs1:z");
+        controller.ChangeState(complexContainer.GetId(), compositeFilter.Id, complexSingleText.Id + ":z");
         Assert.assertEquals(0, this.parameterFilterChannel.Parameter);
         Assert.assertEquals(6, this.parameterFilterChannel.Filter);
         Assert.assertEquals(3, this.parameterFilterChannel.FilterPropertyChanged);
@@ -233,15 +233,15 @@ public class CommandExecution {
         Assert.assertTrue(handler.Request.contains("r=from:100-to:400"));
         Assert.assertTrue(handler.Request.contains("cs1=z"));
 
-        HubCommand singleContainerStateChangeCommandreset = new HubCommand(3, "singleContainer", "f3", ReservedState.reset.toString()); // filterNotifiers -1
+        HubCommand singleContainerStateChangeCommandreset = new HubCommand(1, "singleContainer",3, "f3", ReservedState.reset.toString()); // filterNotifiers -1
 
-        HubCommand checkBoxStateChangeCommandreset = new HubCommand(5, "checkContainer", "c2", "0"); // filter notifiers 0 because is already 0
-        HubCommand checkBoxStateChangeCountCommand2reset = new HubCommand(4, "checkContainer", "c1", "0"); // filter notifiers -1
+        HubCommand checkBoxStateChangeCommandreset = new HubCommand(2, "checkContainer",5, "c2", "0"); // filter notifiers 0 because is already 0
+        HubCommand checkBoxStateChangeCountCommand2reset = new HubCommand(2, "checkContainer",4, "c1", "0"); // filter notifiers -1
 
-        HubCommand freeContainerStateChangeCommand3reset = new HubCommand(7, "freeContainer", "f1", ""); // filter notifiers +1
+        HubCommand freeContainerStateChangeCommand3reset = new HubCommand(3, "freeContainer",7, "f1", ""); // filter notifiers +1
 
-        HubCommand rangeStateChangeCommand1reset = new HubCommand(11, "range", "r", "from:200"); // filter notifiers +1
-        HubCommand rangeStateChangeCommand2reset = new HubCommand(11, "range", "r", "to:500"); // filter notifiers +1
+        HubCommand rangeStateChangeCommand1reset = new HubCommand(5, "range",11, "r", "from:200"); // filter notifiers +1
+        HubCommand rangeStateChangeCommand2reset = new HubCommand(5, "range",11, "r", "to:500"); // filter notifiers +1
 
         this.hub.Execute(singleContainerStateChangeCommandreset);
 
@@ -262,7 +262,7 @@ public class CommandExecution {
         Assert.assertEquals(0, this.completeChannel.Request);
         Assert.assertEquals(7, this.completeChannel.Filter);
 
-        controller.ChangeState("complex", "c1", "cs1:x");
+        controller.ChangeState(complexContainer.GetId(), compositeFilter.Id, complexSingleText.Id + ":x");
         Assert.assertFalse(handler.Request.contains("singleContainer=f3"));
         Assert.assertFalse(handler.Request.contains("checkContainer=c2,c1") || handler.Request.contains("checkContainer=c1,c2"));
         Assert.assertTrue(handler.Request.contains("f1="));

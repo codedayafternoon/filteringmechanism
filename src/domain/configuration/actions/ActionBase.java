@@ -1,28 +1,19 @@
 package domain.configuration.actions;
 
 import domain.configuration.IAction;
-import domain.configuration.IActionObservable;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.FilterController;
 import domain.filters.Filter;
 
-import java.util.List;
-
-public abstract class ActionBase implements IAction, IActionObservable {
+public abstract class ActionBase implements IAction {
 
     protected FilterController controller;
-    //protected List<FilterContainer> arrivedContainers;
     private IActionObserver observer;
 
     public ActionBase(FilterController controller, IActionObserver observer) {
         this.controller = controller;
         this.observer = observer;
     }
-//
-//    @Override
-//    public void SetContainers(List<FilterContainer> containers){
-//        this.arrivedContainers = containers;
-//    }
 
     protected void ContainerAdded(IAction action, FilterContainer container) {
         this.observer.ContainerAdded(action.GetType(), container);
@@ -38,5 +29,9 @@ public abstract class ActionBase implements IAction, IActionObservable {
 
     protected void FilterRemoved(IAction action, Filter f) {
         this.observer.FilterRemoved(action.GetType(), f);
+    }
+
+    protected void ContainerUpdated(IAction action, FilterContainer container){
+        this.observer.ContainerUpdated(action.GetType(), container);
     }
 }

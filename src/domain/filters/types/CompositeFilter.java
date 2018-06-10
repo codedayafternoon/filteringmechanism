@@ -6,6 +6,7 @@ import java.util.List;
 import domain.filters.Filter;
 import domain.filters.FilterMode;
 import domain.filters.INotifier;
+import domain.notifier.NotifierChannelType;
 
 public abstract class CompositeFilter extends Filter implements INotifier {
 
@@ -17,7 +18,11 @@ public abstract class CompositeFilter extends Filter implements INotifier {
 		this.filters = new ArrayList<Filter>();
 		this.activeFilters = new ArrayList<>();
 	}
-	
+
+	public List<Filter> getFilters() {
+		return filters;
+	}
+
 	public void AddFilter(Filter f) {
 		if(this.filters.contains(f))
 			return;
@@ -28,27 +33,55 @@ public abstract class CompositeFilter extends Filter implements INotifier {
 		if(this.filters.contains(f))
 			this.filters.remove(f);
 	}
+
+	@Override
+	public NotifierChannelType GetNotifierType(){
+		return this.GetType();
+	}
+
+	@Override
+	public NotifierChannelType GetType() {
+		return NotifierChannelType.Complex;
+	}
 	
 	@Override
 	protected void DoChangeState(String state) {
 		String[] parts = state.split(":");
 		if(parts.length != 2)
 			return;
-		String filterName = parts[0];
+		Object filterId = parts[0];
 		String s = parts[1];
-		
-		Filter f = this.filters.stream().filter(x->x.getName().equals(filterName)).findFirst().get();
+
+		Filter f = this.getFilterById(filterId);
+		if(f == null)
+			return;
 
 		f.ChangeState(s);
-		
 	}
 
-	// TODO implement this method
 	@Override
 	protected boolean DoUpdateFrom(Filter filter){
+		CompositeFilter cf = (CompositeFilter) filter;
+		if(cf == null)
+			return false;
+
+		for(Filter f : cf.getFilters()){
+			Filter curr = this.getFilterById(f.Id);
+			if(curr == null)
+				continue;
+			curr.UpdateFrom(f);
+		}
 		return false;
 	}
-	
+
+	private Filter getFilterById(Object id) {
+		for(Filter f : this.filters){
+			if(f.Id.toString().equals( id.toString()))
+				return f;
+		}
+		return null;
+	}
+
 	@Override
 	public String GetState() {
 		String state = "";
@@ -68,7 +101,7 @@ public abstract class CompositeFilter extends Filter implements INotifier {
 	}
 
 	@Override
-	public String GetParameterValue(){
+	public String DoGetParameterValue(){
 		return this.Name;
 	}
 

@@ -19,6 +19,6 @@ public class NullMissingContainerAction extends ActionBase {
 
     @Override
     public ActionType GetType() {
-        return null;
+        return ActionType.MissingContainerAction;
     }
 }

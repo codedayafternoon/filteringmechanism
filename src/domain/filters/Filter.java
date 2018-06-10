@@ -1,6 +1,8 @@
 package domain.filters;
 
 import domain.filtercontroller.FilterContainer;
+import domain.filters.formatters.DefaultValuePostFormatter;
+import domain.notifier.NotifierChannelType;
 
 public abstract class Filter implements ICountable {
 
@@ -9,12 +11,8 @@ public abstract class Filter implements ICountable {
 	protected INotifier notifier;
 	protected FilterContainer _container;
 	private int count;
+	protected IValuePostFormatter postValueFormatter;
 
-	public abstract FilterMode GetMode();
-
-	public abstract String GetParameterKey();
-	public abstract String GetParameterValue();
-	
 	public Filter(Object id, String name, INotifier notifier) {
 		if(id == null || name == null)
 			throw new Error("id or name of a filter cannot be null");
@@ -26,8 +24,22 @@ public abstract class Filter implements ICountable {
 		this.count = -1;
 	}
 
+	public NotifierChannelType GetNotifierType(){
+		return this.notifier.GetType();
+	}
+
 	public String getName() {
 		return Name;
+	}
+
+	public IValuePostFormatter GetPostFormatter(){
+		if(this.postValueFormatter == null)
+			this.postValueFormatter = new DefaultValuePostFormatter();
+		return this.postValueFormatter;
+	}
+
+	public void SetValuePostFormatter(IValuePostFormatter formatter){
+		this.postValueFormatter = formatter;
 	}
 
 	public void setName(String name) {
@@ -37,6 +49,21 @@ public abstract class Filter implements ICountable {
 		this.Name = name;
 		this.notifier.NotifyPropertyChanged(this, old, name, FilterPropertyType.Name);
 	}
+
+	public abstract FilterMode GetMode();
+	public abstract String GetParameterKey();
+
+	public final String GetParameterValue(){
+		String res = this.DoGetParameterValue();
+		for(String number : this.GetPostFormatter().Extract(res)) {
+			String formattedNumber = this.GetPostFormatter().Format(number);
+			if(!number.equals(formattedNumber))
+				res = res.replace(number, formattedNumber);
+		}
+		return res;
+	}
+
+	protected abstract String DoGetParameterValue();
 
 	@Override
 	public void SetCount(int count){
@@ -71,6 +98,7 @@ public abstract class Filter implements ICountable {
 	}
 
 	protected abstract void DoChangeState(String state);
+
 	public void UpdateFrom(Filter filter){
 		if(filter == null)
 			return;

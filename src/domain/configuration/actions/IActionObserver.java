@@ -9,4 +9,5 @@ public interface IActionObserver {
     void FilterAdded(ActionType actionType, Filter f);
     void ContainerRemoved(ActionType actionType, FilterContainer container);
     void FilterRemoved(ActionType actionType, Filter f);
+    void ContainerUpdated(ActionType actionType, FilterContainer container);
 }

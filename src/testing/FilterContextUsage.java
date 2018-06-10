@@ -2,10 +2,7 @@ package testing;
 
 import domain.FilterContext;
 import domain.configuration.*;
-import domain.filtercontroller.FilterContainer;
-import domain.filtercontroller.FilterController;
-import domain.filtercontroller.IRequestConverter;
-import domain.filtercontroller.IRequestHandler;
+import domain.filtercontroller.*;
 import domain.filters.Filter;
 import domain.filters.FilterPropertyType;
 import domain.hub.Hub;
@@ -33,14 +30,15 @@ public class FilterContextUsage {
 
         context.GetBuilder().Build(new MockBuilderItems(context.GetHub()));
 
-        FilterController controller = context.GetController();
-        MockParameterComponent component1 = new MockParameterComponent(controller);
-        MockCompleteComponent component2 = new MockCompleteComponent(controller );
+        IFilterController controller = context.GetController();
+        MockParameterComponent component1 = new MockParameterComponent(context.GetHub());
+        MockCompleteComponent component2 = new MockCompleteComponent(context.GetHub());
 
         Assert.assertEquals(1, context.GetController().GetContainers().size());
         Assert.assertEquals(1, context.GetController().GetContainers().get(0).GetFilters().size());
         Assert.assertEquals("f1", context.GetController().GetContainers().get(0).GetFilters().get(0).getName());
 
+        context.Dispose();
     }
 
     private class MockConfiguration extends Configuration{
@@ -81,10 +79,10 @@ public class FilterContextUsage {
 
     private class MockCompleteComponent implements IParameterHubListener, IFilterHubListener, IRequestHubListener{
 
-        public MockCompleteComponent(FilterController controller) {
-            controller.GetHub().AddParameterListener(this);
-            controller.GetHub().AddFilterListener(this);
-            controller.GetHub().AddRequestListener(this);
+        public MockCompleteComponent(Hub hub) {
+            hub.AddParameterListener(this);
+            hub.AddFilterListener(this);
+            hub.AddRequestListener(this);
         }
 
         @Override
@@ -150,8 +148,8 @@ public class FilterContextUsage {
 
     private class MockParameterComponent implements IParameterHubListener{
 
-        public MockParameterComponent(FilterController controller) {
-            controller.GetHub().AddParameterListener(this);
+        public MockParameterComponent(Hub hub) {
+            hub.AddParameterListener(this);
         }
 
         @Override

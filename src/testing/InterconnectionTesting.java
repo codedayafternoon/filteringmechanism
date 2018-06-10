@@ -101,21 +101,21 @@ public class InterconnectionTesting {
     public void testHubInterconnectionComplex(){
 
         // rule 1
-        FilterInterconnection interconnection1 = new FilterInterconnection();
+        FilterInterconnection interconnection1 = new FilterInterconnection(1);
         interconnection1.When.Event = FilterEvent.Reset;
-        interconnection1.When.AddFilter(this.checkBox1);
-        interconnection1.When.AddFilter(this.range1);
+        interconnection1.When.Who(this.checkBox1);
+        interconnection1.When.Who(this.range1);
         EventSubjectPair thenClause1_1 = new EventSubjectPair();
         thenClause1_1.Event = FilterEvent.StateChange;
         thenClause1_1.Parameters = "abc";
-        thenClause1_1.AddFilter(this.freeFilter);
+        thenClause1_1.Who(this.freeFilter);
         EventSubjectPair thenClause1_2 = new EventSubjectPair();
         thenClause1_2.Event = FilterEvent.StateChange;
         thenClause1_2.Parameters = "1";
-        thenClause1_2.AddFilter(this.single2);
+        thenClause1_2.Who(this.single2);
         interconnection1.Then.add(thenClause1_1);
         interconnection1.Then.add(thenClause1_2);
-        this.hub.Interconnections.add(interconnection1);
+        this.hub.AddInterconnection(interconnection1);
 
         this.checkBox1.Check();
         Assert.assertEquals("", this.freeFilter.GetState());
@@ -131,17 +131,17 @@ public class InterconnectionTesting {
         Assert.assertEquals(true, this.single2.IsChecked());
 
         // rule 2
-        FilterInterconnection interconnection2 = new FilterInterconnection();
+        FilterInterconnection interconnection2 = new FilterInterconnection(2);
         interconnection2.When.Event = FilterEvent.Reset;
-        interconnection2.When.AddFilter(this.range2);
-        interconnection2.When.AddFilter(this.singleTextBox2);
+        interconnection2.When.Who(this.range2);
+        interconnection2.When.Who(this.singleTextBox2);
         EventSubjectPair thenClause2_1 = new EventSubjectPair();
         thenClause2_1.Event = FilterEvent.StateChange;
         thenClause2_1.Parameters = "1";
-        thenClause2_1.AddFilter(this.single1);
-        thenClause2_1.AddFilter(this.checkBox1);
+        thenClause2_1.Who(this.single1);
+        thenClause2_1.Who(this.checkBox1);
         interconnection2.Then.add(thenClause2_1);
-        this.hub.Interconnections.add(interconnection2);
+        this.hub.AddInterconnection(interconnection2);
 
         Assert.assertEquals(false, this.checkBox1.IsChecked());
         Assert.assertEquals(false, this.single1.IsChecked());
@@ -168,16 +168,16 @@ public class InterconnectionTesting {
 
     @Test
     public void testHubInterconnectionMultipleItems(){
-        FilterInterconnection interconnection = new FilterInterconnection();
+        FilterInterconnection interconnection = new FilterInterconnection(1);
         interconnection.When.Event = FilterEvent.Reset;
-        interconnection.When.AddFilter(this.checkBox1);
-        interconnection.When.AddFilter(this.range1);
+        interconnection.When.Who(this.checkBox1);
+        interconnection.When.Who(this.range1);
         EventSubjectPair thenClause = new EventSubjectPair();
         thenClause.Event = FilterEvent.StateChange;
-        thenClause.AddFilter(this.freeFilter);
+        thenClause.Who(this.freeFilter);
         thenClause.Parameters = "new_free_text";
         interconnection.Then.add(thenClause);
-        this.hub.Interconnections.add(interconnection);
+        this.hub.AddInterconnection(interconnection);
 
         this.freeFilter.ChangeState("asd");
         this.checkBox1.Check(); // same as ChangeState("1")
@@ -197,21 +197,25 @@ public class InterconnectionTesting {
 
     @Test
     public void testHubInterconnectionsSimple(){
-        FilterInterconnection interconnection = new FilterInterconnection();
+        FilterInterconnection interconnection = new FilterInterconnection(1);
         interconnection.When.Event = FilterEvent.StateChange;
-        interconnection.When.AddFilter(this.checkBox1);
+        interconnection.When.Who(this.checkBox1);
         EventSubjectPair thenClause = new EventSubjectPair();
         thenClause.Event = FilterEvent.Reset;
-        thenClause.AddFilter(this.singleText3);
+        thenClause.Who(this.singleText3);
         interconnection.Then.add(thenClause);
-        this.hub.Interconnections.add(interconnection);
+        this.hub.AddInterconnection(interconnection);
 
         this.singleText3.ChangeState("c");
         this.checkBox1.Check();
 
         Assert.assertEquals("a", this.singleText3.GetState());
 
-
+        boolean exists = this.hub.HasInterconnection(new FilterInterconnection(1));
+        Assert.assertTrue(exists);
+        exists = this.hub.HasInterconnection(new FilterInterconnection(2));
+        Assert.assertFalse(exists);
 
     }
+
 }

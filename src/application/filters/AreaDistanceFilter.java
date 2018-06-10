@@ -4,6 +4,7 @@ import domain.filters.Filter;
 import domain.filters.FilterPropertyType;
 import domain.filters.INotifier;
 import domain.filters.types.CompositeFilter;
+import domain.notifier.NotifierChannelType;
 
 public class AreaDistanceFilter extends CompositeFilter {
 

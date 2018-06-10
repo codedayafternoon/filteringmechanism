@@ -6,6 +6,7 @@ import domain.FilterContext;
 import domain.configuration.*;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.FilterController;
+import domain.filtercontroller.IFilterController;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.Filter;
 import domain.filters.FilterPropertyType;
@@ -29,7 +30,7 @@ public class FilterPropertyChangeTesting {
         FilterContext context = new FilterContext();
         MockRequestHandler handler = new MockRequestHandler();
         context.Initialize(handler, new UrlQueryConverter(new UrlBuilder(",", "&")), new MockConfiguration());
-        FilterController controller = context.GetController();
+        IFilterController controller = context.GetController();
         Hub hub = context.GetHub();
 
 
@@ -38,10 +39,10 @@ public class FilterPropertyChangeTesting {
 
         context.GetBuilder().Build(new MockBuilderItems(context.GetHub()));
 
-        HubCommand command = new HubCommand(1, "c1", "cc", -1, "0"); // for property changed Name
-        HubCommand command2 = new HubCommand(1, "c1", "cc", 10, "0"); // for property changed Count
-        HubCommand command3 = new HubCommand(1, "c1", "cc", 10, "1"); // for statechanged
-        HubCommand command4 = new HubCommand(1, "c1", "cc", 10, "0"); // for Reset
+        HubCommand command = new HubCommand(1, "c1",1, "cc", -1, "0"); // for property changed Name
+        HubCommand command2 = new HubCommand(1, "c1",1, "cc", 10, "0"); // for property changed Count
+        HubCommand command3 = new HubCommand(1, "c1", 1,"cc", 10, "1"); // for statechanged
+        HubCommand command4 = new HubCommand(1, "c1",1, "cc", 10, "0"); // for Reset
 
         Assert.assertEquals(0, listener.FilterChangedCounter);
         Assert.assertEquals(0, listener.FilterResetCounter);
@@ -72,6 +73,7 @@ public class FilterPropertyChangeTesting {
         Assert.assertEquals(2, listener.FilterPropertyChangedCounter);
         Assert.assertEquals(false, handler.MakeRequestTriggered);
 
+        context.Dispose();
     }
 
     private class MockBuilderItems extends BuilderItems {

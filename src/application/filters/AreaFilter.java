@@ -9,4 +9,9 @@ public class AreaFilter extends FreeTextFilter {
 		super(id, name, notifier);
 	}
 
+	@Override
+	public String GetParameterKey(){
+		return this.Name + "asd";
+	}
+
 }

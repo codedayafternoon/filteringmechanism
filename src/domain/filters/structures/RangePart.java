@@ -26,7 +26,8 @@ public class RangePart {
         for(String x : part.getItems()){
             this.items.add(x);
         }
-        this.selectedValue = this.items.get(selectedValueFromIndex);
+        if(selectedValueFromIndex != -1)
+            this.selectedValue = this.items.get(selectedValueFromIndex);
 
         if(part.getDefaultValue() == null){
             if(selectedDefaultValueFromIndex != -1)

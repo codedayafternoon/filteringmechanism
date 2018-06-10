@@ -9,10 +9,6 @@ import domain.filters.structures.RangePart;
 
 public abstract class SingleTextFilter extends Filter {
 
-//	protected String selectedValue;
-//	protected String defaultValue;
-//	protected List<String> Values;
-
 	protected RangePart range;
 
 	public SingleTextFilter(Object id, String name, INotifier notifier, List<String> values) {
@@ -21,7 +17,6 @@ public abstract class SingleTextFilter extends Filter {
 			throw new Error("values cannot be null or empty");
 
 		this.range = new RangePart(values, values.get(0));
-		//this.Values = values;
 	}
 
 	public RangePart getRange() {
@@ -32,7 +27,7 @@ public abstract class SingleTextFilter extends Filter {
 	public FilterMode GetMode() {
 		return FilterMode.SIMPLE;
 	}
-	
+
 	public void SetDefaultValue(String value) {
 		if(!this.range.getItems().contains(value))
 			return;
@@ -40,7 +35,7 @@ public abstract class SingleTextFilter extends Filter {
 		if(this.range.getSelectedValue() == null)
 			this.range.setSelectedValue(this.range.getDefaultValue() );
 	}
-	
+
 	public void SetSelectedValue(String value) {
 		if(!this.range.getItems().contains(value))
 			return;
@@ -60,23 +55,6 @@ public abstract class SingleTextFilter extends Filter {
 			return false;
 
 		return this.range.UpdateFrom(stf.getRange());
-
-
-
-//		if(stf.Values != null){
-//			int selectedValueIndex = this.Values.indexOf(this.selectedValue);
-//			this.Values.clear();
-//			for(String x : stf.Values){
-//				this.Values.add(x);
-//			}
-//			this.selectedValue = this.Values.get(selectedValueIndex);
-//		}
-//		if(stf.defaultValue != null)
-//		{
-//			this.SetDefaultValue(stf.defaultValue);
-//		}
-
-		//return true;
 	}
 
 	@Override
@@ -90,7 +68,7 @@ public abstract class SingleTextFilter extends Filter {
 	}
 
 	@Override
-	public String GetParameterValue(){
+	public String DoGetParameterValue(){
 		return this.GetState();
 	}
 

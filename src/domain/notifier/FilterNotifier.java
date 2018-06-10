@@ -28,6 +28,11 @@ public class FilterNotifier implements INotifier {
 	}
 
 	@Override
+	public NotifierChannelType GetType() {
+		return NotifierChannelType.FilterChannel;
+	}
+
+	@Override
 	public void NotifyFilterStateChanged(Filter filter) {
 		this.filterHub.NotifyFilterStateChanged(filter);
 	}
