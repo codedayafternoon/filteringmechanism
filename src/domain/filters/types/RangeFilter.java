@@ -35,6 +35,11 @@ public abstract class RangeFilter extends Filter {
 	}
 
 	@Override
+	public boolean IsReset(){
+		return this.rangeFrom.IsReset() && this.rangeTo.IsReset();
+	}
+
+	@Override
 	public void Reset() {
 		this.rangeFrom.setSelectedValue(this.rangeFrom.getDefaultValue());
 		this.rangeTo.setSelectedValue(this.rangeTo.getDefaultValue());

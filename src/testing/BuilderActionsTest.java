@@ -6,6 +6,7 @@ import domain.FilterContext;
 import domain.configuration.*;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.FilterController;
+import domain.filtercontroller.IFilterController;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.Filter;
 import domain.filters.FilterPropertyType;
@@ -21,7 +22,122 @@ import java.util.List;
 
 public class BuilderActionsTest {
 
+    @Test
+    public void ResetAllFiltersWithoutPropagateRequest(){
+        FilterContext context = new FilterContext();
+        MockRequestHandler handler = new MockRequestHandler();
+        context.Initialize(handler, new UrlQueryConverter(new UrlBuilder(",", "&")), new FullConfiguration());
+        MockBuilderObserver builderObserver = new MockBuilderObserver();
 
+        MockBuilderItems3 items = new MockBuilderItems3(context.GetHub());
+        context.GetBuilder().AddObserver(builderObserver);
+        context.GetBuilder().Build(items);
+
+        MockFilterHubListener listener = new MockFilterHubListener();
+        context.GetHub().AddFilterListener(listener);
+
+        // change states in various filters
+        IFilterController controller = context.GetController();
+        controller.ChangeState(1, 1, "1");
+        controller.ChangeState(1, 2, "from:z_from-to:z_to");
+        controller.ChangeState(1, 3, "asd");
+
+        controller.ChangeState(2, 1, "eee");
+        controller.ChangeState(2, 2, "y_from");
+
+        controller.ChangeState(3, 1, "1");
+        controller.ChangeState(3, 2, "1");
+        controller.ChangeState(3, 3, "1");
+
+        String req = handler.Request;
+        Assert.assertTrue(req.contains("c3=f3,f2") || req.contains("c3=f2,f3"));
+        Assert.assertTrue(req.contains("f1=eee"));
+        Assert.assertTrue(req.contains("f2range=from:z_from-to:z_to"));
+        Assert.assertTrue(req.contains("f2=y_from"));
+        Assert.assertTrue(req.contains("f3=asd"));
+        Assert.assertTrue(req.contains("c1=f1"));
+
+        Assert.assertEquals(8, listener.ChangedCount);
+        Assert.assertEquals(1, listener.ResetCount);
+
+        Assert.assertEquals(8, handler.RequestCount);
+        controller.ResetAllWithoutRequestPropagation();
+
+
+
+        // check if all filters are reset
+
+        // if events are fired in listener
+        Assert.assertEquals(8, listener.ChangedCount);
+        Assert.assertEquals(8, listener.ResetCount);
+        // check if request didnt happen
+        Assert.assertEquals(8, handler.RequestCount);
+
+        controller.MakeRequestWithCurrentState();
+        Assert.assertEquals("", handler.Request);
+        Assert.assertEquals(9, handler.RequestCount);
+
+        context.Dispose();
+    }
+
+    private class MockBuilderItems3 extends BuilderItems{
+
+        Hub hub;
+
+        public MockBuilderItems3(Hub hub) {
+            this.hub = hub;
+        }
+
+        @Override
+        public List<FilterContainer> GetContainers() {
+            FilterNotifier notifier = new FilterNotifier(this.hub);
+            List<FilterContainer> containers = new ArrayList<>();
+
+            FilterContainer c1 = new FilterContainer(1, "c1");
+            MockCheckBoxFilter f1 = new MockCheckBoxFilter(1, "f1", notifier);
+            List<String> f2FromValues = new ArrayList<>();
+            f2FromValues.add("x_from");
+            f2FromValues.add("y_from");
+            f2FromValues.add("z_from");
+            List<String> f2ToValues = new ArrayList<>();
+            f2ToValues.add("x_to");
+            f2ToValues.add("y_to");
+            f2ToValues.add("z_to");
+            MockRangeFilter f2 = new MockRangeFilter(2, "f2range", notifier, f2FromValues,f2ToValues );
+            f2.SetDefaultTo("y_to");
+            f2.SetDefaultFrom("z_from");
+            MockFreeTextFilter f3 = new MockFreeTextFilter(3, "f3", notifier);
+            f3.SetDefaultValue("");
+            c1.AddFilter(f1);
+            c1.AddFilter(f2);
+            c1.AddFilter(f3);
+
+            FilterContainer c2 = new FilterContainer(2, "c2");
+            MockFreeTextFilter c2f1 = new MockFreeTextFilter(1, "f1", notifier);
+            c2f1.SetDefaultValue("");
+            List<String> c2f2Values = new ArrayList<>();
+            c2f2Values.add("x_from");
+            c2f2Values.add("y_from");
+            c2f2Values.add("z_from");
+            MockSingleTextFilter c2f2 = new MockSingleTextFilter(2, "f2", notifier, c2f2Values);
+            c2f2.SetDefaultValue("x_from");
+            c2.AddFilter(c2f1);
+            c2.AddFilter(c2f2);
+
+            FilterContainer c3 = new FilterContainer(3, "c3");
+            MockSingleSelectFilter c3f1 = new MockSingleSelectFilter(c3,1, "f1", notifier);
+            MockSingleSelectFilter c3f2 = new MockSingleSelectFilter(c3,2, "f2", notifier);
+            MockCheckBoxFilter c3f3 = new MockCheckBoxFilter(3, "f3", notifier);
+            c3.AddFilter(c3f1);
+            c3.AddFilter(c3f2);
+            c3.AddFilter(c3f3);
+
+            containers.add(c1);
+            containers.add(c2);
+            containers.add(c3);
+            return containers;
+        }
+    }
 
     @Test
     public void DetectAndAddNewContainersAndFilters(){
@@ -401,16 +517,17 @@ public class BuilderActionsTest {
 
         public int Update = 0;
         public int PropertyChanged = 0;
-
+        public int ChangedCount = 0;
+        public int ResetCount = 0;
 
         @Override
         public void FilterChanged(Filter filter) {
-
+            this.ChangedCount++;
         }
 
         @Override
         public void FilterReset(Filter filter) {
-
+            this.ResetCount++;
         }
 
         @Override
@@ -428,6 +545,8 @@ public class BuilderActionsTest {
         public void ResetAllCounters(){
             Update = 0;
             PropertyChanged = 0;
+            this.ResetCount = 0;
+            this.ChangedCount = 0;
         }
     }
 
@@ -668,9 +787,12 @@ public class BuilderActionsTest {
 
     private class MockRequestHandler implements IRequestHandler{
 
+        public int RequestCount = 0;
+        public String Request = "";
         @Override
         public void makeRequest(String request) {
-
+            this.Request = request;
+            this.RequestCount++;
         }
 
         @Override
@@ -680,17 +802,17 @@ public class BuilderActionsTest {
 
         @Override
         public boolean IsRetrieveFromRequest() {
-            return false;
+            return true;
         }
 
         @Override
         public boolean IsRetrieveFromParameters() {
-            return false;
+            return true;
         }
 
         @Override
         public boolean IsRetrieveFromFilters() {
-            return false;
+            return true;
         }
     }
 

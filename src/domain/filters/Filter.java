@@ -113,4 +113,6 @@ public abstract class Filter implements ICountable {
 	public String toString() {
 		return this.Name + "[" + this.Id + "]:"+this.GetState();
 	}
+
+	public abstract boolean IsReset();
 }

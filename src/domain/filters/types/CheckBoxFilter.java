@@ -19,7 +19,12 @@ public abstract class CheckBoxFilter extends Filter {
 		this._isChecked = true;
 		super.notifier.NotifyFilterStateChanged(this);
 	}
-	
+
+	@Override
+	public boolean IsReset(){
+		return !this._isChecked;
+	}
+
 	public void UnCheck() {
 		this.Reset();
 	}

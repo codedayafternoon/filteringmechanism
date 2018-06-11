@@ -2,19 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d4cb998c-79ff-4600-979e-12edf2390fb1" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/domain/notifier/NotifierChannelType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/testing/QueringController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/application/filters/AreaDistanceFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/application/filters/AreaDistanceFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/domain/filtercontroller/FilterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filtercontroller/FilterController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/domain/filtercontroller/IFilterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filtercontroller/IFilterController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/domain/filters/Filter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/Filter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/filters/INotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/INotifier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/filters/structures/RangePart.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/structures/RangePart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/filters/types/CheckBoxFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/types/CheckBoxFilter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/domain/filters/types/CompositeFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/types/CompositeFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/notifier/FilterNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/notifier/FilterNotifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/notifier/ParameterNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/notifier/ParameterNotifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/domain/notifier/RequestNotifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/notifier/RequestNotifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/testing/FilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/FilterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/filters/types/FreeTextFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/types/FreeTextFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/filters/types/RangeFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/types/RangeFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/domain/filters/types/SingleTextFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/domain/filters/types/SingleTextFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/testing/BuilderActionsTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/testing/BuilderActionsTest.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -43,43 +41,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="FilterNotifier.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/domain/notifier/FilterNotifier.java">
+      <file leaf-file-name="Hub.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/domain/hub/Hub.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="441">
-              <caret line="31" column="49" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
-              <folding>
-                <element signature="e#742#743#0" expanded="true" />
-                <element signature="e#789#790#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="493">
+              <caret line="309" selection-start-line="309" selection-end-line="309" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="RequestNotifier.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/domain/notifier/RequestNotifier.java">
+      <file leaf-file-name="CheckBoxFilter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/domain/filters/types/CheckBoxFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="588">
-              <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+            <state relative-caret-position="546">
+              <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="47" />
               <folding>
-                <element signature="e#754#755#0" expanded="true" />
-                <element signature="e#801#802#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CompositeFilter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/domain/filters/types/CompositeFilter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="294">
-              <caret line="38" selection-start-line="38" selection-end-line="38" />
-              <folding>
+                <element signature="e#519#520#0" expanded="true" />
                 <element signature="e#549#550#0" expanded="true" />
-                <element signature="e#570#571#0" expanded="true" />
-                <element signature="e#905#906#0" expanded="true" />
-                <element signature="e#871#872#0" expanded="true" />
-                <element signature="e#917#918#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -88,8 +66,8 @@
       <file leaf-file-name="Filter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/domain/filters/Filter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
-              <caret line="26" column="46" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="46" />
+            <state relative-caret-position="381">
+              <caret line="97" selection-start-line="97" selection-end-line="97" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -97,25 +75,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="QueringController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/testing/QueringController.java">
+      <file leaf-file-name="FreeTextFilter.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/domain/filters/types/FreeTextFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="40" column="62" selection-start-line="40" selection-start-column="62" selection-end-line="40" selection-end-column="62" />
+            <state relative-caret-position="472">
+              <caret line="59" column="47" selection-start-line="59" selection-start-column="47" selection-end-line="59" selection-end-column="47" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#895#896#0" expanded="true" />
-                <element signature="e#933#934#0" expanded="true" />
-                <element signature="class#MockConfiguration#0;class#QueringController#0" />
-                <element signature="e#1089#1090#0" expanded="true" />
-                <element signature="e#1149#1150#0" expanded="true" />
-                <element signature="class#MockRequestHandler#0;class#QueringController#0" />
-                <element signature="e#711#712#0" expanded="true" />
                 <element signature="e#747#748#0" expanded="true" />
-                <element signature="e#818#819#0" expanded="true" />
-                <element signature="e#854#855#0" expanded="true" />
-                <element signature="e#922#923#0" expanded="true" />
-                <element signature="e#958#959#0" expanded="true" />
+                <element signature="e#770#771#0" expanded="true" />
+                <element signature="e#820#821#0" expanded="true" />
+                <element signature="e#849#850#0" expanded="true" />
+                <element signature="e#907#908#0" expanded="true" />
+                <element signature="e#933#934#0" expanded="true" />
+                <element signature="e#1047#1048#0" expanded="true" />
+                <element signature="e#1079#1080#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -124,19 +97,42 @@
       <file leaf-file-name="SingleTextFilter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/domain/filters/types/SingleTextFilter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="21">
-              <caret line="9" column="53" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
+            <state relative-caret-position="651">
+              <caret line="40" column="36" selection-start-line="40" selection-start-column="36" selection-end-line="40" selection-end-column="36" />
+              <folding>
+                <element signature="e#969#970#0" expanded="true" />
+                <element signature="e#1002#1003#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FilterContext.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/domain/FilterContext.java">
+      <file leaf-file-name="BuilderActionsTest.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/testing/BuilderActionsTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="45" selection-start-line="45" selection-end-line="45" />
+            <state relative-caret-position="362">
+              <caret line="788" column="32" selection-start-line="788" selection-start-column="32" selection-end-line="788" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="method#DetectAndRemoveContainerAndFilters#0;class#BuilderActionsTest#0" />
+                <element signature="method#testAddRemoveFiltersFromContainer#0;class#BuilderActionsTest#0" />
+                <element signature="class#MockItemsOneContainerBefore#0;class#BuilderActionsTest#0" />
+                <element signature="class#MockItemsOneContainerAfter#0;class#BuilderActionsTest#0" />
+                <element signature="method#testAddRemoveFiltersFromExistingContainers#0;class#BuilderActionsTest#0" />
+                <element signature="class#MockBuilderItemsBefore#0;class#BuilderActionsTest#0" />
+                <element signature="class#MockBuilderItemsAfter#0;class#BuilderActionsTest#0" />
+                <element signature="class#MockBuilderItems2#0;class#BuilderActionsTest#0" />
+                <element signature="class#MockBuilderItems#0;class#BuilderActionsTest#0" />
+                <element signature="method#testComplexUseCase#0;class#BuilderActionsTest#0" />
+                <element signature="e#22739#22740#0" expanded="true" />
+                <element signature="e#22782#22783#0" expanded="true" />
+                <element signature="e#22850#22851#0" expanded="true" />
+                <element signature="e#22888#22889#0" expanded="true" />
+                <element signature="class#MockBuilderItemsUseCase1Before#0;class#BuilderActionsTest#0" />
+                <element signature="class#MockBuilderItemsUseCase1After#0;class#BuilderActionsTest#0" />
+                <element signature="class#MockBuilderObserver#0;class#BuilderActionsTest#0" />
+                <element signature="class#AddNewContainerFiltersAndRemoveMissingContainerFiltersConfiguration#0;class#BuilderActionsTest#0" />
+                <element signature="class#OnlyAddNewContainerFiltersConfiguration#0;class#BuilderActionsTest#0" />
               </folding>
             </state>
           </provider>
@@ -145,14 +141,8 @@
       <file leaf-file-name="FilterController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/domain/filtercontroller/FilterController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2049">
-              <caret line="171" selection-start-line="171" selection-end-line="171" />
-              <folding>
-                <element signature="e#3388#3389#0" expanded="true" />
-                <element signature="e#3435#3436#0" expanded="true" />
-                <element signature="e#4775#4776#0" expanded="true" />
-                <element signature="e#4808#4809#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="430">
+              <caret line="94" selection-start-line="94" selection-end-line="94" />
             </state>
           </provider>
         </entry>
@@ -160,13 +150,22 @@
       <file leaf-file-name="FilterContainer.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/domain/filtercontroller/FilterContainer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="327">
+            <state relative-caret-position="264">
               <caret line="68" selection-start-line="68" selection-end-line="68" />
               <folding>
                 <element signature="e#1427#1428#0" expanded="true" />
                 <element signature="e#1448#1449#0" expanded="true" />
                 <element signature="e#1613#1614#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Configuration.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/domain/configuration/Configuration.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="42">
+              <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -184,8 +183,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>NotifyFilterReset</find>
-      <find>checkContainer</find>
       <find>makeRe</find>
       <find>getcontainer</find>
       <find>findMissingContainers</find>
@@ -211,9 +208,11 @@
       <find>r</find>
       <find>getstate</find>
       <find>MockBuilderItems</find>
-      <find>new MockBuilderItems</find>
+      <find />
       <find>update</find>
       <find>Interconnections</find>
+      <find>notifyClause</find>
+      <find>reset</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -222,9 +221,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/domain/configuration/actions/AddNewFiltersNewContainerAction.java" />
         <option value="$PROJECT_DIR$/src/domain/configuration/actions/ConfigurableExistingContainerAction.java" />
-        <option value="$PROJECT_DIR$/src/testing/BuilderActionsTest.java" />
         <option value="$PROJECT_DIR$/src/domain/hub/HubCommand.java" />
         <option value="$PROJECT_DIR$/src/application/SimpleRequestHandler.java" />
         <option value="$PROJECT_DIR$/src/testing/ChannelTesting.java" />
@@ -251,18 +248,11 @@
         <option value="$PROJECT_DIR$/src/domain/filters/formatters/NumberValuePostFormatter.java" />
         <option value="$PROJECT_DIR$/src/domain/filtercontroller/FilterContainer.java" />
         <option value="$PROJECT_DIR$/src/domain/hub/interconnections/EventSubjectPair.java" />
-        <option value="$PROJECT_DIR$/src/domain/filters/types/RangeFilter.java" />
-        <option value="$PROJECT_DIR$/src/domain/filters/types/FreeTextFilter.java" />
-        <option value="$PROJECT_DIR$/src/domain/filters/types/SingleTextFilter.java" />
-        <option value="$PROJECT_DIR$/src/domain/filters/types/CheckBoxFilter.java" />
         <option value="$PROJECT_DIR$/src/testing/FilterValueFormatingTesting.java" />
         <option value="$PROJECT_DIR$/src/domain/hub/interconnections/FilterInterconnection.java" />
-        <option value="$PROJECT_DIR$/src/domain/hub/Hub.java" />
         <option value="$PROJECT_DIR$/src/domain/hub/IHub.java" />
         <option value="$PROJECT_DIR$/src/testing/InterconnectionTesting.java" />
         <option value="$PROJECT_DIR$/src/domain/filtercontroller/NotifierChannelType.java" />
-        <option value="$PROJECT_DIR$/src/domain/filtercontroller/IFilterController.java" />
-        <option value="$PROJECT_DIR$/src/domain/filters/Filter.java" />
         <option value="$PROJECT_DIR$/src/domain/filters/INotifier.java" />
         <option value="$PROJECT_DIR$/src/domain/notifier/FilterNotifier.java" />
         <option value="$PROJECT_DIR$/src/domain/notifier/ParameterNotifier.java" />
@@ -270,14 +260,23 @@
         <option value="$PROJECT_DIR$/src/testing/FilterTest.java" />
         <option value="$PROJECT_DIR$/src/application/filters/AreaDistanceFilter.java" />
         <option value="$PROJECT_DIR$/src/domain/notifier/NotifierChannelType.java" />
-        <option value="$PROJECT_DIR$/src/domain/filtercontroller/FilterController.java" />
-        <option value="$PROJECT_DIR$/src/domain/filters/types/CompositeFilter.java" />
         <option value="$PROJECT_DIR$/src/testing/QueringController.java" />
+        <option value="$PROJECT_DIR$/src/domain/hub/Hub.java" />
+        <option value="$PROJECT_DIR$/src/domain/filtercontroller/IFilterController.java" />
+        <option value="$PROJECT_DIR$/src/domain/filtercontroller/FilterController.java" />
+        <option value="$PROJECT_DIR$/src/domain/filters/Filter.java" />
+        <option value="$PROJECT_DIR$/src/domain/filters/types/CheckBoxFilter.java" />
+        <option value="$PROJECT_DIR$/src/domain/filters/types/CompositeFilter.java" />
+        <option value="$PROJECT_DIR$/src/domain/filters/types/RangeFilter.java" />
+        <option value="$PROJECT_DIR$/src/domain/filters/structures/RangePart.java" />
+        <option value="$PROJECT_DIR$/src/domain/filters/types/SingleTextFilter.java" />
+        <option value="$PROJECT_DIR$/src/domain/filters/types/FreeTextFilter.java" />
+        <option value="$PROJECT_DIR$/src/testing/BuilderActionsTest.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2362" />
+    <option name="x" value="2184" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1096" />
@@ -290,6 +289,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -341,6 +343,13 @@
               <item name="filteringmechanism" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="domain" type="462c0819:PsiDirectoryNode" />
+              <item name="hub" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="filteringmechanism" type="b2602c69:ProjectViewProjectNode" />
+              <item name="filteringmechanism" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
               <item name="notifier" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -353,9 +362,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="AndroidView" />
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -374,9 +380,32 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="JUnit.QueringController.testGetFiltersByChannel">
+  <component name="RunManager" selected="JUnit.testing in filteringmechanism">
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+    </configuration>
+    <configuration name="BuilderActionsTest.ResetAllFiltersWithoutPropagateRequest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="filteringmechanism" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="testing.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" value="testing" />
+      <option name="MAIN_CLASS_NAME" value="testing.BuilderActionsTest" />
+      <option name="METHOD_NAME" value="ResetAllFiltersWithoutPropagateRequest" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <patterns />
     </configuration>
     <configuration name="FilterValueFormatingTesting.testFilterWithCustomPostFormatter" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="filteringmechanism" />
@@ -414,29 +443,6 @@
       <option name="PACKAGE_NAME" value="testing" />
       <option name="MAIN_CLASS_NAME" value="testing.FilterValueFormatingTesting" />
       <option name="METHOD_NAME" value="testNumberExtractionLogic" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" value="-ea" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-    </configuration>
-    <configuration name="FilterValueFormatingTesting.testNumberFormattingLogic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="filteringmechanism" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="testing.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="testing" />
-      <option name="MAIN_CLASS_NAME" value="testing.FilterValueFormatingTesting" />
-      <option name="METHOD_NAME" value="testNumberFormattingLogic" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" value="-ea" />
       <option name="PARAMETERS" />
@@ -534,17 +540,17 @@
     <list>
       <item itemvalue="JUnit.testing in filteringmechanism" />
       <item itemvalue="JUnit.FilterValueFormatingTesting.testNumberExtractionLogic" />
-      <item itemvalue="JUnit.FilterValueFormatingTesting.testNumberFormattingLogic" />
       <item itemvalue="JUnit.FilterValueFormatingTesting.testFilterWithCustomPostFormatter" />
       <item itemvalue="JUnit.QueringController.testGetFiltersByChannel" />
+      <item itemvalue="JUnit.BuilderActionsTest.ResetAllFiltersWithoutPropagateRequest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.QueringController.testGetFiltersByChannel" />
         <item itemvalue="JUnit.testing in filteringmechanism" />
+        <item itemvalue="JUnit.BuilderActionsTest.ResetAllFiltersWithoutPropagateRequest" />
+        <item itemvalue="JUnit.QueringController.testGetFiltersByChannel" />
         <item itemvalue="JUnit.FilterValueFormatingTesting.testNumberExtractionLogic" />
         <item itemvalue="JUnit.FilterValueFormatingTesting.testFilterWithCustomPostFormatter" />
-        <item itemvalue="JUnit.FilterValueFormatingTesting.testNumberFormattingLogic" />
       </list>
     </recent_temporary>
   </component>
@@ -562,35 +568,35 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="QueringController_testGetFiltersByChannel - 2018.06.08 at 17h 42m 54s.xml">
-      <configuration name="QueringController.testGetFiltersByChannel" configurationId="JUnit" />
+    <history-entry file="BuilderActionsTest_ResetAllFiltersWithoutPropagateRequest - 2018.06.11 at 15h 11m 21s.xml">
+      <configuration name="BuilderActionsTest.ResetAllFiltersWithoutPropagateRequest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="QueringController_testGetFiltersByChannel - 2018.06.08 at 17h 44m 00s.xml">
-      <configuration name="QueringController.testGetFiltersByChannel" configurationId="JUnit" />
+    <history-entry file="BuilderActionsTest_ResetAllFiltersWithoutPropagateRequest - 2018.06.11 at 15h 14m 41s.xml">
+      <configuration name="BuilderActionsTest.ResetAllFiltersWithoutPropagateRequest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="QueringController_testGetFiltersByChannel - 2018.06.08 at 17h 44m 06s.xml">
-      <configuration name="QueringController.testGetFiltersByChannel" configurationId="JUnit" />
+    <history-entry file="BuilderActionsTest_ResetAllFiltersWithoutPropagateRequest - 2018.06.11 at 15h 16m 16s.xml">
+      <configuration name="BuilderActionsTest.ResetAllFiltersWithoutPropagateRequest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="QueringController_testGetFiltersByChannel - 2018.06.08 at 17h 44m 49s.xml">
-      <configuration name="QueringController.testGetFiltersByChannel" configurationId="JUnit" />
+    <history-entry file="BuilderActionsTest_ResetAllFiltersWithoutPropagateRequest - 2018.06.11 at 15h 17m 09s.xml">
+      <configuration name="BuilderActionsTest.ResetAllFiltersWithoutPropagateRequest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="QueringController_testGetFiltersByChannel - 2018.06.08 at 17h 45m 50s.xml">
-      <configuration name="QueringController.testGetFiltersByChannel" configurationId="JUnit" />
+    <history-entry file="BuilderActionsTest_ResetAllFiltersWithoutPropagateRequest - 2018.06.11 at 15h 17m 58s.xml">
+      <configuration name="BuilderActionsTest.ResetAllFiltersWithoutPropagateRequest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="QueringController_testGetFiltersByChannel - 2018.06.08 at 17h 46m 30s.xml">
-      <configuration name="QueringController.testGetFiltersByChannel" configurationId="JUnit" />
+    <history-entry file="BuilderActionsTest_ResetAllFiltersWithoutPropagateRequest - 2018.06.11 at 15h 20m 43s.xml">
+      <configuration name="BuilderActionsTest.ResetAllFiltersWithoutPropagateRequest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="QueringController_testGetFiltersByChannel - 2018.06.08 at 17h 47m 35s.xml">
-      <configuration name="QueringController.testGetFiltersByChannel" configurationId="JUnit" />
+    <history-entry file="BuilderActionsTest_ResetAllFiltersWithoutPropagateRequest - 2018.06.11 at 15h 21m 10s.xml">
+      <configuration name="BuilderActionsTest.ResetAllFiltersWithoutPropagateRequest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="QueringController_testGetFiltersByChannel - 2018.06.08 at 17h 48m 07s.xml">
-      <configuration name="QueringController.testGetFiltersByChannel" configurationId="JUnit" />
+    <history-entry file="BuilderActionsTest_ResetAllFiltersWithoutPropagateRequest - 2018.06.11 at 15h 21m 30s.xml">
+      <configuration name="BuilderActionsTest.ResetAllFiltersWithoutPropagateRequest" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="QueringController_testGetFiltersByChannel - 2018.06.08 at 17h 48m 43s.xml">
-      <configuration name="QueringController.testGetFiltersByChannel" configurationId="JUnit" />
+    <history-entry file="testing_in_filteringmechanism - 2018.06.11 at 15h 21m 35s.xml">
+      <configuration name="testing in filteringmechanism" configurationId="JUnit" />
     </history-entry>
-    <history-entry file="QueringController_testGetFiltersByChannel - 2018.06.08 at 17h 48m 50s.xml">
-      <configuration name="QueringController.testGetFiltersByChannel" configurationId="JUnit" />
+    <history-entry file="testing_in_filteringmechanism - 2018.06.11 at 15h 22m 35s.xml">
+      <configuration name="testing in filteringmechanism" configurationId="JUnit" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -614,20 +620,20 @@
       <window_info anchor="right" id="Capture Analysis" order="3" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="right" id="Maven Projects" order="3" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29280648" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="right" id="Coverage" order="3" side_tool="true" weight="0.19895834" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.29280648" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="2" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20364584" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.17708333" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.2786221" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.2786221" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Coverage" order="3" side_tool="true" weight="0.19895834" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -678,19 +684,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/testing/BuilderActionsTest.java</url>
-          <line>54</line>
+          <line>164</line>
           <properties />
           <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/testing/BuilderActionsTest.java</url>
-          <line>175</line>
+          <line>285</line>
           <properties />
           <option name="timeStamp" value="18" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/testing/BuilderActionsTest.java</url>
-          <line>97</line>
+          <line>207</line>
           <properties />
           <option name="timeStamp" value="19" />
         </line-breakpoint>
@@ -714,7 +720,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/testing/BuilderActionsTest.java</url>
-          <line>361</line>
+          <line>471</line>
           <properties />
           <option name="timeStamp" value="44" />
         </line-breakpoint>
@@ -766,12 +772,29 @@
           <properties />
           <option name="timeStamp" value="67" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/testing/BuilderActionsTest.java</url>
+          <line>40</line>
+          <properties />
+          <option name="timeStamp" value="72" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/testing/BuilderActionsTest.java</url>
+          <line>63</line>
+          <properties />
+          <option name="timeStamp" value="73" />
+        </line-breakpoint>
       </breakpoints>
-      <option name="time" value="68" />
+      <option name="time" value="75" />
     </breakpoint-manager>
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>controller.MakeDirectRequest(&quot;&quot;);</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
       <expression>
         <expression-string>this</expression-string>
         <language-id>JAVA</language-id>
@@ -812,26 +835,9 @@
         <language-id>JAVA</language-id>
         <evaluation-mode>EXPRESSION</evaluation-mode>
       </expression>
-      <expression>
-        <expression-string>context.GetController().GetContainers().get(1).GetFilters()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>context.GetController().GetContainers().get(0).GetFilters()</expression-string>
-        <language-id>JAVA</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/application/filters/AreaFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/domain/configuration/Builder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="189">
@@ -900,23 +906,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/structures/RangePart.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="325">
-          <caret line="77" selection-start-line="77" selection-end-line="77" />
-          <folding>
-            <element signature="e#2080#2081#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testing/mocks/MockRangeFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="10" column="41" lean-forward="true" selection-start-line="10" selection-start-column="41" selection-end-line="10" selection-end-column="41" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/domain/hub/IFilterHubListener.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
@@ -963,17 +952,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/BoolValueFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="147">
-          <caret line="7" column="1" lean-forward="true" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
-          <folding>
-            <element signature="e#152#153#0" expanded="true" />
-            <element signature="e#193#194#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/BoolValueFilter.java" />
     <entry file="file://$PROJECT_DIR$/src/domain/filters/IValuePostFormatter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="84">
@@ -981,13 +960,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/TextValueFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
-          <caret line="31" lean-forward="true" selection-start-line="31" selection-end-line="31" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/TextValueFilter.java" />
     <entry file="file://$PROJECT_DIR$/src/domain/filters/formatters/DefaultValuePostFormatter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
@@ -1012,44 +985,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
           <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/FreeTextFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="84">
-          <caret line="6" column="48" selection-start-line="6" selection-start-column="48" selection-end-line="6" selection-end-column="48" />
-          <folding>
-            <element signature="e#868#869#0" expanded="true" />
-            <element signature="e#897#898#0" expanded="true" />
-            <element signature="e#1095#1096#0" expanded="true" />
-            <element signature="e#1127#1128#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/RangeFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/SingleSelectFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/CheckBoxFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="317">
-          <caret line="55" column="25" lean-forward="true" selection-start-line="55" selection-start-column="25" selection-end-line="55" selection-end-column="25" />
-          <folding>
-            <element signature="e#1085#1086#0" expanded="true" />
-            <element signature="e#1108#1109#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1082,10 +1017,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="399">
           <caret line="20" selection-start-line="20" selection-end-line="20" />
-          <folding>
-            <element signature="e#416#417#0" expanded="true" />
-            <element signature="e#441#442#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1103,13 +1034,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/hub/Hub.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="460">
-          <caret line="377" column="25" lean-forward="true" selection-start-line="377" selection-start-column="25" selection-end-line="377" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/testing/InterconnectionTesting.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="395">
@@ -1118,28 +1042,6 @@
             <element signature="method#Setup#0;class#InterconnectionTesting#0" />
             <element signature="method#testHubInterconnectionComplex#0;class#InterconnectionTesting#0" />
             <element signature="method#testHubInterconnectionMultipleItems#0;class#InterconnectionTesting#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/testing/BuilderActionsTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="203">
-          <caret line="327" lean-forward="true" selection-start-line="327" selection-end-line="327" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="class#MockItemsOneContainerBefore#0;class#BuilderActionsTest#0" />
-            <element signature="class#MockItemsOneContainerAfter#0;class#BuilderActionsTest#0" />
-            <element signature="class#MockBuilderItemsBefore#0;class#BuilderActionsTest#0" />
-            <element signature="class#MockBuilderItemsAfter#0;class#BuilderActionsTest#0" />
-            <element signature="class#MockBuilderItems2#0;class#BuilderActionsTest#0" />
-            <element signature="class#MockBuilderItems#0;class#BuilderActionsTest#0" />
-            <element signature="class#MockFilterHubListener#0;class#BuilderActionsTest#0" />
-            <element signature="class#MockBuilderItemsUseCase1After#0;class#BuilderActionsTest#0" />
-            <element signature="class#MockBuilderObserver#0;class#BuilderActionsTest#0" />
-            <element signature="class#AddNewContainerFiltersAndRemoveMissingContainerFiltersConfiguration#0;class#BuilderActionsTest#0" />
-            <element signature="class#OnlyAddNewContainerFiltersConfiguration#0;class#BuilderActionsTest#0" />
-            <element signature="class#MockRequestHandler#0;class#BuilderActionsTest#0" />
           </folding>
         </state>
       </provider>
@@ -1158,16 +1060,6 @@
           <folding>
             <element signature="e#778#779#0" expanded="true" />
             <element signature="e#824#825#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filtercontroller/IFilterController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1197,20 +1089,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/notifier/NotifierChannelType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="63">
-          <caret line="3" column="11" selection-start-line="3" selection-start-column="11" selection-end-line="3" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/domain/notifier/RequestNotifier.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="588">
-          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="546">
+          <caret line="38" selection-start-line="38" selection-end-line="38" />
           <folding>
             <element signature="e#754#755#0" expanded="true" />
-            <element signature="e#801#802#0" expanded="true" />
+            <element signature="e#802#803#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1225,9 +1110,117 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/testing/QueringController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="40" column="62" selection-start-line="40" selection-start-column="62" selection-end-line="40" selection-end-column="62" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="class#MockConfiguration#0;class#QueringController#0" />
+            <element signature="class#MockRequestHandler#0;class#QueringController#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/notifier/NotifierChannelType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filtercontroller/IFilterController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="336">
+          <caret line="16" column="45" selection-start-line="16" selection-start-column="45" selection-end-line="16" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/RangeFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="38" column="35" lean-forward="true" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
+          <folding>
+            <element signature="e#993#994#0" expanded="true" />
+            <element signature="e#1049#1050#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/structures/RangePart.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="747">
+          <caret line="87" column="60" selection-start-line="87" selection-start-column="60" selection-end-line="87" selection-end-column="60" />
+          <folding>
+            <element signature="e#2044#2045#0" expanded="true" />
+            <element signature="e#2080#2081#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/SingleSelectFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="13" column="5" lean-forward="true" selection-start-line="13" selection-start-column="5" selection-end-line="13" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/CompositeFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="99" column="21" selection-start-line="99" selection-start-column="21" selection-end-line="99" selection-end-column="21" />
+          <folding>
+            <element signature="e#878#879#0" expanded="true" />
+            <element signature="e#906#907#0" expanded="true" />
+            <element signature="e#2031#2032#0" expanded="true" />
+            <element signature="e#2050#2051#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/notifier/FilterNotifier.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="37" selection-start-line="37" selection-end-line="37" />
+          <folding>
+            <element signature="e#742#743#0" expanded="true" />
+            <element signature="e#789#790#0" expanded="true" />
+            <element signature="e#856#857#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/SingleTextFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="651">
+          <caret line="40" column="36" selection-start-line="40" selection-start-column="36" selection-end-line="40" selection-end-column="36" />
+          <folding>
+            <element signature="e#969#970#0" expanded="true" />
+            <element signature="e#1002#1003#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/configuration/Configuration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="42">
+          <caret line="2" column="22" selection-start-line="2" selection-start-column="22" selection-end-line="2" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testing/mocks/MockRangeFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/domain/filtercontroller/FilterContainer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
+        <state relative-caret-position="264">
           <caret line="68" selection-start-line="68" selection-end-line="68" />
           <folding>
             <element signature="e#1427#1428#0" expanded="true" />
@@ -1237,57 +1230,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/notifier/FilterNotifier.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="441">
-          <caret line="31" column="49" selection-start-line="31" selection-start-column="49" selection-end-line="31" selection-end-column="49" />
-          <folding>
-            <element signature="e#742#743#0" expanded="true" />
-            <element signature="e#789#790#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/SingleTextFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="21">
-          <caret line="9" column="53" selection-start-line="9" selection-start-column="53" selection-end-line="9" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/domain/filters/Filter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
-          <caret line="26" column="46" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="46" />
+        <state relative-caret-position="381">
+          <caret line="97" selection-start-line="97" selection-end-line="97" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/CompositeFilter.java">
+    <entry file="file://$PROJECT_DIR$/src/domain/filtercontroller/FilterController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="294">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
-          <folding>
-            <element signature="e#549#550#0" expanded="true" />
-            <element signature="e#570#571#0" expanded="true" />
-            <element signature="e#905#906#0" expanded="true" />
-            <element signature="e#871#872#0" expanded="true" />
-            <element signature="e#917#918#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="430">
+          <caret line="94" selection-start-line="94" selection-end-line="94" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/domain/filtercontroller/FilterController.java">
+    <entry file="file://$PROJECT_DIR$/src/domain/hub/Hub.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2049">
-          <caret line="171" selection-start-line="171" selection-end-line="171" />
+        <state relative-caret-position="493">
+          <caret line="309" selection-start-line="309" selection-end-line="309" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/CheckBoxFilter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="546">
+          <caret line="36" column="8" selection-start-line="36" selection-start-column="8" selection-end-line="36" selection-end-column="47" />
           <folding>
-            <element signature="e#3388#3389#0" expanded="true" />
-            <element signature="e#3435#3436#0" expanded="true" />
-            <element signature="e#4775#4776#0" expanded="true" />
-            <element signature="e#4808#4809#0" expanded="true" />
+            <element signature="e#519#520#0" expanded="true" />
+            <element signature="e#549#550#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1299,24 +1272,48 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/testing/QueringController.java">
+    <entry file="file://$PROJECT_DIR$/src/domain/filters/types/FreeTextFilter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="40" column="62" selection-start-line="40" selection-start-column="62" selection-end-line="40" selection-end-column="62" />
+        <state relative-caret-position="472">
+          <caret line="59" column="47" selection-start-line="59" selection-start-column="47" selection-end-line="59" selection-end-column="47" />
+          <folding>
+            <element signature="e#747#748#0" expanded="true" />
+            <element signature="e#770#771#0" expanded="true" />
+            <element signature="e#820#821#0" expanded="true" />
+            <element signature="e#849#850#0" expanded="true" />
+            <element signature="e#907#908#0" expanded="true" />
+            <element signature="e#933#934#0" expanded="true" />
+            <element signature="e#1047#1048#0" expanded="true" />
+            <element signature="e#1079#1080#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/testing/BuilderActionsTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="788" column="32" selection-start-line="788" selection-start-column="32" selection-end-line="788" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#895#896#0" expanded="true" />
-            <element signature="e#933#934#0" expanded="true" />
-            <element signature="class#MockConfiguration#0;class#QueringController#0" />
-            <element signature="e#1089#1090#0" expanded="true" />
-            <element signature="e#1149#1150#0" expanded="true" />
-            <element signature="class#MockRequestHandler#0;class#QueringController#0" />
-            <element signature="e#711#712#0" expanded="true" />
-            <element signature="e#747#748#0" expanded="true" />
-            <element signature="e#818#819#0" expanded="true" />
-            <element signature="e#854#855#0" expanded="true" />
-            <element signature="e#922#923#0" expanded="true" />
-            <element signature="e#958#959#0" expanded="true" />
+            <element signature="method#DetectAndRemoveContainerAndFilters#0;class#BuilderActionsTest#0" />
+            <element signature="method#testAddRemoveFiltersFromContainer#0;class#BuilderActionsTest#0" />
+            <element signature="class#MockItemsOneContainerBefore#0;class#BuilderActionsTest#0" />
+            <element signature="class#MockItemsOneContainerAfter#0;class#BuilderActionsTest#0" />
+            <element signature="method#testAddRemoveFiltersFromExistingContainers#0;class#BuilderActionsTest#0" />
+            <element signature="class#MockBuilderItemsBefore#0;class#BuilderActionsTest#0" />
+            <element signature="class#MockBuilderItemsAfter#0;class#BuilderActionsTest#0" />
+            <element signature="class#MockBuilderItems2#0;class#BuilderActionsTest#0" />
+            <element signature="class#MockBuilderItems#0;class#BuilderActionsTest#0" />
+            <element signature="method#testComplexUseCase#0;class#BuilderActionsTest#0" />
+            <element signature="e#22739#22740#0" expanded="true" />
+            <element signature="e#22782#22783#0" expanded="true" />
+            <element signature="e#22850#22851#0" expanded="true" />
+            <element signature="e#22888#22889#0" expanded="true" />
+            <element signature="class#MockBuilderItemsUseCase1Before#0;class#BuilderActionsTest#0" />
+            <element signature="class#MockBuilderItemsUseCase1After#0;class#BuilderActionsTest#0" />
+            <element signature="class#MockBuilderObserver#0;class#BuilderActionsTest#0" />
+            <element signature="class#AddNewContainerFiltersAndRemoveMissingContainerFiltersConfiguration#0;class#BuilderActionsTest#0" />
+            <element signature="class#OnlyAddNewContainerFiltersConfiguration#0;class#BuilderActionsTest#0" />
           </folding>
         </state>
       </provider>

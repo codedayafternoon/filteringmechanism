@@ -14,6 +14,7 @@ public interface IFilterController {
     Filter GetFilterById(FilterContainer container, Object filterId);
     void MakeRequestWithCurrentState();
     void MakeDirectRequest(String url);
+    void ResetAllWithoutRequestPropagation();
     List<Filter> GetFiltersByChannel(NotifierChannelType filterChannel);
     void Clear();
 }

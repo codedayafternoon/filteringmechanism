@@ -96,6 +96,11 @@ public abstract class CompositeFilter extends Filter implements INotifier {
 	}
 
 	@Override
+	public boolean IsReset(){
+		return false;
+	}
+
+	@Override
 	public String GetParameterKey(){
 		return this.GetContainer().GetName();
 	}

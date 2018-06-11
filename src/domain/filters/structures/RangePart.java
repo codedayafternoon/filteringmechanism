@@ -81,4 +81,10 @@ public class RangePart {
     public void setSelectedValue(String selectedValue) {
         this.selectedValue = selectedValue;
     }
+
+    public boolean IsReset() {
+        if(this.selectedValue == null || this.defaultValue == null)
+            return true;
+        return this.selectedValue.equals(this.defaultValue);
+    }
 }

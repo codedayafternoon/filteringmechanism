@@ -2,8 +2,11 @@ package domain.filtercontroller;
 
 import java.util.*;
 
+import application.Container;
 import domain.filters.Filter;
+import domain.filters.FilterMode;
 import domain.filters.types.CompositeFilter;
+import domain.hub.HubCommand;
 import domain.notifier.NotifierChannelType;
 import domain.filters.ReservedState;
 import domain.hub.Hub;
@@ -123,6 +126,30 @@ public class FilterController implements IFilterController {
 	@Override
 	public void MakeDirectRequest(String url) {
 		this.requestHandler.makeRequest(url);
+	}
+
+	@Override
+	public void ResetAllWithoutRequestPropagation() {
+		List<HubCommand> resetCommands = new ArrayList<>();
+		for(FilterContainer container : this.containers){
+			this.resetAllWithoutRequestPropagationHelper(container, container.GetFilters(),resetCommands);
+		}
+		if(resetCommands.size() > 0)
+			this.hub.Execute(resetCommands);
+	}
+
+	private void resetAllWithoutRequestPropagationHelper(FilterContainer container, List<Filter> filters, List<HubCommand> commands){
+		for(Filter f : filters){
+			if(f.GetMode() == FilterMode.COMPLEX){
+				List<Filter> innerFilters = ((CompositeFilter)f).getFilters();
+				this.resetAllWithoutRequestPropagationHelper(container, innerFilters,commands);
+			}else{
+				if(!f.IsReset()){
+					HubCommand command = new HubCommand(container.GetId(), container.GetName(),f.Id, f.getName(), "reset");
+					commands.add(command);
+				}
+			}
+		}
 	}
 
 	public void Update() {

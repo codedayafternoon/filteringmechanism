@@ -35,6 +35,13 @@ public abstract class FreeTextFilter extends Filter {
 	}
 
 	@Override
+	public boolean IsReset(){
+		if(this.defaultValue == null || this.selectedValue == null)
+			return true;
+		return this.defaultValue.equals(this.selectedValue);
+	}
+
+	@Override
 	public String DoGetParameterValue(){
 		return this.GetState();
 	}
@@ -46,7 +53,12 @@ public abstract class FreeTextFilter extends Filter {
 	
 	@Override
 	public void Reset() {
-		this.SetText(this.defaultValue);
+		if(this.defaultValue == null || this.selectedValue == null)
+			return;
+		if(this.defaultValue.equals(this.selectedValue))
+			return;
+		this.selectedValue = this.defaultValue;
+		super.notifier.NotifyFilterReset(this);
 	}
 
 	@Override
