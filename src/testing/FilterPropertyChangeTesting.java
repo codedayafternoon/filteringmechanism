@@ -33,7 +33,6 @@ public class FilterPropertyChangeTesting {
         IFilterController controller = context.GetController();
         Hub hub = context.GetHub();
 
-
         MockFilterHubListener listener = new MockFilterHubListener();
         hub.AddFilterListener(listener);
 

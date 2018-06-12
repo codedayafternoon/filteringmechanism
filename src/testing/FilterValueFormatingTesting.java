@@ -90,7 +90,7 @@ public class FilterValueFormatingTesting {
 
         NumberValuePostFormatter formatter = new NumberValuePostFormatter(NumberValueFormatPolicy.CONVERT_COMMA_TO_DOT);
         f1.SetValuePostFormatter(formatter);
-        res=  f1.GetParameterValue();
+        res = f1.GetParameterValue();
         Assert.assertEquals("77s7s,dw2.3wdq,dd", res);
 
         List<String> rangeFromValues = new ArrayList<>();
@@ -105,13 +105,18 @@ public class FilterValueFormatingTesting {
         f2.ChangeState("from:ad33f43f3fF#F#Ff324f-to:35,56yu7.u35,3423.r24r,.t");
         f2.SetValuePostFormatter(formatter);
         res = f2.GetParameterKey() + "=" + f2.GetParameterValue();
-        Assert.assertEquals("f2Min=ad33f43f3fF#F#Ff324f&f2Max=35.56yu7.u35.3423.r24r,.t", res);
+        Assert.assertEquals("ad33f43f3fF#F#Ff324f", f2.GetParameterValueFrom());
+        Assert.assertEquals("35.56yu7.u35.3423.r24r,.t", f2.GetParameterValueTo());
+        //Assert.assertEquals("f2Min=ad33f43f3fF#F#Ff324f&f2Max=35.56yu7.u35.3423.r24r,.t", res);
         f2.ChangeState("from:jj323j#J#j32,3j32,d-to:33uj3,3kj3d,3d3.3d,3.3,,dcs.3f3f3,");
-        res = f2.GetParameterKey() + "=" + f2.GetParameterValue();
-        Assert.assertEquals("f2Min=jj323j#J#j32.3j32.d&f2Max=33uj3.3kj3d,3d3.3d,3.3..dcs.3f3f3.", res);
+        //res = f2.GetParameterKey() + "=" + f2.GetParameterValue();
+        Assert.assertEquals("jj323j#J#j32.3j32.d", f2.GetParameterValueFrom());
+        Assert.assertEquals("33uj3.3kj3d,3d3.3d,3.3..dcs.3f3f3.", f2.GetParameterValueTo());
+        //Assert.assertEquals("f2Min=jj323j#J#j32.3j32.d&f2Max=33uj3.3kj3d,3d3.3d,3.3..dcs.3f3f3.", res);
         f2.ChangeState("from:jj323j#J#j32,3j32,d-to:3,2e2,3.e23e,23e.3r,5.665,42t.5,4");
-        res = f2.GetParameterKey() + "=" + f2.GetParameterValue();
-        Assert.assertEquals("f2Min=jj323j#J#j32.3j32.d&f2Max=3.2e2.3.e23e,23e.3r,5.665.42t.5.4", res);
+        //res = f2.GetParameterKey() + "=" + f2.GetParameterValue();
+        Assert.assertEquals("jj323j#J#j32.3j32.d", f2.GetParameterValueFrom());
+        Assert.assertEquals("3.2e2.3.e23e,23e.3r,5.665.42t.5.4", f2.GetParameterValueTo());
         context.Dispose();
     }
 
@@ -122,19 +127,19 @@ public class FilterValueFormatingTesting {
         }
 
         @Override
-        public String GetParameterKey(){
+        public String GetParameterKeyFrom(){
             return this.Name + "Min";
         }
 
         @Override
-        protected String GetParameterKey2() {
-            return super.Name + "Max=";
+        public String GetParameterKeyTo() {
+            return super.Name + "Max";
         }
 
-        @Override
-        protected String GetIntermediateSymbol() {
-            return "&";
-        }
+//        @Override
+//        protected String GetIntermediateSymbol() {
+//            return "&";
+//        }
 
         @Override
         protected String EncodeParameterValueFrom(String from){

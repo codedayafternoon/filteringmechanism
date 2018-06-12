@@ -55,15 +55,25 @@ public abstract class Filter implements ICountable {
 
 	public final String GetParameterValue(){
 		String res = this.DoGetParameterValue();
-		for(String number : this.GetPostFormatter().Extract(res)) {
-			String formattedNumber = this.GetPostFormatter().Format(number);
-			if(!number.equals(formattedNumber))
-				res = res.replace(number, formattedNumber);
-		}
+		res = this.formatValue(res);
+//		for(String number : this.GetPostFormatter().Extract(res)) {
+//			String formattedNumber = this.GetPostFormatter().Format(number);
+//			if(!number.equals(formattedNumber))
+//				res = res.replace(number, formattedNumber);
+//		}
 		return res;
 	}
 
-	protected abstract String DoGetParameterValue();
+	protected String formatValue(String value){
+		for(String number : this.GetPostFormatter().Extract(value)) {
+			String formattedNumber = this.GetPostFormatter().Format(number);
+			if(!number.equals(formattedNumber))
+				value = value.replace(number, formattedNumber);
+		}
+		return value;
+	}
+
+	protected String DoGetParameterValue(){return "";}
 
 	@Override
 	public void SetCount(int count){

@@ -120,6 +120,8 @@ public class ChannelTesting {
         toValues.add("500");
         this.range = new MockRangeFilter(11, "r", filterNotifier, fromValues, toValues);
 
+        //String rrr = this.range.GetParameterValue();
+
 //        this.range.UpdateFromValues(fromValues);
 //        this.range.UpdateToValues(toValues);
         this.range.SetDefaultFrom("200");
@@ -260,7 +262,8 @@ public class ChannelTesting {
         Assert.assertTrue(handler.Request.contains("f1=text"));
         Assert.assertTrue(handler.Request.contains("cs1=x")); // for complex the inside fiter is shown
         Assert.assertTrue(handler.Request.contains("cf1=free_text"));
-        Assert.assertTrue(handler.Request.contains("r=from:200-to:200"));
+        Assert.assertTrue(handler.Request.contains("rFrom=from:200"));
+        Assert.assertTrue(handler.Request.contains("rTo=to:200"));
 
         controller.ChangeState(checkBoxContainer.GetId(), checkBox3.Id, "1"); // filterNotifiers +1
         controller.ChangeState(checkBoxContainer.GetId(), checkBox2.Id, ReservedState.reset); // filterNotifiers -1
@@ -283,7 +286,8 @@ public class ChannelTesting {
         Assert.assertTrue(handler.Request.contains("f1=text22"));
         Assert.assertTrue(handler.Request.contains("cs1=x")); // for complex the inside fiter is shown
         Assert.assertTrue(handler.Request.contains("cf1=free_text2"));
-        Assert.assertTrue(handler.Request.contains("r=from:200-to:200"));
+        Assert.assertTrue(handler.Request.contains("rFrom=from:200"));
+        Assert.assertTrue(handler.Request.contains("rTo=to:200"));
     }
 
     private class ParameterFilterChannel implements IParameterHubListener, IFilterHubListener{

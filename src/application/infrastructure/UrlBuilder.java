@@ -18,6 +18,8 @@ public class UrlBuilder implements IUrlBuilder {
 	
 	@Override
 	public void AddParameter(String name, String value) {
+		if(name == null || value == null || value.trim().equals(""))
+			return;
 		if(this._params.containsKey(name)) {
 			if(this._params.get(name).contains(value))
 				return;

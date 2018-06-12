@@ -230,7 +230,8 @@ public class CommandExecution {
         Assert.assertTrue(handler.Request.contains("singleContainer=f3"));
         Assert.assertTrue(handler.Request.contains("checkContainer=c1") );
         Assert.assertTrue(handler.Request.contains("f1=free_text"));
-        Assert.assertTrue(handler.Request.contains("r=from:100-to:400"));
+        Assert.assertTrue(handler.Request.contains("rFrom=from:100"));
+        Assert.assertTrue(handler.Request.contains("rTo=to:400"));
         Assert.assertTrue(handler.Request.contains("cs1=z"));
 
         HubCommand singleContainerStateChangeCommandreset = new HubCommand(1, "singleContainer",3, "f3", ReservedState.reset.toString()); // filterNotifiers -1
@@ -265,9 +266,10 @@ public class CommandExecution {
         controller.ChangeState(complexContainer.GetId(), compositeFilter.Id, complexSingleText.Id + ":x");
         Assert.assertFalse(handler.Request.contains("singleContainer=f3"));
         Assert.assertFalse(handler.Request.contains("checkContainer=c2,c1") || handler.Request.contains("checkContainer=c1,c2"));
-        Assert.assertTrue(handler.Request.contains("f1="));
+        Assert.assertFalse(handler.Request.contains("f1="));
         Assert.assertFalse(handler.Request.contains("f1=free_text"));
-        Assert.assertTrue(handler.Request.contains("r=from:200-to:500"));
+        Assert.assertTrue(handler.Request.contains("rFrom=from:200"));
+        Assert.assertTrue(handler.Request.contains("rTo=to:500"));
         Assert.assertTrue(handler.Request.contains("cs1=x"));
 
     }

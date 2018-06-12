@@ -52,7 +52,8 @@ public class BuilderActionsTest {
         String req = handler.Request;
         Assert.assertTrue(req.contains("c3=f3,f2") || req.contains("c3=f2,f3"));
         Assert.assertTrue(req.contains("f1=eee"));
-        Assert.assertTrue(req.contains("f2range=from:z_from-to:z_to"));
+        Assert.assertTrue(req.contains("f2rangeFrom=from:z_from"));
+        Assert.assertTrue(req.contains("f2rangeTo=to:z_to"));
         Assert.assertTrue(req.contains("f2=y_from"));
         Assert.assertTrue(req.contains("f3=asd"));
         Assert.assertTrue(req.contains("c1=f1"));
@@ -62,8 +63,6 @@ public class BuilderActionsTest {
 
         Assert.assertEquals(8, handler.RequestCount);
         controller.ResetAllWithoutRequestPropagation();
-
-
 
         // check if all filters are reset
 
@@ -103,7 +102,7 @@ public class BuilderActionsTest {
             f2ToValues.add("x_to");
             f2ToValues.add("y_to");
             f2ToValues.add("z_to");
-            MockRangeFilter f2 = new MockRangeFilter(2, "f2range", notifier, f2FromValues,f2ToValues );
+            MockRangeFilter f2 = new MockRangeFilter(2, "f2range", notifier, f2FromValues, f2ToValues );
             f2.SetDefaultTo("y_to");
             f2.SetDefaultFrom("z_from");
             MockFreeTextFilter f3 = new MockFreeTextFilter(3, "f3", notifier);

@@ -1,15 +1,20 @@
 package domain.filters.structures;
 
+import domain.filters.SelectedValuePolicy;
+import domain.filters.policies.NullValueAsSelected;
+
 import java.util.List;
 
 public class RangePart {
     private List<String> items;
     private String defaultValue;
-    private String selectedValue;
+    private SelectedValuePolicy selectedValuePolicy;
+    //private String selectedValue;
 
-    public RangePart(List<String> items, String defaultValue) {
+    public RangePart(SelectedValuePolicy selectedValuePolicy, List<String> items, String defaultValue) {
         this.items = items;
         this.defaultValue = defaultValue;
+        this.selectedValuePolicy = selectedValuePolicy;
     }
 
     public boolean UpdateFrom(RangePart part){
@@ -26,8 +31,10 @@ public class RangePart {
         for(String x : part.getItems()){
             this.items.add(x);
         }
-        if(selectedValueFromIndex != -1)
-            this.selectedValue = this.items.get(selectedValueFromIndex);
+        if(selectedValueFromIndex != -1) {
+            //this.selectedValue = this.items.get(selectedValueFromIndex);
+            this.selectedValuePolicy.set(this.items.get(selectedValueFromIndex));
+        }
 
         if(part.getDefaultValue() == null){
             if(selectedDefaultValueFromIndex != -1)
@@ -43,10 +50,10 @@ public class RangePart {
     private int getSelectedValueIndex(){
         if(this.items.size() == 0)
             return -1;
-        if(!this.items.contains(this.selectedValue))
+        if(!this.items.contains( this.selectedValuePolicy.get(this.defaultValue)))
             return -1;
 
-        return items.indexOf(this.selectedValue);
+        return items.indexOf(this.selectedValuePolicy.get(this.defaultValue));
     }
 
     private int getDefaultValueIndex(){
@@ -75,16 +82,26 @@ public class RangePart {
     }
 
     public String getSelectedValue() {
-        return selectedValue;
+        return this.selectedValuePolicy.get(this.defaultValue);
     }
 
     public void setSelectedValue(String selectedValue) {
-        this.selectedValue = selectedValue;
+        this.selectedValuePolicy.set(selectedValue);
     }
 
     public boolean IsReset() {
-        if(this.selectedValue == null || this.defaultValue == null)
+        if(this.selectedValuePolicy.get(this.defaultValue) == null || this.defaultValue == null)
             return true;
-        return this.selectedValue.equals(this.defaultValue);
+        return this.selectedValuePolicy.get(defaultValue).equals(this.defaultValue);
+    }
+
+    public void Reset() {
+        if(this.IsReset())
+            return;
+        this.selectedValuePolicy.reset( this.defaultValue );
+    }
+
+    public void SetSelectedValuePolicy(SelectedValuePolicy policy) {
+        this.selectedValuePolicy = policy;
     }
 }

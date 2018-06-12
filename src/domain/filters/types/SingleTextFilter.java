@@ -5,6 +5,7 @@ import java.util.List;
 import domain.filters.Filter;
 import domain.filters.FilterMode;
 import domain.filters.INotifier;
+import domain.filters.policies.DefaultValueAsSelected;
 import domain.filters.structures.RangePart;
 
 public abstract class SingleTextFilter extends Filter {
@@ -16,7 +17,7 @@ public abstract class SingleTextFilter extends Filter {
 		if(values == null || values.size() == 0)
 			throw new Error("values cannot be null or empty");
 
-		this.range = new RangePart(values, values.get(0));
+		this.range = new RangePart(new DefaultValueAsSelected(), values, values.get(0));
 	}
 
 	public RangePart getRange() {

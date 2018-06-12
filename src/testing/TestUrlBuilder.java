@@ -21,6 +21,8 @@ public class TestUrlBuilder {
 		Assert.assertTrue(urlBuilder.Peek().contains("name1=x1"));
 		Assert.assertTrue(urlBuilder.Peek().contains("name2=x2"));
 
+		urlBuilder.AddParameter("name22", null);
+
 	}
 
 	@Test

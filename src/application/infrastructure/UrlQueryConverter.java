@@ -10,8 +10,9 @@ import java.util.stream.Collectors;
 import domain.filtercontroller.IRequestConverter;
 import domain.filters.Filter;
 import domain.filters.types.CompositeFilter;
+import domain.filters.types.RangeFilter;
 
-public class UrlQueryConverter implements IRequestConverter {
+ public class UrlQueryConverter implements IRequestConverter {
 
 	IUrlBuilder _urlBuilder;
 	
@@ -38,12 +39,18 @@ public class UrlQueryConverter implements IRequestConverter {
 	private void addToUrlBuilder(Filter f) {
 		switch (f.GetMode()) {
 			case SIMPLE:
-			this._urlBuilder.AddParameter(f.GetParameterKey(), f.GetParameterValue());
-			break;
-		case COMPLEX:
-			List<Filter> activeFilters = ((CompositeFilter)f).GetActiveFilters();
-			for(Filter activeFilter : activeFilters)
-				this.addToUrlBuilder(activeFilter);
+				this._urlBuilder.AddParameter(f.GetParameterKey(), f.GetParameterValue());
+				break;
+			case COMPLEX:
+				List<Filter> activeFilters = ((CompositeFilter) f).GetActiveFilters();
+				for (Filter activeFilter : activeFilters)
+					this.addToUrlBuilder(activeFilter);
+				break;
+			case RANGED:
+				RangeFilter rf = (RangeFilter)f;
+				this._urlBuilder.AddParameter(rf.GetParameterKeyFrom(), rf.GetParameterValueFrom());
+				this._urlBuilder.AddParameter(rf.GetParameterKeyTo(), rf.GetParameterValueTo());
+				break;
 		}
 	}
 
@@ -62,7 +69,4 @@ public class UrlQueryConverter implements IRequestConverter {
 		this._urlBuilder.RemoveParameter(paramName);
 	}
 
-	
-	
-	
 }

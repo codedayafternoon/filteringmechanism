@@ -133,19 +133,19 @@ public class OveridingParametersKeyValuesInFilters {
         }
 
         @Override
-        public String GetParameterKey(){
+        public String GetParameterKeyFrom(){
             return this.Name + "Min";
         }
 
         @Override
-        protected String GetParameterKey2() {
-            return super.Name + "Max=";
+        public String GetParameterKeyTo() {
+            return super.Name + "Max";
         }
 
-        @Override
-        protected String GetIntermediateSymbol() {
-            return "&";
-        }
+//        @Override
+//        protected String GetIntermediateSymbol() {
+//            return "&";
+//        }
 
         @Override
         protected String EncodeParameterValueFrom(String from){
