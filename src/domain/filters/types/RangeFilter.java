@@ -168,32 +168,17 @@ public abstract class RangeFilter extends Filter {
 		return this.Name;
 	}
 
-//	@Override
-//	public String DoGetParameterValue(){
-//		String[]parts = this.GetState().split("-");
-//		String from = parts[0].split(":")[1];
-//		String to = parts[1].split(":")[1];
-//
-//		String res = "";
-//		if(this.rangeFrom.getSelectedValue() != null){
-//			res += this.GetParameterKeyTo() + this.GetEqualitySymbol() + this.EncodeParameterValueFrom(from);
-//		}
-//		if(this.rangeFrom.getSelectedValue() != null && this.rangeTo.getSelectedValue() != null)
-//		{
-//			res += this.GetIntermediateSymbol();
-//		}
-//		if( this.rangeTo.getSelectedValue() != null ){
-//			res += this.GetParameterKeyTo() + this.GetEqualitySymbol() + this.EncodeParameterValueTo(to);
-//		}
-//		return res;
-//		//return this.EncodeParameterValueFrom(from) + this.GetIntermediateSymbol() + this.GetParameterKeyTo() + this.EncodeParameterValueTo(to);
-//	}
 
-//	protected String GetIntermediateSymbol(){return "-";}
-//
-//	protected String GetEqualitySymbol(){
-//		return "=";
-//	}
+	@Override
+	public String GetValue(int index){
+		if(index == 0){
+			return this.rangeFrom.getSelectedValue();
+		}else if(index == 1){
+			return this.rangeTo.getSelectedValue();
+		}
+
+		return "";
+	}
 
 	public String GetParameterKeyFrom(){
 		return this.Name + "From";

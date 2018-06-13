@@ -1,8 +1,13 @@
 package domain.filters;
 
 import domain.filtercontroller.FilterContainer;
-import domain.filters.formatters.DefaultValuePostFormatter;
+import domain.filters.filterformatters.DefaultFilterFormatter;
+import domain.filters.valueformatters.DefaultValuePostFormatter;
 import domain.notifier.NotifierChannelType;
+import testing.DisplayFormatterTesting;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Filter implements ICountable {
 
@@ -12,6 +17,7 @@ public abstract class Filter implements ICountable {
 	protected FilterContainer _container;
 	private int count;
 	protected IValuePostFormatter postValueFormatter;
+	private List<FilterFormatter> Formatters;
 
 	public Filter(Object id, String name, INotifier notifier) {
 		if(id == null || name == null)
@@ -22,6 +28,7 @@ public abstract class Filter implements ICountable {
 		this.notifier = notifier;
 		this.Name = name;
 		this.count = -1;
+		this.Formatters = new ArrayList<>();
 	}
 
 	public NotifierChannelType GetNotifierType(){
@@ -89,6 +96,8 @@ public abstract class Filter implements ICountable {
 		return this.count;
 	}
 
+	public abstract String GetValue(int index);
+
 	public void SetContainer(FilterContainer container) {
 		this._container = container;
 	}
@@ -125,4 +134,42 @@ public abstract class Filter implements ICountable {
 	}
 
 	public abstract boolean IsReset();
+
+	public String GetFormattedText(Object formatterId) {
+		if(this.Formatters.size() == 0)
+			return this.GetState();
+		FilterFormatter formatter = this.GetFormatterById(formatterId);
+		if(formatter == null)
+			return this.GetState();
+		return formatter.Format(this);
+	}
+
+	private FilterFormatter GetFormatterById(Object id){
+		for(FilterFormatter ff : this.Formatters){
+			if(ff.getId().toString().equals(id.toString()))
+				return ff;
+		}
+		return null;
+	}
+
+	public void AddFormatter(FilterFormatter formatter) {
+		if(formatter == null)
+			return;
+		if(this.GetFormatterById(formatter.getId()) != null)
+			throw new Error("there is already a formatter with the same id");
+		this.Formatters.add(formatter);
+	}
+
+	public void RemoveFormatter(Object id){
+		if(id == null)
+			return;
+		FilterFormatter formatter = this.GetFormatterById(id);
+		if(formatter == null)
+			return;
+		this.Formatters.remove(formatter);
+	}
+
+	public void ClearFormatters() {
+		this.Formatters.clear();
+	}
 }

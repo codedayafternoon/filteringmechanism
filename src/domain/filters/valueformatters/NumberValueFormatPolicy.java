@@ -1,4 +1,4 @@
-package domain.filters.formatters;
+package domain.filters.valueformatters;
 
 public enum NumberValueFormatPolicy {
     CONVERT_DOT_TO_COMMA,

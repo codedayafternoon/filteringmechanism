@@ -42,6 +42,11 @@ public abstract class SingleTextFilter extends Filter {
 		return this.range.IsReset();
 	}
 
+	@Override
+	public String GetValue(int index){
+		return this.range.getSelectedValue();
+	}
+
 	public void SetSelectedValue(String value) {
 		if(!this.range.getItems().contains(value))
 			return;

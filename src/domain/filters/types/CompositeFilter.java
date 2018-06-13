@@ -23,6 +23,11 @@ public abstract class CompositeFilter extends Filter implements INotifier {
 		return filters;
 	}
 
+	@Override
+	public String GetValue(int index){
+		return "";
+	}
+
 	public void AddFilter(Filter f) {
 		if(this.filters.contains(f))
 			return;

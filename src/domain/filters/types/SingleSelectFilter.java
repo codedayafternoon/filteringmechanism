@@ -12,7 +12,8 @@ public abstract class SingleSelectFilter extends CheckBoxFilter implements IInva
 		super(id, name, notifier);
 		this._invalidator = invalidator;
 	}
-	
+
+
 	@Override
 	public void Check() {
 		if(this._isChecked)

@@ -24,7 +24,7 @@ public abstract class FreeTextFilter extends Filter {
 			this.selectedValue = this.defaultValue;
 	}
 	
-	private void SetText(String value) {
+	public void SetText(String value) {
 		this.selectedValue = value;
 		super.notifier.NotifyFilterStateChanged(this);
 	}
@@ -59,6 +59,11 @@ public abstract class FreeTextFilter extends Filter {
 			return;
 		this.selectedValue = this.defaultValue;
 		super.notifier.NotifyFilterReset(this);
+	}
+
+	@Override
+	public String GetValue(int index){
+		return this.selectedValue == null ? "" : this.selectedValue;
 	}
 
 	@Override

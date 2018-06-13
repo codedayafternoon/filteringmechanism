@@ -62,6 +62,11 @@ public abstract class CheckBoxFilter extends Filter {
 	}
 
 	@Override
+	public String GetValue(int index){
+		return Boolean.toString(this._isChecked);
+	}
+
+	@Override
 	public FilterMode GetMode() {
 		return FilterMode.SIMPLE;
 	}

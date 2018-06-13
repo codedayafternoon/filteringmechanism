@@ -1,4 +1,4 @@
-package domain.filters.formatters;
+package domain.filters.valueformatters;
 
 import domain.filters.IValuePostFormatter;
 
