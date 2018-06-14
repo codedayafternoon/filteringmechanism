@@ -90,8 +90,11 @@ public class RangePart {
     }
 
     public boolean IsReset() {
-        if(this.selectedValuePolicy.get(this.defaultValue) == null || this.defaultValue == null)
-            return true;
+//        if(this.selectedValuePolicy.get(this.defaultValue) == null || this.defaultValue == null)
+//            return true;
+        if(this.selectedValuePolicy.get(defaultValue) == null){
+            return this.defaultValue == null;
+        }
         return this.selectedValuePolicy.get(defaultValue).equals(this.defaultValue);
     }
 

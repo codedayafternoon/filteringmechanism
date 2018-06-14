@@ -1,7 +1,6 @@
 package domain.filters;
 
 import domain.filtercontroller.FilterContainer;
-import domain.filters.filterformatters.DefaultFilterFormatter;
 import domain.filters.valueformatters.DefaultValuePostFormatter;
 import domain.notifier.NotifierChannelType;
 import testing.DisplayFormatterTesting;

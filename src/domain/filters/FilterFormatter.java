@@ -46,18 +46,26 @@ public abstract class FilterFormatter {
             this.formatted = this.formatted.replace("$fn", filter.getName());
         }
         if(this.pattern.contains("$fv[0]")){
-            this.formatted = this.formatted.replace("$fv[0]", filter.GetValue(0));
+            String v = filter.GetValue(0);
+            v = v == null ? "" : v;
+            this.formatted = this.formatted.replace("$fv[0]", v);
         }else if(this.pattern.contains("$fv[1]")){
-            this.formatted = this.formatted.replace("$fv[1]", filter.GetValue(1));
+            String v = filter.GetValue(1);
+            v = v == null ? "" : v;
+            this.formatted = this.formatted.replace("$fv[1]", v);
         }
         else if(this.pattern.contains("$fv")){
-            this.formatted = this.formatted.replace("$fv", filter.GetValue(0));
+            String v = filter.GetValue(0);
+            v = v == null ? "" : v;
+            this.formatted = this.formatted.replace("$fv", v);
         }
 
         return formatted;
     }
 
     private String replace(String what, String where, Filter from){
+        if(what == null || where == null || from == null)
+            return where;
         if(what.contains("cn")){
             if(from.GetContainer() != null) {
                 return where.replace(what, from.GetContainer().GetName());
@@ -67,12 +75,18 @@ public abstract class FilterFormatter {
         }else if(what.contains("fn")){
             return where.replace(what, from.getName());
         }else if(what.contains("fv[0]")){
-            return where.replace(what, from.GetValue(0));
+            String v = from.GetValue(0);
+            v = v == null ? "" : v;
+            return where.replace(what, v);
         }else if(what.contains("fv[1]")){
-            return where.replace(what, from.GetValue(1));
+            String v = from.GetValue(1);
+            v = v == null ? "" : v;
+            return where.replace(what, v);
         }
         else if(what.contains("fv")){
-            return where.replace(what, from.GetValue(0));
+            String v = from.GetValue(0);
+            v = v == null ? "" : v;
+            return where.replace(what, v);
         }
 
         return what;

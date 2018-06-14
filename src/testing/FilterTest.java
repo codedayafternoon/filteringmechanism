@@ -114,6 +114,53 @@ public class FilterTest {
     }
 
     @Test
+    public void testRangeFilterWithNullSelectedValuePolicyFunctionality(){
+        MockFilterNotifier notifier = new MockFilterNotifier(0);
+
+        List<String> fromValues = new ArrayList<>();
+        fromValues.add("100");
+        fromValues.add("200");
+        fromValues.add("300");
+        fromValues.add("400");
+        List<String> toValues = new ArrayList<>();
+        toValues.add("400");
+        toValues.add("500");
+        toValues.add("600");
+        toValues.add("700");
+        MockRangeFilter f1 = new MockRangeFilter(1, "f1", notifier, fromValues, toValues);
+
+        f1.SetSelectedValuePolicy(SelectedValuePolicyType.Null);
+
+        String state = f1.GetState();
+        Assert.assertEquals("from:null-to:null", state);
+
+        f1.ChangeState("from:200");
+        state = f1.GetState();
+        Assert.assertEquals("from:200-to:null", state);
+
+        f1.ChangeState("to:600");
+        state = f1.GetState();
+        Assert.assertEquals("from:200-to:600", state);
+
+        f1.ChangeState("to:reset");
+        state = f1.GetState();
+        Assert.assertEquals("from:200-to:null", state);
+
+        f1.ChangeState("from:reset");
+        state = f1.GetState();
+        Assert.assertEquals("from:null-to:null", state);
+
+        f1.ChangeState("to:700");
+        state = f1.GetState();
+        Assert.assertEquals("from:null-to:700", state);
+
+        f1.ChangeState("from:200");
+        state = f1.GetState();
+        Assert.assertEquals("from:200-to:700", state);
+
+    }
+
+    @Test
     public void testChangeAndResetRangeWithRequestUrlCheck(){
         FilterNotifier filterNotifier = new FilterNotifier(this.hub);
         List<String> from = new ArrayList<>();

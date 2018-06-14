@@ -52,6 +52,8 @@ public class DisplayFormatterTesting {
         toValues.add("600");
         toValues.add("700");
         MockRangeFilter rangeFilter = new MockRangeFilter(1, "price",notifier, fromValues, toValues);
+        rangeFilter.SetDefaultFrom("100");
+        rangeFilter.SetDefaultTo("500");
         container.AddFilter(rangeFilter);
 
         MockEmptyFormatter fromFormatter = new MockEmptyFormatter("from", "$fn from $fv[0]€");
@@ -113,6 +115,8 @@ public class DisplayFormatterTesting {
         toValues.add("600");
         toValues.add("700");
         MockRangeFilter rangeFilter=  new MockRangeFilter(3, "price", compositeFilter, fromValues, toValues);
+        rangeFilter.SetDefaultFrom("100");
+        rangeFilter.SetDefaultTo("500");
 
         compositeFilter.AddFilter(freeTextFilter);
         compositeFilter.AddFilter(singleTextFilter);
