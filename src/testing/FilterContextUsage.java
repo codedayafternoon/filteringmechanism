@@ -5,10 +5,7 @@ import domain.configuration.*;
 import domain.filtercontroller.*;
 import domain.filters.Filter;
 import domain.filters.FilterPropertyType;
-import domain.hub.Hub;
-import domain.hub.IFilterHubListener;
-import domain.hub.IParameterHubListener;
-import domain.hub.IRequestHubListener;
+import domain.hub.*;
 import domain.notifier.FilterNotifier;
 import org.junit.Assert;
 import org.junit.Test;
@@ -61,8 +58,8 @@ public class FilterContextUsage {
 
     private class MockBuilderItems extends BuilderItems {
 
-        Hub hub;
-        public MockBuilderItems(Hub hub) {
+        IHub hub;
+        public MockBuilderItems(IHub hub) {
             this.hub = hub;
         }
 
@@ -79,7 +76,7 @@ public class FilterContextUsage {
 
     private class MockCompleteComponent implements IParameterHubListener, IFilterHubListener, IRequestHubListener{
 
-        public MockCompleteComponent(Hub hub) {
+        public MockCompleteComponent(IHub hub) {
             hub.AddParameterListener(this);
             hub.AddFilterListener(this);
             hub.AddRequestListener(this);
@@ -148,7 +145,7 @@ public class FilterContextUsage {
 
     private class MockParameterComponent implements IParameterHubListener{
 
-        public MockParameterComponent(Hub hub) {
+        public MockParameterComponent(IHub hub) {
             hub.AddParameterListener(this);
         }
 

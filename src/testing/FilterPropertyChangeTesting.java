@@ -14,6 +14,7 @@ import domain.filters.types.CheckBoxFilter;
 import domain.hub.Hub;
 import domain.hub.HubCommand;
 import domain.hub.IFilterHubListener;
+import domain.hub.IHub;
 import domain.notifier.FilterNotifier;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,7 +32,7 @@ public class FilterPropertyChangeTesting {
         MockRequestHandler handler = new MockRequestHandler();
         context.Initialize(handler, new UrlQueryConverter(new UrlBuilder(",", "&")), new MockConfiguration());
         IFilterController controller = context.GetController();
-        Hub hub = context.GetHub();
+        IHub hub = context.GetHub();
 
         MockFilterHubListener listener = new MockFilterHubListener();
         hub.AddFilterListener(listener);
@@ -77,8 +78,9 @@ public class FilterPropertyChangeTesting {
 
     private class MockBuilderItems extends BuilderItems {
 
-        Hub hub;
-        public MockBuilderItems(Hub hub){
+        IHub hub;
+
+        public MockBuilderItems(IHub hub){
             this.hub = hub;
         }
 

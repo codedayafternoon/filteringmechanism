@@ -146,6 +146,12 @@ public class DisplayFormatterTesting {
 
     }
 
+    @Test
+    public void testFormatterWithInjectableParameters(){
+
+    }
+
+
     private class MockEmptyFormatter extends FilterFormatter {
 
         public MockEmptyFormatter(Object id, String pattern) {

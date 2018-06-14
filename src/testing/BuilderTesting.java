@@ -8,6 +8,7 @@ import domain.filtercontroller.*;
 import domain.filters.types.CheckBoxFilter;
 import domain.filters.types.RangeFilter;
 import domain.hub.Hub;
+import domain.hub.IHub;
 import domain.notifier.FilterNotifier;
 import domain.notifier.ParameterNotifier;
 import org.junit.Assert;
@@ -68,9 +69,9 @@ public class BuilderTesting {
     private class MockBuilderItems extends BuilderItems
     {
         List<FilterContainer> containers ;
-        Hub hub;
+        IHub hub;
 
-        public MockBuilderItems(Hub hub) {
+        public MockBuilderItems(IHub hub) {
             this.hub = hub;
             this.containers = new ArrayList<>();
             this.containers.add(new FilterContainer(1,"c1"));

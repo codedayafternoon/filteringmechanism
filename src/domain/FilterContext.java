@@ -1,17 +1,16 @@
 package domain;
 
+import domain.channelmanipulation.ChannelManipulator;
 import domain.configuration.Builder;
 import domain.configuration.Configuration;
-import domain.filtercontroller.FilterController;
-import domain.filtercontroller.IFilterController;
-import domain.filtercontroller.IRequestConverter;
-import domain.filtercontroller.IRequestHandler;
-import domain.filters.Filter;
+import domain.filtercontroller.*;
 import domain.hub.Hub;
+import domain.hub.IHub;
 
 public class FilterContext {
     private static FilterController controller;
     private static Hub hub;
+    private static ChannelManipulator channelManipulator;
     private IRequestHandler handler;
     private IRequestConverter converter;
     private Configuration configuration;
@@ -54,10 +53,18 @@ public class FilterContext {
         return this.builder;
     }
 
-    public Hub GetHub(){
+    public IHub GetHub(){
         if(hub == null)
             throw new Error("hub has not initialized. Consider call Initialize before accessing any members");
         return hub;
+    }
+
+    public ChannelManipulator GetChannelmanipulator(){
+        if(controller == null || hub == null)
+            throw new Error("controller or hub are not initialized. Consider call Initialize before accessing any memberd");
+        if(channelManipulator == null)
+            channelManipulator = new ChannelManipulator(controller, hub);
+        return channelManipulator;
     }
 
     public void Dispose(){

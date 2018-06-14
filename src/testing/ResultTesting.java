@@ -9,6 +9,7 @@ import domain.filtercontroller.IRequestHandler;
 import domain.filters.Filter;
 import domain.hub.Hub;
 import domain.hub.HubCommand;
+import domain.hub.IHub;
 import domain.hub.IResultHubListener;
 import domain.hub.results.IResult;
 import domain.notifier.FilterNotifier;
@@ -89,7 +90,7 @@ public class ResultTesting {
         Assert.assertEquals(-1, this.checkBox3.GetCount());
         Assert.assertEquals(-1, this.checkBox4.GetCount());
 
-
+        context.Dispose();
        // HubCommand command1 = new HubCommand("c1", "f1", 10, "1" );
     }
 
@@ -115,7 +116,7 @@ public class ResultTesting {
 
         public Object Result;
 
-        public MockResultListenerModule(Hub hub) {
+        public MockResultListenerModule(IHub hub) {
             hub.AddResultListener(this);
         }
 
@@ -151,13 +152,13 @@ public class ResultTesting {
 
     private class MockRequestHandler implements IRequestHandler{
 
-        Hub hub;
+        IHub hub;
 
         public MockRequestHandler() {
 
         }
 
-        public void SetHub(Hub hub){
+        public void SetHub(IHub hub){
             this.hub = hub;
         }
 

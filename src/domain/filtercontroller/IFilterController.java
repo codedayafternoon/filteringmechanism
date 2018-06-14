@@ -3,7 +3,9 @@ package domain.filtercontroller;
 import domain.filters.Filter;
 import domain.notifier.NotifierChannelType;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 public interface IFilterController {
     void AddContainer(FilterContainer container);
@@ -16,5 +18,7 @@ public interface IFilterController {
     void MakeDirectRequest(String url);
     void ResetAllWithoutRequestPropagation();
     List<Filter> GetFiltersByChannel(NotifierChannelType filterChannel);
+    Map<Filter, Date> GetCurrentSelectedRequestParameters();
+    String GetCurrentConvertedRequest();
     void Clear();
 }

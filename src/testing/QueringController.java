@@ -7,6 +7,7 @@ import domain.configuration.*;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.types.CompositeFilter;
+import domain.hub.IHub;
 import domain.notifier.NotifierChannelType;
 import domain.filters.Filter;
 import domain.hub.Hub;
@@ -52,9 +53,9 @@ public class QueringController {
 
     private class MockBuilderItems extends BuilderItems{
 
-        Hub hub;
+        IHub hub;
 
-        public MockBuilderItems(Hub hub) {
+        public MockBuilderItems(IHub hub) {
             this.hub = hub;
         }
 

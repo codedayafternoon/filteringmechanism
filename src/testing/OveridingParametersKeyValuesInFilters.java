@@ -10,6 +10,7 @@ import domain.filtercontroller.IRequestHandler;
 import domain.filters.INotifier;
 import domain.filters.types.RangeFilter;
 import domain.hub.Hub;
+import domain.hub.IHub;
 import domain.notifier.FilterNotifier;
 import org.junit.Assert;
 import org.junit.Before;
@@ -96,9 +97,9 @@ public class OveridingParametersKeyValuesInFilters {
 
     private class MockBuilderItems extends BuilderItems{
 
-        Hub hub;
+        IHub hub;
 
-        public MockBuilderItems(Hub hub) {
+        public MockBuilderItems(IHub hub) {
             this.hub = hub;
         }
 

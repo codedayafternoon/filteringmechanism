@@ -12,6 +12,7 @@ import domain.filters.Filter;
 import domain.filters.FilterPropertyType;
 import domain.hub.Hub;
 import domain.hub.IFilterHubListener;
+import domain.hub.IHub;
 import domain.notifier.FilterNotifier;
 import org.junit.Assert;
 import org.junit.Test;
@@ -81,9 +82,9 @@ public class BuilderActionsTest {
 
     private class MockBuilderItems3 extends BuilderItems{
 
-        Hub hub;
+        IHub hub;
 
-        public MockBuilderItems3(Hub hub) {
+        public MockBuilderItems3(IHub hub) {
             this.hub = hub;
         }
 
@@ -224,9 +225,9 @@ public class BuilderActionsTest {
 
     private class MockItemsOneContainerBefore extends BuilderItems{
 
-        Hub hub;
+        IHub hub;
 
-        public MockItemsOneContainerBefore(Hub hub) {
+        public MockItemsOneContainerBefore(IHub hub) {
             this.hub = hub;
         }
 
@@ -248,9 +249,9 @@ public class BuilderActionsTest {
 
     private class MockItemsOneContainerAfter extends BuilderItems{
 
-        Hub hub;
+        IHub hub;
 
-        public MockItemsOneContainerAfter(Hub hub) {
+        public MockItemsOneContainerAfter(IHub hub) {
             this.hub = hub;
         }
 
@@ -299,9 +300,9 @@ public class BuilderActionsTest {
 
     private class MockBuilderItemsBefore extends BuilderItems{
 
-        Hub hub;
+        IHub hub;
 
-        public MockBuilderItemsBefore(Hub hub) {
+        public MockBuilderItemsBefore(IHub hub) {
             this.hub = hub;
         }
 
@@ -336,9 +337,9 @@ public class BuilderActionsTest {
 
     private class MockBuilderItemsAfter extends BuilderItems{
 
-        Hub hub;
+        IHub hub;
 
-        public MockBuilderItemsAfter(Hub hub) {
+        public MockBuilderItemsAfter(IHub hub) {
             this.hub = hub;
         }
 
@@ -375,9 +376,9 @@ public class BuilderActionsTest {
 
     private class MockBuilderItems2 extends BuilderItems{
 
-        Hub hub;
+        IHub hub;
 
-        public MockBuilderItems2(Hub hub) {
+        public MockBuilderItems2(IHub hub) {
             this.hub = hub;
         }
 
@@ -409,9 +410,9 @@ public class BuilderActionsTest {
 
     private class MockBuilderItems extends BuilderItems{
 
-        Hub hub;
+        IHub hub;
 
-        public MockBuilderItems(Hub hub) {
+        public MockBuilderItems(IHub hub) {
             this.hub = hub;
         }
 
@@ -551,9 +552,9 @@ public class BuilderActionsTest {
 
     private class MockBuilderItemsUseCase1Before extends BuilderItems{
 
-        Hub hub;
+        IHub hub;
 
-        public MockBuilderItemsUseCase1Before(Hub hub) {
+        public MockBuilderItemsUseCase1Before(IHub hub) {
             this.hub = hub;
         }
 
@@ -611,9 +612,9 @@ public class BuilderActionsTest {
 
     private class MockBuilderItemsUseCase1After extends BuilderItems{
 
-        Hub hub;
+        IHub hub;
 
-        public MockBuilderItemsUseCase1After(Hub hub) {
+        public MockBuilderItemsUseCase1After(IHub hub) {
             this.hub = hub;
         }
 

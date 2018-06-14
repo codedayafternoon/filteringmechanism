@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import domain.channelmanipulation.OpenFilterHubListener;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.FilterController;
 import domain.filters.Filter;
@@ -19,7 +20,7 @@ import domain.notifier.IFilterHub;
 import domain.notifier.IParameterHub;
 import domain.notifier.IRequestHub;
 
-public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
+public class Hub implements IHub {
 
 	private FilterController filterController;
 
@@ -47,6 +48,18 @@ public class Hub implements IParameterHub, IFilterHub, IRequestHub, IHub {
 		this.resultListeners = new ArrayList<>();
 
 		this.interconnections = new ArrayList<>();
+	}
+
+	public List<IParameterHubListener> getParameterListeners() {
+		return parameterListeners;
+	}
+
+	public List<IFilterHubListener> getFilterListeners() {
+		return filterListeners;
+	}
+
+	public List<IRequestHubListener> getRequestListeners() {
+		return requestListeners;
 	}
 
 	// ===================================== REGION Filters ==============================================

@@ -35,6 +35,14 @@ public class FilterController implements IFilterController {
 		this.hub.SetFilterController(this);
 	}
 
+	public IRequestHandler getRequestHandler() {
+		return requestHandler;
+	}
+
+	public void setRequestHandler(IRequestHandler requestHandler) {
+		this.requestHandler = requestHandler;
+	}
+
 	@Override
 	public void AddContainer(FilterContainer container){
 		if(container == null)
@@ -156,6 +164,16 @@ public class FilterController implements IFilterController {
 		Map<Filter, Date> s = getRequestParameters();
 		String request = this.requestConverter.Convert(s);
 		this.requestHandler.makeRequest(request);
+	}
+
+	public Map<Filter, Date> GetCurrentSelectedRequestParameters(){
+		return this.getRequestParameters();
+	}
+
+	public String GetCurrentConvertedRequest(){
+		Map<Filter, Date> s = getRequestParameters();
+		String request = this.requestConverter.Convert(s);
+		return request;
 	}
 
 	private Map<Filter, Date> getRequestParameters() {

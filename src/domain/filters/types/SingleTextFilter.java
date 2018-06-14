@@ -17,6 +17,7 @@ public abstract class SingleTextFilter extends Filter {
 		if(values == null || values.size() == 0)
 			throw new Error("values cannot be null or empty");
 
+		// TODO replace with null
 		this.range = new RangePart(new DefaultValueAsSelected(), values, values.get(0));
 	}
 
