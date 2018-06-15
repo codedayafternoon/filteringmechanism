@@ -87,7 +87,7 @@ public class PauseUnpauseNotifiersTesting {
 
         String req = controller.GetCurrentConvertedRequest();
         // the current state is in sync with the filter changes
-        Assert.assertEquals("f1From=from:20&f1To=to:50&f1=asdd&f2=free_text2,20&c1=f1", req);
+        Assert.assertTrue( req.contains("f1From=from:20&f1To=to:50&f1=asdd&f2=20,free_text2&c1=f1") || req.contains("f1From=from:20&f1To=to:50&f1=asdd&f2=free_text2,20&c1=f1"));
 
         Assert.assertFalse(handler.Fired);
 
@@ -97,7 +97,7 @@ public class PauseUnpauseNotifiersTesting {
         Assert.assertTrue(handler.Fired);
         req = controller.GetCurrentConvertedRequest();
         // the current state is in sync with the filter changes
-        Assert.assertEquals("f1From=from:20&f1To=to:50&f1=asdd&f2=free_text2,20&f3=free_ttt&c1=f1", req);
+        Assert.assertTrue(req.contains("f1From=from:20&f1To=to:50&f1=asdd&f2=20,free_text2&f3=free_ttt&c1=f1") || req.contains("f1From=from:20&f1To=to:50&f1=asdd&f2=free_text2,20&f3=free_ttt&c1=f1"));
 
         context.Dispose();
     }

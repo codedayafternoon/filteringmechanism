@@ -42,6 +42,8 @@ public class Builder implements IActionObserver {
             boolean add = false;
             boolean remove = false;
             boolean update = false;
+            boolean updateState = false;
+
             ExistingContainerActionType existingActionType = configuration.getExistingContainerActionType();
             switch (existingActionType){
                 case Add:
@@ -53,6 +55,9 @@ public class Builder implements IActionObserver {
                     break;
                 case Remove:
                     remove = true;
+                    break;
+                case Update:
+                    update = true;
                     break;
                 case RemoveAndUpdate:
                     remove = true;
@@ -67,8 +72,14 @@ public class Builder implements IActionObserver {
                     remove = true;
                     update = true;
                     break;
+                case AddRemoveAndUpdateAlsoState:
+                    add=true;
+                    remove = true;
+                    update = true;
+                    updateState = true;
+                    break;
             }
-            this.existingContainerAction = new ConfigurableExistingContainerAction(this.controller, this, add, remove, update);
+            this.existingContainerAction = new ConfigurableExistingContainerAction(this.controller, this, add, remove, update, updateState);
         }
 
 

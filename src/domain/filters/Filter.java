@@ -3,6 +3,7 @@ package domain.filters;
 import domain.filtercontroller.FilterContainer;
 import domain.filters.valueformatters.DefaultValuePostFormatter;
 import domain.notifier.NotifierChannelType;
+import domain.notifier.OpenNotifier;
 import testing.DisplayFormatterTesting;
 
 import java.util.ArrayList;
@@ -59,14 +60,23 @@ public abstract class Filter implements ICountable {
 	public abstract FilterMode GetMode();
 	public abstract String GetParameterKey();
 
+	public void Pause(){
+		if(this.notifier instanceof OpenNotifier)
+			return;
+		OpenNotifier open = new OpenNotifier(this.notifier);
+		this.notifier = open;
+	}
+
+	public void UnPause(){
+		if(this.notifier instanceof OpenNotifier){
+			INotifier notifier = ((OpenNotifier)this.notifier).getNotifier();
+			this.notifier = notifier;
+		}
+	}
+
 	public final String GetParameterValue(){
 		String res = this.DoGetParameterValue();
 		res = this.formatValue(res);
-//		for(String number : this.GetPostFormatter().Extract(res)) {
-//			String formattedNumber = this.GetPostFormatter().Format(number);
-//			if(!number.equals(formattedNumber))
-//				res = res.replace(number, formattedNumber);
-//		}
 		return res;
 	}
 

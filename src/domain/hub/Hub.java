@@ -178,14 +178,14 @@ public class Hub implements IHub {
 	}
 
 	private void addParameter(Filter filter) {
-		if (this.filters.containsKey(filter))
+		if (this.parameters.containsKey(filter))
 			return;
-		this.filters.put(filter, new Date());
+		this.parameters.put(filter, new Date());
 	}
 
 	private void removeParameter(Filter filter) {
-		if (this.filters.containsKey(filter)) {
-			this.filters.remove(filter);
+		if (this.parameters.containsKey(filter)) {
+			this.parameters.remove(filter);
 		}
 	}
 	

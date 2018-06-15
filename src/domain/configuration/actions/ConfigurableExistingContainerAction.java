@@ -13,13 +13,15 @@ public class ConfigurableExistingContainerAction extends ActionBase {
     private boolean add;
     private boolean remove;
     private boolean update;
+    private boolean updateState;
 
     public ConfigurableExistingContainerAction(FilterController controller, IActionObserver observer,
-                                               boolean add, boolean remove, boolean update) {
+                                               boolean add, boolean remove, boolean update, boolean updateState) {
         super(controller, observer);
         this.add = add;
         this.remove = remove;
         this.update = update;
+        this.updateState = updateState;
     }
 
     @Override
@@ -51,7 +53,9 @@ public class ConfigurableExistingContainerAction extends ActionBase {
                     Filter arrived = arrivedContainer.GetFilterById(f.Id);
                     //f.setName(arrived.getName());
                     f.UpdateFrom(arrived);
-                    // TODO update rest properties
+                    if(this.updateState && arrived.GetState() != null){
+                        f.ChangeState(arrived.GetState());
+                    }
                 }
             }
         }

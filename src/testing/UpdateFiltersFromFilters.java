@@ -7,6 +7,7 @@ import domain.configuration.Configuration;
 import domain.configuration.ExistingContainerActionType;
 import domain.configuration.MissingContainerActionType;
 import domain.configuration.NewContainerActionType;
+import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.Filter;
 import domain.filters.FilterPropertyType;
@@ -26,63 +27,77 @@ import java.util.List;
 
 public class UpdateFiltersFromFilters {
 
-    FilterContext context;
+    //FilterContext context;
     FilterNotifier notifier;
 
-    @Before
-    public void Setup(){
-        this.context =  new FilterContext();
-        MockRequestHandler handler = new MockRequestHandler();
-        MockConfiguration conf = new MockConfiguration();
-        this.context.Initialize(handler,new UrlQueryConverter(new UrlBuilder(",", "&")), conf);
-        this.notifier = new FilterNotifier(this.context.GetHub());
-    }
-
-    @After
-    public void TearDown(){
-        this.context.GetController().Clear();
-        this.context.GetHub().ClearFilterListeners();
-    }
+//    @After
+//    public void TearDown(){
+//        this.context.GetController().Clear();
+//        this.context.GetHub().ClearFilterListeners();
+//    }
 
     @Test
     public void testUpdateCheckBoxFilter(){
+        FilterContext context =  new FilterContext();
+        MockRequestHandler handler = new MockRequestHandler();
+        MockConfiguration conf = new MockConfiguration();
+        context.Initialize(handler,new UrlQueryConverter(new UrlBuilder(",", "&")), conf);
+        this.notifier = new FilterNotifier(context.GetHub());
 
         MockCheckBoxFilter f1 = new MockCheckBoxFilter(1, "f1", notifier);
         MockFilterListener listener = new MockFilterListener();
-        this.context.GetHub().AddFilterListener(listener);
+        context.GetHub().AddFilterListener(listener);
         MockCheckBoxFilter new_f1 = new MockCheckBoxFilter(1, "f1_new", notifier);
         Assert.assertEquals("f1", f1.getName());
         f1.UpdateFrom(new_f1);
         Assert.assertEquals("f1_new", f1.getName());
         Assert.assertEquals(1, listener.FilterPropertyChangedCounter);
         Assert.assertEquals(0, listener.FilterUpdatedCounter);
+
+        context.Dispose();
     }
 
     @Test
     public void testUpdateFreeTextFilter(){
+        FilterContext context =  new FilterContext();
+        MockRequestHandler handler = new MockRequestHandler();
+        MockConfiguration conf = new MockConfiguration();
+        context.Initialize(handler,new UrlQueryConverter(new UrlBuilder(",", "&")), conf);
+        this.notifier = new FilterNotifier(context.GetHub());
+
         MockFreeTextFilter f1 = new MockFreeTextFilter(1, "f1", this.notifier);
         MockFilterListener listener = new MockFilterListener();
-        this.context.GetHub().AddFilterListener(listener);
+        context.GetHub().AddFilterListener(listener);
         MockFreeTextFilter new_f1 = new MockFreeTextFilter(2, "f1_new", notifier); // id doesn't matter on this level
         Assert.assertEquals("f1", f1.getName());
         f1.UpdateFrom(new_f1);
         Assert.assertEquals("f1_new", f1.getName());
         Assert.assertEquals(1, listener.FilterPropertyChangedCounter);
         Assert.assertEquals(0, listener.FilterUpdatedCounter);
+
+        context.Dispose();
     }
 
     @Test
     public void testUpdateSingleTextFilter(){
+        FilterContext context =  new FilterContext();
+        MockRequestHandler handler = new MockRequestHandler();
+        MockConfiguration conf = new MockConfiguration();
+        context.Initialize(handler,new UrlQueryConverter(new UrlBuilder(",", "&")), conf);
+        this.notifier = new FilterNotifier(context.GetHub());
+
         List<String> values = new ArrayList<>();
         values.add("x_en");
         values.add("y_en");
         values.add("z_en");
+        FilterContainer c1 = new FilterContainer(1, "c1");
         MockSingleTextFilter f1 = new MockSingleTextFilter(1, "f1", this.notifier,values);
+        c1.AddFilter(f1);
         f1.SetDefaultValue("z_en");
         f1.ChangeState("y_en");
 
         MockFilterListener listener = new MockFilterListener();
-        this.context.GetHub().AddFilterListener(listener);
+        context.GetHub().AddFilterListener(listener);
 
         List<String> values_gr = new ArrayList<>();
         values_gr.add("x_gr");
@@ -90,6 +105,7 @@ public class UpdateFiltersFromFilters {
         values_gr.add("z_gr");
         MockSingleTextFilter new_f1 = new MockSingleTextFilter(2, "f1_new", notifier, values_gr);
         new_f1.SetDefaultValue("z_gr");
+        c1.AddFilter(new_f1);
 
         Assert.assertEquals("f1", f1.getName());
         Assert.assertEquals("x_en", f1.GetValues().get(0));
@@ -105,12 +121,20 @@ public class UpdateFiltersFromFilters {
         Assert.assertEquals("z_gr", f1.GetDefaultValue());
         Assert.assertEquals(1, listener.FilterPropertyChangedCounter);
         Assert.assertEquals(1, listener.FilterUpdatedCounter);
+
+        context.Dispose();
     }
 
     @Test
     public void testRangeFilterUpdate(){
+        FilterContext context =  new FilterContext();
+        MockRequestHandler handler = new MockRequestHandler();
+        MockConfiguration conf = new MockConfiguration();
+        context.Initialize(handler,new UrlQueryConverter(new UrlBuilder(",", "&")), conf);
+        this.notifier = new FilterNotifier(context.GetHub());
+
         MockFilterListener listener = new MockFilterListener();
-        this.context.GetHub().AddFilterListener(listener);
+        context.GetHub().AddFilterListener(listener);
 
         List<String> from_values_en = new ArrayList<>();
         from_values_en.add("from_en1");
@@ -165,6 +189,7 @@ public class UpdateFiltersFromFilters {
         Assert.assertEquals("from_gr3", f1.GetSelectedFrom());
         Assert.assertEquals("to_gr2", f1.GetSelectedTo());
 
+        context.Dispose();
     }
 
     private class MockConfiguration extends Configuration {

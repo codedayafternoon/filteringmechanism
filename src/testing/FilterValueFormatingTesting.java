@@ -7,6 +7,7 @@ import domain.configuration.Configuration;
 import domain.configuration.ExistingContainerActionType;
 import domain.configuration.MissingContainerActionType;
 import domain.configuration.NewContainerActionType;
+import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.INotifier;
 import domain.filters.valueformatters.NumberValueFormatPolicy;
@@ -100,6 +101,8 @@ public class FilterValueFormatingTesting {
         rangeToValues.add("3,2e2,3.e23e,23e.3r,5.665,42t.5,4");
         rangeToValues.add("35,56yu7.u35,3423.r24r,.t");
         MockRangeFilterCustom f2 = new MockRangeFilterCustom(2, "f2", notifier, rangeFromValues, rangeToValues);
+        FilterContainer c1 = new FilterContainer(1, "c1");
+        c1.AddFilter(f2);
         f2.ChangeState("from:ad33f43f3fF#F#Ff324f-to:35,56yu7.u35,3423.r24r,.t");
         f2.SetValuePostFormatter(formatter);
         res = f2.GetParameterKey() + "=" + f2.GetParameterValue();

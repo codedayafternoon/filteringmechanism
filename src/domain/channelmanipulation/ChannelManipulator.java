@@ -88,12 +88,12 @@ public class ChannelManipulator {
         if(this.hub.getFilterListeners().size() == 0)
             return;
         for(int i = 0; i < this.hub.getFilterListeners().size(); i++){
-            IFilterHubListener listener = this.hub.getFilterListeners().get(0);
+            IFilterHubListener listener = this.hub.getFilterListeners().get(i);
             if(listener instanceof OpenFilterHubListener)
                 continue;
             OpenFilterHubListener open = new OpenFilterHubListener(listener);
             this.hub.getFilterListeners().remove(listener);
-            this.hub.getFilterListeners().add(open);
+            this.hub.getFilterListeners().add(i, open);
         }
     }
 
@@ -101,12 +101,12 @@ public class ChannelManipulator {
         if(this.hub.getFilterListeners().size() == 0)
             return;
         for(int i = 0; i < this.hub.getFilterListeners().size(); i++){
-            IFilterHubListener open = this.hub.getFilterListeners().get(0);
+            IFilterHubListener open = this.hub.getFilterListeners().get(i);
             if(!(open instanceof OpenFilterHubListener))
                 continue;
             IFilterHubListener listener = ( (OpenFilterHubListener)open ).getListener();
             this.hub.getFilterListeners().remove(open);
-            this.hub.getFilterListeners().add(listener);
+            this.hub.getFilterListeners().add(i, listener);
         }
     }
 
@@ -115,12 +115,12 @@ public class ChannelManipulator {
         if(this.hub.getParameterListeners().size() == 0)
             return;
         for(int i = 0; i < this.hub.getParameterListeners().size(); i++){
-            IParameterHubListener listener = this.hub.getParameterListeners().get(0);
+            IParameterHubListener listener = this.hub.getParameterListeners().get(i);
             if(listener instanceof OpenParameterHubListener)
                 continue;
             OpenParameterHubListener open = new OpenParameterHubListener(listener);
             this.hub.getParameterListeners().remove(listener);
-            this.hub.getParameterListeners().add(open);
+            this.hub.getParameterListeners().add(i, open);
         }
     }
 
@@ -128,12 +128,12 @@ public class ChannelManipulator {
         if(this.hub.getParameterListeners().size() == 0)
             return;
         for(int i = 0; i < this.hub.getParameterListeners().size(); i++){
-            IParameterHubListener open = this.hub.getParameterListeners().get(0);
+            IParameterHubListener open = this.hub.getParameterListeners().get(i);
             if(!(open instanceof OpenParameterHubListener))
                 continue;
             IParameterHubListener listener = ( (OpenParameterHubListener)open ).getListener();
             this.hub.getParameterListeners().remove(open);
-            this.hub.getParameterListeners().add(listener);
+            this.hub.getParameterListeners().add(i, listener);
         }
     }
 
@@ -141,12 +141,12 @@ public class ChannelManipulator {
         if(this.hub.getRequestListeners().size() == 0)
             return;
         for(int i = 0; i < this.hub.getRequestListeners().size(); i++){
-            IRequestHubListener listener = this.hub.getRequestListeners().get(0);
+            IRequestHubListener listener = this.hub.getRequestListeners().get(i);
             if(listener instanceof OpenRequestHubListener)
                 continue;
             OpenRequestHubListener open = new OpenRequestHubListener(listener);
             this.hub.getRequestListeners().remove(listener);
-            this.hub.getRequestListeners().add(open);
+            this.hub.getRequestListeners().add(i, open);
         }
     }
 
@@ -154,12 +154,12 @@ public class ChannelManipulator {
         if(this.hub.getRequestListeners().size() == 0)
             return;
         for(int i = 0; i < this.hub.getRequestListeners().size(); i++){
-            IRequestHubListener open = this.hub.getRequestListeners().get(0);
+            IRequestHubListener open = this.hub.getRequestListeners().get(i);
             if(!(open instanceof OpenRequestHubListener))
                 continue;
             IRequestHubListener listener = ( (OpenRequestHubListener)open ).getListener();
             this.hub.getRequestListeners().remove(open);
-            this.hub.getRequestListeners().add(listener);
+            this.hub.getRequestListeners().add(i, listener);
         }
     }
 
