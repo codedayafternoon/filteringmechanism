@@ -148,15 +148,15 @@ public class FilterController implements IFilterController {
 
 	private void resetAllWithoutRequestPropagationHelper(FilterContainer container, List<Filter> filters, List<HubCommand> commands){
 		for(Filter f : filters){
-			if(f.GetMode() == FilterMode.COMPLEX){
-				List<Filter> innerFilters = ((CompositeFilter)f).getFilters();
-				this.resetAllWithoutRequestPropagationHelper(container, innerFilters,commands);
-			}else{
+			//if(f.GetMode() == FilterMode.COMPLEX){
+			//	List<Filter> innerFilters = ((CompositeFilter)f).getFilters();
+				//this.resetAllWithoutRequestPropagationHelper(container, innerFilters,commands);
+			//}else{
 				if(!f.IsReset()){
 					HubCommand command = new HubCommand(container.GetId(), container.GetName(),f.Id, f.getName(), "reset");
 					commands.add(command);
 				}
-			}
+			//}
 		}
 	}
 

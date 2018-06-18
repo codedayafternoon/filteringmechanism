@@ -180,6 +180,7 @@ public class FilterTest {
 
         Assert.assertEquals("f1Min=y_from", this.handler.Request);
 
+
         this.filterController.ChangeState(1,1, "from:reset");
 
         Assert.assertEquals("", this.handler.Request);
