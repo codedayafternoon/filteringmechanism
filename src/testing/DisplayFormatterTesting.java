@@ -12,7 +12,9 @@ import org.junit.Test;
 import testing.mocks.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DisplayFormatterTesting {
 
@@ -148,9 +150,88 @@ public class DisplayFormatterTesting {
 
     @Test
     public void testFormatterWithInjectableParameters(){
+        MockNotifier notifier = new MockNotifier();
+        FilterContainer container = new FilterContainer(1, "c1");
+
+        MockCheckBoxFilter f1 = new MockCheckBoxFilter(1, "f1", notifier);
+        MockCheckBoxFilterFormatter formatter = new MockCheckBoxFilterFormatter(1,"$fv $local");
+        f1.AddFormatter(formatter);
+
+        String formatted = f1.GetFormattedText(1);
+        Assert.assertEquals("NO $local", formatted); // $local should not be deserialized
+
+        Map<String, String> _params = new HashMap<>();
+        _params.put("local", "el");
+        formatted = f1.GetFormattedText(1, _params);
+        Assert.assertEquals("NO el", formatted); // $local should not be deserialized
+
+
+        MockCompositeFilter composite = new MockCompositeFilter(1, "f1", notifier);
+        MockFreeTextFilter freeTextFilter = new MockFreeTextFilter(1, "f1", composite);
+
+        List<String> singleTextValues = new ArrayList<>();
+        singleTextValues.add("x");
+        singleTextValues.add("y");
+        singleTextValues.add("z");
+        MockSingleTextFilter singleText = new MockSingleTextFilter(2, "f2", composite, singleTextValues);
+
+        List<String> rangeFilterFromValues = new ArrayList<>();
+        rangeFilterFromValues.add("10");
+        rangeFilterFromValues.add("30");
+        rangeFilterFromValues.add("50");
+        List<String> rangeFilterToValues = new ArrayList<>();
+        rangeFilterToValues.add("30");
+        rangeFilterToValues.add("60");
+        rangeFilterToValues.add("100");
+        MockRangeFilter rangeFilter = new MockRangeFilter(3, "f3", composite, rangeFilterFromValues, rangeFilterToValues);
+
+        composite.AddFilter(freeTextFilter);
+        composite.AddFilter(singleText);
+        composite.AddFilter(rangeFilter);
+
+        Map<String, String> freeValues = new HashMap<>();
+        freeValues.put("local", "aad 4 34r3");
+        freeValues.put("tree", "δεντρο");
+
+        MockFreeTextFormatter freeTextFilterFormatter = new MockFreeTextFormatter(1, "$tree $fv $local");
+        freeTextFilter.AddFormatter(freeTextFilterFormatter);
+        formatted = freeTextFilter.GetFormattedText(1, freeValues);
+        Assert.assertEquals("δεντρο  aad 4 34r3", formatted);
+
+        freeTextFilter.SetText("aa text");
+        formatted = freeTextFilter.GetFormattedText(1, freeValues);
+        Assert.assertEquals("δεντρο AA aa text aad 4 34r3", formatted);
+
+        Map<String, String> compParams = new HashMap<>();
+        compParams.put("ext3", "x");
+        compParams.put("ext1", "y");
+        compParams.put("ext2", "z");
+        MockEmptyFormatter formatter1 = new MockEmptyFormatter(1, "$ext1 $f[0].fn=$f[0].fv $f[1].fn $f[2].fn $ext2");
+        composite.AddFormatter(formatter1);
+
+        formatted = composite.GetFormattedText(1, compParams);
+        // TODO composite does not support formatting of its internal filters
+        Assert.assertEquals("y f1=aa text f2 f3 z", formatted);
 
     }
 
+    private class MockFreeTextFormatter extends FilterFormatter{
+
+        public MockFreeTextFormatter(Object id, String pattern) {
+            super(id, pattern);
+        }
+
+        @Override
+        public String fv(String v, int index){
+            if(v == null)
+                return "";
+            if(v.startsWith("a")){
+                return "AA " + v;
+            }
+            return v;
+        }
+
+    }
 
     private class MockEmptyFormatter extends FilterFormatter {
 
@@ -165,6 +246,23 @@ public class DisplayFormatterTesting {
             super(id, pattern);
         }
 
+    }
+
+    private class MockCheckBoxFilterFormatter extends FilterFormatter{
+
+        public MockCheckBoxFilterFormatter(Object id, String pattern) {
+            super(id, pattern);
+        }
+
+        @Override
+        public String fv(String filterValue, int valueIndex){
+            if(filterValue.equals("false")){
+                return "NO";
+            }else if(filterValue.equals("true")){
+                return "YES";
+            }
+            return "DONT KNOW";
+        }
     }
 
     private class MockNotifier implements INotifier{

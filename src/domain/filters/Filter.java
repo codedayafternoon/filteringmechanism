@@ -8,6 +8,7 @@ import testing.DisplayFormatterTesting;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public abstract class Filter implements ICountable {
 
@@ -151,6 +152,17 @@ public abstract class Filter implements ICountable {
 		if(formatter == null)
 			return this.GetState();
 		return formatter.Format(this);
+	}
+
+	public String GetFormattedText(Object formatterId, Map<String, String> _params) {
+		String formatted = this.GetFormattedText(formatterId);
+		if(formatted == null)
+			return "";
+		for (Map.Entry<String, String> entry : _params.entrySet())
+		{
+			formatted = formatted.replace("$" + entry.getKey(), entry.getValue());
+		}
+		return formatted;
 	}
 
 	private FilterFormatter GetFormatterById(Object id){

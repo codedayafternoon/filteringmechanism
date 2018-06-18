@@ -49,7 +49,7 @@ public abstract class SingleTextFilter extends Filter {
 	}
 
 	public void SetSelectedValue(String value) {
-		if(!this.range.getItems().contains(value))
+		if(value != null && !this.range.getItems().contains(value))
 			return;
 		if(this.range.getSelectedValue().equals(value))
 			return;

@@ -37,27 +37,27 @@ public abstract class FilterFormatter {
 
         if(this.pattern.contains("$cn") ){
             if(filter.GetContainer() != null) {
-                this.formatted = this.formatted.replace("$cn", filter.GetContainer().GetName());
+                this.formatted = this.formatted.replace("$cn", this.cn( filter.GetContainer().GetName() ) );
             }else {
                 this.formatted = this.formatted.replace("$cn", "");
             }
         }
         if(this.pattern.contains("$fn")){
-            this.formatted = this.formatted.replace("$fn", filter.getName());
+            this.formatted = this.formatted.replace("$fn", this.fn( filter.getName()));
         }
         if(this.pattern.contains("$fv[0]")){
             String v = filter.GetValue(0);
             v = v == null ? "" : v;
-            this.formatted = this.formatted.replace("$fv[0]", v);
+            this.formatted = this.formatted.replace("$fv[0]", this.fv( v, 0));
         }else if(this.pattern.contains("$fv[1]")){
             String v = filter.GetValue(1);
             v = v == null ? "" : v;
-            this.formatted = this.formatted.replace("$fv[1]", v);
+            this.formatted = this.formatted.replace("$fv[1]", this.fv( v, 1 ));
         }
         else if(this.pattern.contains("$fv")){
             String v = filter.GetValue(0);
             v = v == null ? "" : v;
-            this.formatted = this.formatted.replace("$fv", v);
+            this.formatted = this.formatted.replace("$fv", this.fv( v, 0 ));
         }
 
         return formatted;
@@ -68,25 +68,25 @@ public abstract class FilterFormatter {
             return where;
         if(what.contains("cn")){
             if(from.GetContainer() != null) {
-                return where.replace(what, from.GetContainer().GetName());
+                return where.replace(what, this.cn( from.GetContainer().GetName() ) );
             }else {
                 return where.replace(what, "");
             }
         }else if(what.contains("fn")){
-            return where.replace(what, from.getName());
+            return where.replace(what, this.fn( from.getName() ));
         }else if(what.contains("fv[0]")){
             String v = from.GetValue(0);
             v = v == null ? "" : v;
-            return where.replace(what, v);
+            return where.replace(what, this.fv( v, 0));
         }else if(what.contains("fv[1]")){
             String v = from.GetValue(1);
             v = v == null ? "" : v;
-            return where.replace(what, v);
+            return where.replace(what, this.fv( v, 1 ));
         }
         else if(what.contains("fv")){
             String v = from.GetValue(0);
             v = v == null ? "" : v;
-            return where.replace(what, v);
+            return where.replace(what, this.fv( v, 0 ));
         }
 
         return what;

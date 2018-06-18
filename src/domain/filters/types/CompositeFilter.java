@@ -102,7 +102,12 @@ public abstract class CompositeFilter extends Filter implements INotifier {
 
 	@Override
 	public boolean IsReset(){
-		return false;
+		for(Filter f : this.filters){
+			if(!f.IsReset()){
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
