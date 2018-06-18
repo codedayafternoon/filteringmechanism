@@ -334,7 +334,7 @@ public class Hub implements IHub {
 	}
 
 	// ============================================= START IHub =====================================================
-	@Override
+	//@Override
 	public void SetFilterController(FilterController controller) {
 		this.filterController = controller;
 	}

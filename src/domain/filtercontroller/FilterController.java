@@ -103,6 +103,8 @@ public class FilterController implements IFilterController {
 		return true;
 	}
 
+
+
 	@Override
 	public FilterContainer GetContainerById(Object id) {
 		for(FilterContainer c : this.containers){
@@ -189,7 +191,7 @@ public class FilterController implements IFilterController {
 		return s;
 	}
 
-	@Override
+//	@Override
     public Filter GetFilterById(FilterContainer container, Object filterId) {
 		if(container == null)
 			return null;
