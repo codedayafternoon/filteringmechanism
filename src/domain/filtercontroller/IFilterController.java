@@ -13,7 +13,6 @@ public interface IFilterController {
     FilterContainer GetContainerById(Object id);
     List<FilterContainer> GetContainers();
     void ChangeState(Object containerId, Object filterId, String state);
-    Filter GetFilterById(FilterContainer container, Object filterId);
     void MakeRequestWithCurrentState();
     void MakeDirectRequest(String url);
     void ResetAllWithoutRequestPropagation();

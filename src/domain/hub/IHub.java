@@ -10,7 +10,6 @@ import domain.notifier.IRequestHub;
 import java.util.List;
 
 public interface IHub extends IParameterHub, IFilterHub, IRequestHub {
-	void SetFilterController(FilterController controller);
 	void ResultReceived(IResult result);
 
 	void AddResultListener(IResultHubListener listener);
