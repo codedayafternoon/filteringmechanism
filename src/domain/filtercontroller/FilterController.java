@@ -108,7 +108,7 @@ public class FilterController implements IFilterController {
 	@Override
 	public FilterContainer GetContainerById(Object id) {
 		for(FilterContainer c : this.containers){
-			if(c.GetId().equals(id))
+			if(c.GetId().toString().equals(id.toString()))
 				return c;
 		}
 		return null;

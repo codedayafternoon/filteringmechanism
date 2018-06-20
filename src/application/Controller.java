@@ -7,6 +7,7 @@ import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IRequestHandler;
 import domain.filtercontroller.IRequestConverter;
 import domain.hub.Hub;
+import domain.hub.IHub;
 
 public class Controller extends FilterController {
 	

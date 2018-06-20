@@ -3,32 +3,34 @@ package application.components;
 import java.util.ArrayList;
 import java.util.List;
 
-import domain.filtercontroller.FilterController;
+import domain.FilterContext;
+import domain.filtercontroller.IFilterController;
 import domain.filters.Filter;
 import domain.filters.FilterPropertyType;
-import domain.filters.ReservedState;
 import domain.hub.IFilterHubListener;
 
 public class FilterPreviewComponent implements IFilterHubListener {
 
 	List<Filter> filters;
-	private FilterController _filterController;
+	private IFilterController controller;
 
-	public FilterPreviewComponent(FilterController filterController) {
+	public FilterPreviewComponent(FilterContext context) {
 		this.filters = new ArrayList<Filter>();
-		this._filterController = filterController;
+		this.controller = context.GetController();
+		context.GetHub().AddFilterListener(this);
 	}
 
 	public void RemoveEntry(String containerName, String filterName) {
-		this._filterController.ChangeState(containerName, filterName, "reset");
+		this.controller.ChangeState(containerName, filterName, "reset");
 	}
 
-	private void Print() {
-		System.out.println("=========================================================");
+	public void Print() {
+		System.out.println("==========================FilterPreviewComponent==============================");
 		for (Filter f : this.filters) {
 			System.out.println("[" + f.getName() + " " + f.GetState() + "]");
 		}
-		System.out.println("=========================================================");
+		System.out.println("==============================================================================");
+		System.out.println();
 	}
 
 	@Override
@@ -55,6 +57,11 @@ public class FilterPreviewComponent implements IFilterHubListener {
 	@Override
 	public void FilterUpdated(Filter filter) {
 
+	}
+
+
+	public void remove(String containerId, String filterId) {
+		this.controller.ChangeState(containerId, filterId, "reset");
 	}
 
 }

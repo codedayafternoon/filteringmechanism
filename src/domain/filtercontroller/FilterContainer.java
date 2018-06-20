@@ -75,7 +75,7 @@ public class FilterContainer implements IInvalidator{
     public Filter GetFilterById(Object id) {
 		for(Filter f : this.filters)
 		{
-			if(f.Id.equals(id))
+			if(f.Id.toString().equals(id.toString()))
 				return f;
 		}
 		return null;
