@@ -50,7 +50,7 @@ The library supports
 The abstract Filter inside the framework represents any filter such as dropdowns or checkboxes. It has many attributes and behaviours that are consistent to all the subtypes of the Filter.
 The most important of the Filter interface is depict in the following table:
 | Function        | Parameters  | Return type | Description |
-|------------- |-----|-----|-----|
+|:-------------:|:-----:|:-----:|:-----:|
 |**GetNotifierType**||`NotifierChannelType`|returns which type of notifier the filter is using {FilterNotifier, ParameterNotifier, RequestNotifier}|
 |**SetValuePostFormatter**|`IValuePostFormatter formatter`|`void`|sets the formatter that formats the value of the filter|
 |**GetMode**||`FilterMode`|returns the mode the filter has {SIMPLE, RANGED, COMPLEX}. The mode depends on how many separated values has the filter|
