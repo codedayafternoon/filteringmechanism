@@ -609,7 +609,7 @@ Client is responsible to make the actual request (http or whatever) and get the 
 ## Configuration
 The framework is configurable through its boundary objects as following:
 | Object | Parameter  | Description |
-| :------------- | :-----|:-----|
+| :------------- | :-----|:----- |
 |**Filter**|`FilterFormatter`| a filter display formatter |
 |**Filter** | `IValuePostFormatter` | a filter value formatter |
 |**Filter** | `SelectedValuePolicy` | allow filter to have null as  selected value |
