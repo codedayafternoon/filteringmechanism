@@ -1,8 +1,10 @@
 package application;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 import application.filters.ManufacturerFilter;
 import application.filters.PriceFilter;
@@ -195,6 +197,23 @@ public class SimpleRequestHandler implements IRequestHandler {
 		}
 	}
 
+	public static <E> List<E> pickNRandomElements(List<E> list, int n, Random r) {
+		int length = list.size();
+
+		if (length < n) return null;
+
+		//We don't need to shuffle the whole list
+		for (int i = length - 1; i >= length - n; --i)
+		{
+			Collections.swap(list, i , r.nextInt(i + 1));
+		}
+		return list.subList(length - n, length);
+	}
+
+	public static <E> List<E> pickNRandomElements(List<E> list, int n) {
+		return pickNRandomElements(list, n, ThreadLocalRandom.current());
+	}
+
 	private void doMakeRequest(String request, boolean updateStates) {
 		System.out.println("changeHappended MAKING HTTP REQUEST... => " + request);
 
@@ -202,7 +221,7 @@ public class SimpleRequestHandler implements IRequestHandler {
 		MockBuilderItems items = new MockBuilderItems(this.GetContainersWithRandomCountsFromDb());
 		this.builder.Build(items);
 
-		MockResult result = new MockResult(this.DB, null, new ArrayList<>());
+		MockResult result = new MockResult(pickNRandomElements(this.DB, new Random().nextInt(10), new Random()), null, new ArrayList<>());
 		this.hub.ResultReceived(result);
 
 //		System.out.println("changeHappended MAKING HTTP REQUEST... => " + request);

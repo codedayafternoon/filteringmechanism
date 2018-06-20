@@ -40,7 +40,7 @@ public class MainComponent implements IFilterHubListener {
 
     public void Print(){
         System.out.println("=============================MainComponent================================");
-        System.out.println("url:http://site.com/"+this.url);
+        System.out.println("url:http://site.com/search?"+this.url);
         System.out.println("==========================================================================");
         System.out.println();
     }
