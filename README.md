@@ -95,6 +95,7 @@ Each filter can take various states. These states have various formats depending
 |**SingleSelectFilter**|`1` or `0`| `Check() UnCheck()` | `true` or `false` |
 |**RangeFitler**|`from:value` or `to:value` or `from:value1-to:value2`|`SetFrom(String from)`,`SetTo(String to)` |`from:value1-to:value2` |
 |**CompositeFilter**|`id_of_internal_filter:desired_state`|NONE|`states of internal filters divided with` |
+
 A simple usage of the above is displayed below:
 a simple usage of singleText filter is diplayed bellow:
 ```java
@@ -189,6 +190,7 @@ Some filters such as RangeFilters and SingleTextFilter(dropdown) when they are r
 | :------------- |:------------- |
 |**DefaultIfNull**|when filter is reseted the selected value goes to the defined default value |
 |**Null**|when filter is reseted the selected value goes to null |
+
 This policy can come in handy depending the situation we are in. For example if we want a dropdown when reseting to return to a default value then we can use the DefaultIfNull policy. But if we want the filter to get a null value as selected value, then we can use the Null policy.
 An example is shown bellow:
 ```java
@@ -227,6 +229,7 @@ If the client wants the value of a filter to be formatted(for example when sendi
 | :------------- | :-----| :-----| :----- |
 |**Extract**|`String value`|`List<String>`|this function returns all the sub strings that the formatter will format |
 |**Format**|`String value`|`String`|this function formats the value and returns it |
+
 As an example we present another build-in formatter, the NumberValuePostFormatter which converts all numbers of the value from comma to dot and vise-versa
 ```java
 MockFreeTextFilter f1 = new MockFreeTextFilter(1, "f1", notifier);
