@@ -49,6 +49,7 @@ The library supports
 ## Filters
 The abstract Filter inside the framework represents any filter such as dropdowns or checkboxes. It has many attributes and behaviours that are consistent to all the subtypes of the Filter.
 The most important of the Filter interface is depict in the following table:
+
 | Function | Parameters  | Return type | Description |
 | ------------- | ----- | ----- | ----- |
 |**GetNotifierType**| none |`NotifierChannelType`|returns which type of notifier the filter is using {FilterNotifier, ParameterNotifier, RequestNotifier} |
@@ -73,6 +74,7 @@ The most important of the Filter interface is depict in the following table:
 
 ### types
 The various filter types which are supported by the system are:
+
 | Filter        | Constructor params | Description  |
 | :------------- |:-------------|:-----|
 | **CheckBoxFilter** | `Object id, String name, INotifier notifier` | represents a checkbox that either is selected or no |
@@ -84,6 +86,7 @@ The various filter types which are supported by the system are:
 
 ### Filter states
 Each filter can take various states. These states have various formats depending of the type of the filter. In the following table we present how a state is set and retrieved depending on the type of the filter.
+
 | Filter Type | State Format in `ChangeState(String state)` | how to set (specific) | return format `String GetState()` |
 | :---------- |:---------|:-----|:-----|
 |**CheckBoxFilter**|`1` or `0`| `Check() UnCheck()` | `true` or `false` |
@@ -172,6 +175,7 @@ public class PriceFilter extends RangeFilter {
 //.. other implementations of the filters
 ```
 By extending the abstract filters of the system you can provide new specialized functions or properties. By default all filters have the next:
+
 | Attribute        | type | Description  |
 | :------------- |:-------------|:----- |
 | **Id**  | `Object` | a unique id for the filter, identifing uniqly the filter inside its container |
@@ -180,6 +184,7 @@ By extending the abstract filters of the system you can provide new specialized 
 
 ### Filter Value policy
 Some filters such as RangeFilters and SingleTextFilter(dropdown) when they are reseted can have as a selected value a value from its list defined as default or a null value. This is defined from the SelectedValuePolicy. This is can be one of the following:
+
 | Selected Value Type | description |
 | :------------- |:------------- |
 |**DefaultIfNull**|when filter is reseted the selected value goes to the defined default value |
@@ -217,6 +222,7 @@ Assert.assertEquals("from:200-to:null", state);
 ```
 ### Value Formatters
 If the client wants the value of a filter to be formatted(for example when sending to a http request), an IValuePostFormatter must be provided on the Filter. By default the value of this variable is an in-build DefaultValuePostFormatter which is does nothing. The client has the freedom to implement this interface and provide whatever filter it needs with the propert IValuePostFormatter. Bellow is the interface
+
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :----- |
 |**Extract**|`String value`|`List<String>`|this function returns all the sub strings that the formatter will format |
@@ -239,6 +245,7 @@ Assert.assertEquals("77s7s,dw2.3wdq,dd", res);
 ### FilterFormatter
 Client wants to 'stringify' a Filter to a user friendly format. For this purpose Filter has the an injectable FilterFormatter. Already the abstract FilterFormatter does the heavy job to format to a desired string the filter, but also enables the client to extend this class to provide more control over formatting the Filter.
 To begin with, FilterFormatter has a textbased API for setting a string pattern which will guide the formatter to format the Filter. The text-based API of this pattern is display bellow:
+
 | Literal        |Initials| Description  |
 | :------------- | :-----| :----- |
 |`$fv`|FilterValue|renders the value of the filter |
@@ -333,6 +340,7 @@ private class MockCheckBoxFilterFormatter extends FilterFormatter{
 All the filters when instructing a request to a server are converted into parameters. The build-in mechanism which converting these Fitlers to parameters takes into account in which container the filter is. Thus the result is a mix on the container, the filter and possible other 'selected' filters from the same container.
 The filters are separated with a mode that denotes if the filter has a single value(SIMPLE), if the filter has two values (RANGED) or the filter is complex (COMPLEX) as CompositeFilter. The next table show what each filter returns as ParameterValue and parameterKey (key=value)
 *For SINGLE mode filter:*
+
 |Filter| parameter key | parameter value |
 | :-------------| :------------- | :----- |
 |**CheckBoxFilter**|container's name|filters value |
@@ -341,6 +349,7 @@ The filters are separated with a mode that denotes if the filter has a single va
 |**RangeFilter**|filter's name|its state, selected value |
 
 *For RANGED mode filter:*
+
 |Filter| parameter key from | parameter key to | parameter value from| parameter value to |
 | :-------------| :------------- | :-----| :------------- | :----- |
 |**RangedFilter**|filter's name + "From"|fitler's name + "To"|"from:" + filter's from value|"to:" + filter's to value |
@@ -418,6 +427,7 @@ The system has a various number of ports for interacting with the client and vis
 
 Bellow there are more detailed APIs
 ### FilterContext
+
 | Function        | Parameters  | Return type | Description |
 | ------------- | ----- | ----- | ----- |
 |**Initialize**|`IRequestHandler requestHandler, IRequestConverter requestConverter,Configuration configuration` |`void`|initialize must run before all other access functions called |
@@ -429,6 +439,7 @@ Bellow there are more detailed APIs
 
 
 ### IFilterController, how to control filters
+
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :-----|
 |AddContainer|`FilterContainer container`|`void`| adds a container to controller |
@@ -445,6 +456,7 @@ Bellow there are more detailed APIs
 |Clear||`void`| clears all the containers from their filters |
 
 ### IHub
+
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :----- |
 |ResultReceived|`IResult result`|`void`| the client when receives results from the server, calls this function providing the results in the framework throught a client side object implementing IResult |
@@ -471,6 +483,7 @@ Various component from client, wants to be notified when filters state changed. 
 * IRequestHubListener
 
 These names dont have a special meaning, its just Channel1,2,3. When a filter has a FilterNotifier in its constructor then all the events raised by that filter will fire the corresponding function from IFilterHubListener. The functions of these three listeners have very similar functions. Bellow we present the IFilterHubListener
+
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :-----|
 |**FilterChanged**|`Filter filter`|`void`|is called when a state of a filter is changed. As parameter is the filter its state changed |
@@ -527,6 +540,7 @@ private class FilterChannel2 implements IParameterHubListener{
 ```
 
 ### Builder
+
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :----- |
 |`AddObserver`|`IBuilderObserver observer`|`void`|registers a component as an observer |
@@ -576,6 +590,7 @@ builder.Build(new MockBuilderItems(filterContext.GetHub()));
 
 #### How to receive creational events
 One can build dynamically the filters in the interface from events from the IBuilderObserver. Once the component which builds the filters in the interface registers itseld as builder observer it can receive the next events:
+
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :----- |
 |**FilterAdded**|`ActionType actionType, Filter filter`|`void`|when a filter is added to the system this function is called |
@@ -586,6 +601,7 @@ One can build dynamically the filters in the interface from events from the IBui
 
 ## Channel Manipulator
 This object controls the state of the channels, paused or active. When a channel is paused no registered component can receive events from it. All filter channels (Filter, Parameter, Request), builder channel and request channel can be controled througth the interface bellow:
+
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :-----|
 |**PauseChannel**|`NotifierChannelType channelType`|`void`|pause any of the filter channels (Filter, Parameter, Request) |
@@ -599,6 +615,7 @@ This object controls the state of the channels, paused or active. When a channel
 
 ## Request instruction/handling
 Client is responsible to make the actual request (http or whatever) and get the result. Instructing that request is the responsibility of the framework. When a FilterContext is initialized it must have an IRequestHandler. behind this interface lies the object which is instructed by the framework to make the actual request. Lets see what IRequestHandler must have:
+
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :-----|
 |**makeRequest**|`String request`|`void`|framework instructs the client to make a request calling this method. The request string will have all the changed filters converted with the IRequestConverter |
@@ -608,6 +625,7 @@ Client is responsible to make the actual request (http or whatever) and get the 
 
 ## Configuration
 The framework is configurable through its boundary objects as following:
+
 | Object | Parameter  | Description |
 | ------------- | -----| ----- |
 |**Filter**|`FilterFormatter`| a filter display formatter |
