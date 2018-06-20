@@ -17,10 +17,10 @@ import application.filters.PageFilter;
 import application.filters.PriceFilter;
 import application.filters.ScreenSizeFilter;
 import application.filters.SortingFilter;
-import application.infrastructure.IUrlBuilder;
+import domain.buildins.IUrlBuilder;
 import application.infrastructure.SimpleConsolePrinter;
-import application.infrastructure.UrlBuilder;
-import application.infrastructure.UrlQueryConverter;
+import domain.buildins.UrlBuilder;
+import domain.buildins.UrlQueryConverter;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.IRequestHandler;
 import domain.filtercontroller.IRequestConverter;
@@ -137,7 +137,7 @@ public class Main {
 		hub.AddParameterListener(urlManager);
 		hub.AddFilterListener(banner);
 
-		receiver.Initialize("");
+		receiver.makeRequest("");
 
 		System.out.println("press e for exit");
 		SimpleConsolePrinter printer = new SimpleConsolePrinter();
@@ -208,7 +208,7 @@ public class Main {
 		IRequestConverter requestConverter = new UrlQueryConverter(urlBuilder);
 		Controller manager = new Controller(groups, hub, receiver, requestConverter);
 
-		receiver.Initialize("");
+		receiver.makeRequest("");
 
 		SimpleConsolePrinter printer = new SimpleConsolePrinter();
 		printer.Print(System.out, groups);

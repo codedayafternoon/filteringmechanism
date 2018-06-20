@@ -1,12 +1,11 @@
 package testing;
 
-import application.infrastructure.UrlBuilder;
-import application.infrastructure.UrlQueryConverter;
+import domain.buildins.UrlBuilder;
+import domain.buildins.UrlQueryConverter;
 import domain.FilterContext;
 import domain.configuration.*;
 import domain.filtercontroller.*;
 import domain.filters.types.CheckBoxFilter;
-import domain.filters.types.RangeFilter;
 import domain.hub.Hub;
 import domain.hub.IHub;
 import domain.notifier.FilterNotifier;
@@ -14,7 +13,6 @@ import domain.notifier.ParameterNotifier;
 import org.junit.Assert;
 import org.junit.Test;
 import testing.mocks.MockCheckBoxFilter;
-import testing.mocks.MockRangeFilter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +28,7 @@ public class BuilderTesting {
     public void testBuilder(){
         FilterContext filterContext = new FilterContext();
         filterContext.Initialize(new MockRequestHandler(), new UrlQueryConverter(new UrlBuilder(",", "&")), new MockConfiguration());
-        IFilterController controller = filterContext.GetController();// new MockController( hub, new MockRequestHandler(), new UrlQueryConverter(new UrlBuilder(",", "&")));
+        IFilterController controller = filterContext.GetController();
         Builder builder = filterContext.GetBuilder();
         builder.Build(new MockBuilderItems(filterContext.GetHub()));
 
@@ -104,11 +102,6 @@ public class BuilderTesting {
 
         @Override
         public void makeRequest(String request) {
-
-        }
-
-        @Override
-        public void Initialize(String request) {
 
         }
 

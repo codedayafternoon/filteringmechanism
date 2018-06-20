@@ -105,12 +105,6 @@ public class SimpleRequestHandler implements IRequestHandler {
 	}
 
 	@Override
-	public void Initialize(String request) {
-
-		this.doMakeRequest(request, true);
-	}
-
-	@Override
 	public boolean IsRetrieveFromRequest() {
 		return true;
 	}

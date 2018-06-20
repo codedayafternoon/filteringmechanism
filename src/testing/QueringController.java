@@ -1,16 +1,14 @@
 package testing;
 
-import application.infrastructure.UrlBuilder;
-import application.infrastructure.UrlQueryConverter;
+import domain.buildins.UrlBuilder;
+import domain.buildins.UrlQueryConverter;
 import domain.FilterContext;
 import domain.configuration.*;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.IRequestHandler;
-import domain.filters.types.CompositeFilter;
 import domain.hub.IHub;
 import domain.notifier.NotifierChannelType;
 import domain.filters.Filter;
-import domain.hub.Hub;
 import domain.notifier.FilterNotifier;
 import domain.notifier.ParameterNotifier;
 import domain.notifier.RequestNotifier;
@@ -123,11 +121,6 @@ public class QueringController {
 
         @Override
         public void makeRequest(String request) {
-
-        }
-
-        @Override
-        public void Initialize(String request) {
 
         }
 

@@ -1,6 +1,6 @@
 package application.components;
 
-import application.infrastructure.IUrlBuilder;
+import domain.buildins.IUrlBuilder;
 import domain.filters.Filter;
 import domain.filters.FilterPropertyType;
 import domain.filters.types.CompositeFilter;

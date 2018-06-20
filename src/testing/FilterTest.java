@@ -1,8 +1,7 @@
 package testing;
 
-import application.infrastructure.UrlBuilder;
-import application.infrastructure.UrlQueryConverter;
-import com.sun.nio.sctp.IllegalReceiveException;
+import domain.buildins.UrlBuilder;
+import domain.buildins.UrlQueryConverter;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IRequestHandler;
@@ -15,7 +14,6 @@ import domain.filters.types.RangeFilter;
 import domain.hub.Hub;
 import domain.notifier.FilterNotifier;
 import domain.notifier.NotifierChannelType;
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -341,11 +339,6 @@ public class FilterTest {
         @Override
         public void makeRequest(String request) {
             this.Request = request;
-        }
-
-        @Override
-        public void Initialize(String request) {
-
         }
 
         @Override

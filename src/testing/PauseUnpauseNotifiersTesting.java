@@ -1,7 +1,7 @@
 package testing;
 
-import application.infrastructure.UrlBuilder;
-import application.infrastructure.UrlQueryConverter;
+import domain.buildins.UrlBuilder;
+import domain.buildins.UrlQueryConverter;
 import domain.FilterContext;
 import domain.configuration.*;
 import domain.channelmanipulation.ChannelManipulator;
@@ -217,11 +217,6 @@ public class PauseUnpauseNotifiersTesting {
         @Override
         public void makeRequest(String request) {
             Fired = true;
-        }
-
-        @Override
-        public void Initialize(String request) {
-
         }
 
         @Override

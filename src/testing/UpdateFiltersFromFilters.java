@@ -1,7 +1,7 @@
 package testing;
 
-import application.infrastructure.UrlBuilder;
-import application.infrastructure.UrlQueryConverter;
+import domain.buildins.UrlBuilder;
+import domain.buildins.UrlQueryConverter;
 import domain.FilterContext;
 import domain.configuration.Configuration;
 import domain.configuration.ExistingContainerActionType;
@@ -13,9 +13,7 @@ import domain.filters.Filter;
 import domain.filters.FilterPropertyType;
 import domain.hub.IFilterHubListener;
 import domain.notifier.FilterNotifier;
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 import testing.mocks.MockCheckBoxFilter;
 import testing.mocks.MockFreeTextFilter;
@@ -214,11 +212,6 @@ public class UpdateFiltersFromFilters {
 
         @Override
         public void makeRequest(String request) {
-
-        }
-
-        @Override
-        public void Initialize(String request) {
 
         }
 

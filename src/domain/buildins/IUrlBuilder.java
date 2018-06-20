@@ -1,4 +1,4 @@
-package application.infrastructure;
+package domain.buildins;
 
 public interface IUrlBuilder {
 	void AddParameter(String name, String value);
