@@ -51,31 +51,31 @@ The abstract Filter inside the framework represents any filter such as dropdowns
 The most important of the Filter interface is depict in the following table:
 | Function | Parameters  | Return type | Description |
 | ------------- | ----- | ----- | ----- |
-|**GetNotifierType**| none |`NotifierChannelType`|returns which type of notifier the filter is using {FilterNotifier, ParameterNotifier, RequestNotifier}|
-|**SetValuePostFormatter**|`IValuePostFormatter formatter`|`void`|sets the formatter that formats the value of the filter|
-|**GetMode**|none |`FilterMode`|returns the mode the filter has {SIMPLE, RANGED, COMPLEX}. The mode depends on how many separated values has the filter|
-|**GetParameterKey**|none |`String`|returns a distinctive key of the filter, is used to convert Filter to a parameter|
-|**GetParameterValue**|none |`void`|return a distinctive value of the filter, is used to convert Filter to a parameter|
-|**Pause**|none |`void`|pause the filter causing all state changes does not affect its notifier and events are not propagated|
-|**UnPause**|none |`void`|unpause the filter causing all filter events to be propagated|
-|**SetCount**|`int count`|`void`|sets the count of the filter|
-|**GetCount**|none |`int`|gets the count of the filter|
-|**GetValue**|`int index`|`String`|gets the i-th value of the filter. In case of a RangeFilter which has two values the index takes 0 or 1|
-|**GetContainer**|none |`FilterContainer`|gets the filter container of the filter|
-|**Reset**|none |`void`|resets the filter, either to null or a default value|
-|**GetState**|none |`String`|returns the filter's state|
-|**ChangeState**|`String state`|`void`|changes the state of the filter|
-|**UpdateFrom**|`Filter filter`|`void`|updates the filter from another filter|
-|**IsReset**|none |`boolean`|returns true when the filter is reset|
-|**GetFormattedText**|`Object formatterId`|`String`|getts a user friendly formatted text using the formatted with formatterId|
-|**GetFormattedText**|`Object formatterId, Map<String, String> _params`|`String`|getts a user friendly formatted text using the formatted with formatterId, injecting other parameters for the formatting to get into account|
-|**AddFormatter**|`FilterFormatter formatter`|`void`|adds a formatter in the filter|
+|**GetNotifierType**| none |`NotifierChannelType`|returns which type of notifier the filter is using {FilterNotifier, ParameterNotifier, RequestNotifier} |
+|**SetValuePostFormatter**|`IValuePostFormatter formatter`|`void`|sets the formatter that formats the value of the filter |
+|**GetMode**|none |`FilterMode`|returns the mode the filter has {SIMPLE, RANGED, COMPLEX}. The mode depends on how many separated values has the filter |
+|**GetParameterKey**|none |`String`|returns a distinctive key of the filter, is used to convert Filter to a parameter |
+|**GetParameterValue**|none |`void`|return a distinctive value of the filter, is used to convert Filter to a parameter |
+|**Pause**|none |`void`|pause the filter causing all state changes does not affect its notifier and events are not propagated |
+|**UnPause**|none |`void`|unpause the filter causing all filter events to be propagated |
+|**SetCount**|`int count`|`void`|sets the count of the filter |
+|**GetCount**|none |`int`|gets the count of the filter |
+|**GetValue**|`int index`|`String`|gets the i-th value of the filter. In case of a RangeFilter which has two values the index takes 0 or 1 |
+|**GetContainer**|none |`FilterContainer`|gets the filter container of the filter |
+|**Reset**|none |`void`|resets the filter, either to null or a default value |
+|**GetState**|none |`String`|returns the filter's state |
+|**ChangeState**|`String state`|`void`|changes the state of the filter |
+|**UpdateFrom**|`Filter filter`|`void`|updates the filter from another filter |
+|**IsReset**|none |`boolean`|returns true when the filter is reset |
+|**GetFormattedText**|`Object formatterId`|`String`|getts a user friendly formatted text using the formatted with formatterId |
+|**GetFormattedText**|`Object formatterId, Map<String, String> _params`|`String`|getts a user friendly formatted text using the formatted with formatterId, injecting other parameters for the formatting to get into account |
+|**AddFormatter**|`FilterFormatter formatter`|`void`|adds a formatter in the filter |
 
 ### types
 The various filter types which are supported by the system are:
 | Filter        | Constructor params | Description  |
 | :------------- |:-------------|:-----|
-| **CheckBoxFilter** | `Object id, String name, INotifier notifier` | represents a checkbox that either is selected or no|
+| **CheckBoxFilter** | `Object id, String name, INotifier notifier` | represents a checkbox that either is selected or no |
 | **FreeTextFilter**  | `Object id, String name, INotifier notifier` | represents a textbox that gets arbitrary values |
 | **SingleTextFilter** | `Object id, String name, INotifier notifier, List<String> values` | represents a filter that gets one value among a list of values, thats a dropdown |
 | **SingleSelectFilter** | `IInvalidator invalidator, Object id, String name, INotifier notifier` | its a special case of a checkboxFilter but acts as a radio button, that means that upon selection can deselect other singleselect filters |
@@ -87,11 +87,11 @@ Each filter can take various states. These states have various formats depending
 | Filter Type | State Format in `ChangeState(String state)` | how to set (specific) | return format `String GetState()` |
 | :---------- |:---------|:-----|:-----|
 |**CheckBoxFilter**|`1` or `0`| `Check() UnCheck()` | `true` or `false` |
-|**FreeTextFilter**|`the text we want`|`SetText(String text)`|`the text we set`|
-|**SingleTextFilter**|`one value from the list`|`SetSelectedValue(String value)`|`the value we set` or `null`|
+|**FreeTextFilter**|`the text we want`|`SetText(String text)`|`the text we set` |
+|**SingleTextFilter**|`one value from the list`|`SetSelectedValue(String value)`|`the value we set` or `null` |
 |**SingleSelectFilter**|`1` or `0`| `Check() UnCheck()` | `true` or `false` |
-|**RangeFitler**|`from:value` or `to:value` or `from:value1-to:value2`|`SetFrom(String from)`,`SetTo(String to)` |`from:value1-to:value2`|
-|**CompositeFilter**|`id_of_internal_filter:desired_state`|NONE|`states of internal filters divided with |`|
+|**RangeFitler**|`from:value` or `to:value` or `from:value1-to:value2`|`SetFrom(String from)`,`SetTo(String to)` |`from:value1-to:value2` |
+|**CompositeFilter**|`id_of_internal_filter:desired_state`|NONE|`states of internal filters divided with` |
 A simple usage of the above is displayed below:
 a simple usage of singleText filter is diplayed bellow:
 ```java
@@ -173,7 +173,7 @@ public class PriceFilter extends RangeFilter {
 ```
 By extending the abstract filters of the system you can provide new specialized functions or properties. By default all filters have the next:
 | Attribute        | type | Description  |
-| :------------- |:-------------|:-----|
+| :------------- |:-------------|:----- |
 | **Id**  | `Object` | a unique id for the filter, identifing uniqly the filter inside its container |
 | **Name**  | `String` | the name of the filter. Inside a container two filters cannot have the same name |
 | **Count** | `int` | represents how many items (from the result) are satisfied by this filter |
@@ -181,7 +181,7 @@ By extending the abstract filters of the system you can provide new specialized 
 ### Filter Value policy
 Some filters such as RangeFilters and SingleTextFilter(dropdown) when they are reseted can have as a selected value a value from its list defined as default or a null value. This is defined from the SelectedValuePolicy. This is can be one of the following:
 | Selected Value Type | description |
-| :------------- |:-------------|
+| :------------- |:------------- |
 |**DefaultIfNull**|when filter is reseted the selected value goes to the defined default value |
 |**Null**|when filter is reseted the selected value goes to null |
 This policy can come in handy depending the situation we are in. For example if we want a dropdown when reseting to return to a default value then we can use the DefaultIfNull policy. But if we want the filter to get a null value as selected value, then we can use the Null policy.
@@ -218,9 +218,9 @@ Assert.assertEquals("from:200-to:null", state);
 ### Value Formatters
 If the client wants the value of a filter to be formatted(for example when sending to a http request), an IValuePostFormatter must be provided on the Filter. By default the value of this variable is an in-build DefaultValuePostFormatter which is does nothing. The client has the freedom to implement this interface and provide whatever filter it needs with the propert IValuePostFormatter. Bellow is the interface
 | Function        | Parameters  | Return type | Description |
-| :------------- | :-----| :-----| :-----|
-|**Extract**|`String value`|`List<String>`|this function returns all the sub strings that the formatter will format|
-|**Format**|`String value`|`String`|this function formats the value and returns it|
+| :------------- | :-----| :-----| :----- |
+|**Extract**|`String value`|`List<String>`|this function returns all the sub strings that the formatter will format |
+|**Format**|`String value`|`String`|this function formats the value and returns it |
 As an example we present another build-in formatter, the NumberValuePostFormatter which converts all numbers of the value from comma to dot and vise-versa
 ```java
 MockFreeTextFilter f1 = new MockFreeTextFilter(1, "f1", notifier);
@@ -240,9 +240,9 @@ Assert.assertEquals("77s7s,dw2.3wdq,dd", res);
 Client wants to 'stringify' a Filter to a user friendly format. For this purpose Filter has the an injectable FilterFormatter. Already the abstract FilterFormatter does the heavy job to format to a desired string the filter, but also enables the client to extend this class to provide more control over formatting the Filter.
 To begin with, FilterFormatter has a textbased API for setting a string pattern which will guide the formatter to format the Filter. The text-based API of this pattern is display bellow:
 | Literal        |Initials| Description  |
-| :------------- | :-----| :-----|
-|`$fv`|FilterValue|renders the value of the filter|
-|`$cn`|ContainerName|renders the name of the filter container|
+| :------------- | :-----| :----- |
+|`$fv`|FilterValue|renders the value of the filter |
+|`$cn`|ContainerName|renders the name of the filter container |
 |`$fn`|FilterName|renders the name of the filter |
 |`$fv[i]`|i-th FilterValue|renders the i-th value of the filter, for example in a RangeFilter that has two values (from and to) if client wants to display the second value then it provides fv[1] |
 |`$f[i].fn`|i-th Filter FilterName|this is used for the Composite filter, it returns the i-th Filters name |
@@ -334,16 +334,16 @@ All the filters when instructing a request to a server are converted into parame
 The filters are separated with a mode that denotes if the filter has a single value(SIMPLE), if the filter has two values (RANGED) or the filter is complex (COMPLEX) as CompositeFilter. The next table show what each filter returns as ParameterValue and parameterKey (key=value)
 *For SINGLE mode filter:*
 |Filter| parameter key | parameter value |
-| :-------------| :------------- | :-----|
-|**CheckBoxFilter**|container's name|filters value|
-|**CompositeFilter**|container's name|internal filters values|
-|**FreeTextFilter**|filter's name|its state, selected value|
-|**RangeFilter**|filter's name|its state, selected value|
+| :-------------| :------------- | :----- |
+|**CheckBoxFilter**|container's name|filters value |
+|**CompositeFilter**|container's name|internal filters values |
+|**FreeTextFilter**|filter's name|its state, selected value |
+|**RangeFilter**|filter's name|its state, selected value |
 
 *For RANGED mode filter:*
-|Filter| parameter key from | parameter key to | parameter value from| parameter value to|
-| :-------------| :------------- | :-----| :------------- | :-----|
-|**RangedFilter**|filter's name + "From"|fitler's name + "To"|"from:" + filter's from value|"to:" + filter's to value|
+|Filter| parameter key from | parameter key to | parameter value from| parameter value to |
+| :-------------| :------------- | :-----| :------------- | :----- |
+|**RangedFilter**|filter's name + "From"|fitler's name + "To"|"from:" + filter's from value|"to:" + filter's to value |
 
 *For COMPLEX mode filter*
 the convertor iterate thought the internal filters of the Composite.
@@ -446,7 +446,7 @@ Bellow there are more detailed APIs
 
 ### IHub
 | Function        | Parameters  | Return type | Description |
-| :------------- | :-----| :-----| :-----|
+| :------------- | :-----| :-----| :----- |
 |ResultReceived|`IResult result`|`void`| the client when receives results from the server, calls this function providing the results in the framework throught a client side object implementing IResult |
 |AddResultListener|`IResultHubListener listener`|`void`| a client component can register itself if it wants to receives notifications when a results is received |
 |RemoveResultListener|`IResultHubListener listener`|`void`| removes the listener |
@@ -473,10 +473,10 @@ Various component from client, wants to be notified when filters state changed. 
 These names dont have a special meaning, its just Channel1,2,3. When a filter has a FilterNotifier in its constructor then all the events raised by that filter will fire the corresponding function from IFilterHubListener. The functions of these three listeners have very similar functions. Bellow we present the IFilterHubListener
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :-----|
-|**FilterChanged**|`Filter filter`|`void`|is called when a state of a filter is changed. As parameter is the filter its state changed|
-|**FilterReset**|`Filter filter`|`void`|is called when a state of a filter is reset. If a filter is already reset then the event is not raised twice|
-|**FilterPropertyChanged**|`Filter filter, String old, String _new, FilterPropertyType propType`|`void`|when the name or the count of a filter is changed this event is raised with the appropriate parameter values|
-|**FilterUpdated**|`Filter filter`|`void`|when the contents of the filter are changed, for example the list of a singleTextFilter, then this event is raised. When language changes the contents of the filter should be changed|
+|**FilterChanged**|`Filter filter`|`void`|is called when a state of a filter is changed. As parameter is the filter its state changed |
+|**FilterReset**|`Filter filter`|`void`|is called when a state of a filter is reset. If a filter is already reset then the event is not raised twice |
+|**FilterPropertyChanged**|`Filter filter, String old, String _new, FilterPropertyType propType`|`void`|when the name or the count of a filter is changed this event is raised with the appropriate parameter values |
+|**FilterUpdated**|`Filter filter`|`void`|when the contents of the filter are changed, for example the list of a singleTextFilter, then this event is raised. When language changes the contents of the filter should be changed |
 
 #### How to change filter states without making request
 There are times when we want to change/restore a state of a filter without causing another http request. This could be done using the HubCommands. A hubCommand is an immutable object which acts as a DTO. We can 'execute' a HubCommand with the interface IHub calling Execute. This will cause the desired effect without making an http request. All other events such as FilterChanged will be raised.
@@ -529,10 +529,10 @@ private class FilterChannel2 implements IParameterHubListener{
 ### Builder
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :-----|
-|`AddObserver`|`IBuilderObserver observer`|`void`|registers a component as an observer|
-|`RemoveObserver`|`IBuilderObserver observer`|`void`|removes a component from observer|
+|`AddObserver`|`IBuilderObserver observer`|`void`|registers a component as an observer |
+|`RemoveObserver`|`IBuilderObserver observer`|`void`|removes a component from observer |
 |`ClearObservers`||`void`|clears all observers|
-|`Build`|`BuilderItems items`|`void`|build(add, update, remove) filters inside the framework depending on the filters inside the BuildeItems. The items with the already existing filters inside the framework are matched by ids|
+|`Build`|`BuilderItems items`|`void`|build(add, update, remove) filters inside the framework depending on the filters inside the BuildeItems. The items with the already existing filters inside the framework are matched by ids |
 
 #### BuilderItems
 A structure must be passed every time we want to synchronize the internal state/number of filters inside the system with a response from a server. This object encapsulates all the containers the client created and want to be passed inside the framework so the framework will rspond with the proper events to notify the rest of the system.
@@ -578,33 +578,33 @@ builder.Build(new MockBuilderItems(filterContext.GetHub()));
 One can build dynamically the filters in the interface from events from the IBuilderObserver. Once the component which builds the filters in the interface registers itseld as builder observer it can receive the next events:
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :-----|
-|**FilterAdded**|`ActionType actionType, Filter filter`|`void`|when a filter is added to the system this function is called|
-|**FilterRemoved**|`ActionType actionType, Filter filter`|`void`|when a filter is removed from the system this function is called|
-|**ContainerAdded**|`ActionType actionType, FilterContainer container`|`void`|when a container is added to the system this function is called|
-|**ContainerRemoved**|`ActionType actionType, FilterContainer container`|`void`|when a container is removed from the system this function is called|
-|**ContainerUpdated**|`ActionType actionType, FilterContainer container`|`void`|when a container is updated in the system this function is called, this happens when container name is changed|
+|**FilterAdded**|`ActionType actionType, Filter filter`|`void`|when a filter is added to the system this function is called |
+|**FilterRemoved**|`ActionType actionType, Filter filter`|`void`|when a filter is removed from the system this function is called |
+|**ContainerAdded**|`ActionType actionType, FilterContainer container`|`void`|when a container is added to the system this function is called |
+|**ContainerRemoved**|`ActionType actionType, FilterContainer container`|`void`|when a container is removed from the system this function is called |
+|**ContainerUpdated**|`ActionType actionType, FilterContainer container`|`void`|when a container is updated in the system this function is called, this happens when container name is changed |
 
 ## Channel Manipulator
 This object controls the state of the channels, paused or active. When a channel is paused no registered component can receive events from it. All filter channels (Filter, Parameter, Request), builder channel and request channel can be controled througth the interface bellow:
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :-----|
-|**PauseChannel**|`NotifierChannelType channelType`|`void`|pause any of the filter channels (Filter, Parameter, Request)|
-|**UnPauseChannel**|`NotifierChannelType channelType`|`void`|unpause/resume any of the filter channels (Filter, Parameter, Request)|
-|**PauseAllFilterChannels**||`void`|pauses all the filter channels (Filter, Parameter, Request)|
-|**UnPauseAllFilterChannels**||`void`|unpauses/resumes all the filter channels (Filter, Parameter, Request)|
-|**PauseRequestHandlerChannel**||`void`|pause the request channel, that means that the framework will not instruct the client to make a request|
-|**UnPauseRequestHandlerChannel**||`void`|unpause/resume the request channel, that means that the framework will instruct the client to make a request|
-|**PauseBuilderChannel**||`void`|pause the builder channel will cause the creational events not be called|
-|**UnPauseBuilderChannel**||`void`|unpause/resume the builder channel|
+|**PauseChannel**|`NotifierChannelType channelType`|`void`|pause any of the filter channels (Filter, Parameter, Request) |
+|**UnPauseChannel**|`NotifierChannelType channelType`|`void`|unpause/resume any of the filter channels (Filter, Parameter, Request) |
+|**PauseAllFilterChannels**||`void`|pauses all the filter channels (Filter, Parameter, Request) |
+|**UnPauseAllFilterChannels**||`void`|unpauses/resumes all the filter channels (Filter, Parameter, Request) |
+|**PauseRequestHandlerChannel**||`void`|pause the request channel, that means that the framework will not instruct the client to make a request |
+|**UnPauseRequestHandlerChannel**||`void`|unpause/resume the request channel, that means that the framework will instruct the client to make a request |
+|**PauseBuilderChannel**||`void`|pause the builder channel will cause the creational events not be called |
+|**UnPauseBuilderChannel**||`void`|unpause/resume the builder channel |
 
 ## Request instruction/handling
 Client is responsible to make the actual request (http or whatever) and get the result. Instructing that request is the responsibility of the framework. When a FilterContext is initialized it must have an IRequestHandler. behind this interface lies the object which is instructed by the framework to make the actual request. Lets see what IRequestHandler must have:
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :-----|
-|**makeRequest**|`String request`|`void`|framework instructs the client to make a request calling this method. The request string will have all the changed filters converted with the IRequestConverter|
-|**IsRetrieveFromFilters**||`boolean`|true if client wants to include the filters that have a FilterNotifier in the request parameters|
-|**IsRetrieveFromParameters**||`boolean`|true if client wants to include the filters that have a ParameterNotifier in the request parameters|
-|**IsRetrieveFromRequest**||`boolean`|true if client wants to include the filters that have a RequestNotifier in the request parameters|
+|**makeRequest**|`String request`|`void`|framework instructs the client to make a request calling this method. The request string will have all the changed filters converted with the IRequestConverter |
+|**IsRetrieveFromFilters**||`boolean`|true if client wants to include the filters that have a FilterNotifier in the request parameters |
+|**IsRetrieveFromParameters**||`boolean`|true if client wants to include the filters that have a ParameterNotifier in the request parameters |
+|**IsRetrieveFromRequest**||`boolean`|true if client wants to include the filters that have a RequestNotifier in the request parameters |
 
 ## Configuration
 The framework is configurable through its boundary objects as following:
