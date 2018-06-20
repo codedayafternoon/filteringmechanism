@@ -49,24 +49,24 @@ The library supports
 ## Filters
 The abstract Filter inside the framework represents any filter such as dropdowns or checkboxes. It has many attributes and behaviours that are consistent to all the subtypes of the Filter.
 The most important of the Filter interface is depict in the following table:
-| Function        | Parameters  | Return type | Description |
+| Function | Parameters  | Return type | Description |
 | ------------- | ----- | ----- | ----- |
-|**GetNotifierType**||`NotifierChannelType`|returns which type of notifier the filter is using {FilterNotifier, ParameterNotifier, RequestNotifier}|
+|**GetNotifierType**| none |`NotifierChannelType`|returns which type of notifier the filter is using {FilterNotifier, ParameterNotifier, RequestNotifier}|
 |**SetValuePostFormatter**|`IValuePostFormatter formatter`|`void`|sets the formatter that formats the value of the filter|
-|**GetMode**||`FilterMode`|returns the mode the filter has {SIMPLE, RANGED, COMPLEX}. The mode depends on how many separated values has the filter|
-|**GetParameterKey**||`String`|returns a distinctive key of the filter, is used to convert Filter to a parameter|
-|**GetParameterValue**||`void`|return a distinctive value of the filter, is used to convert Filter to a parameter|
-|**Pause**||`void`|pause the filter causing all state changes does not affect its notifier and events are not propagated|
-|**UnPause**||`void`|unpause the filter causing all filter events to be propagated|
+|**GetMode**|none |`FilterMode`|returns the mode the filter has {SIMPLE, RANGED, COMPLEX}. The mode depends on how many separated values has the filter|
+|**GetParameterKey**|none |`String`|returns a distinctive key of the filter, is used to convert Filter to a parameter|
+|**GetParameterValue**|none |`void`|return a distinctive value of the filter, is used to convert Filter to a parameter|
+|**Pause**|none |`void`|pause the filter causing all state changes does not affect its notifier and events are not propagated|
+|**UnPause**|none |`void`|unpause the filter causing all filter events to be propagated|
 |**SetCount**|`int count`|`void`|sets the count of the filter|
-|**GetCount**||`int`|gets the count of the filter|
+|**GetCount**|none |`int`|gets the count of the filter|
 |**GetValue**|`int index`|`String`|gets the i-th value of the filter. In case of a RangeFilter which has two values the index takes 0 or 1|
-|**GetContainer**||`FilterContainer`|gets the filter container of the filter|
-|**Reset**||`void`|resets the filter, either to null or a default value|
-|**GetState**||`String`|returns the filter's state|
+|**GetContainer**|none |`FilterContainer`|gets the filter container of the filter|
+|**Reset**|none |`void`|resets the filter, either to null or a default value|
+|**GetState**|none |`String`|returns the filter's state|
 |**ChangeState**|`String state`|`void`|changes the state of the filter|
 |**UpdateFrom**|`Filter filter`|`void`|updates the filter from another filter|
-|**IsReset**||`boolean`|returns true when the filter is reset|
+|**IsReset**|none |`boolean`|returns true when the filter is reset|
 |**GetFormattedText**|`Object formatterId`|`String`|getts a user friendly formatted text using the formatted with formatterId|
 |**GetFormattedText**|`Object formatterId, Map<String, String> _params`|`String`|getts a user friendly formatted text using the formatted with formatterId, injecting other parameters for the formatting to get into account|
 |**AddFormatter**|`FilterFormatter formatter`|`void`|adds a formatter in the filter|
@@ -405,6 +405,7 @@ private class MockRequestHandler implements IRequestHandler {
 
 ## Boundary and Control objects
 The system has a various number of ports for interacting with the client and vise versa. That interfaces are accessible through the next control and boundary objects:
+
 | Object        | Description  |
 | :------------- | :-----|
 | **FilterContext**  | an object controlling the access for the other boundary and control objects |
@@ -418,13 +419,13 @@ The system has a various number of ports for interacting with the client and vis
 Bellow there are more detailed APIs
 ### FilterContext
 | Function        | Parameters  | Return type | Description |
-| :------------- | :-----| :-----| :-----|
-|**Initialize**|`IRequestHandler requestHandler, IRequestConverter requestConverter,Configuration configuration` |`void`|initialize must run before all other access functions called|
-|**GetController**||`IFilterController`|returns the controller. Every call to this functions returns the same instance of the controller|
-|**GetBuilder**||`Builder`|returns the controller. Every call to this functions returns the same instance of the Builder|
-|**GetHub**||`IHub`|returns the controller. Every call to this functions returns the same instance of the IHub|
-|**GetChannelmanipulator**||`ChannelManipulator`|returns the controller. Every call to this functions returns the same instance of the ChannelManipulator|
-|**Dispose**||`void`|this function cleans the context from the created references. It has to be Initialized again to work properly|
+| ------------- | ----- | ----- | ----- |
+|**Initialize**|`IRequestHandler requestHandler, IRequestConverter requestConverter,Configuration configuration` |`void`|initialize must run before all other access functions called |
+|**GetController**||`IFilterController`|returns the controller. Every call to this functions returns the same instance of the controller |
+|**GetBuilder**||`Builder`|returns the controller. Every call to this functions returns the same instance of the Builder |
+|**GetHub**||`IHub`|returns the controller. Every call to this functions returns the same instance of the IHub |
+|**GetChannelmanipulator**||`ChannelManipulator`|returns the controller. Every call to this functions returns the same instance of the ChannelManipulator |
+|**Dispose**||`void`|this function cleans the context from the created references. It has to be Initialized again to work properly |
 
 
 ### IFilterController, how to control filters
