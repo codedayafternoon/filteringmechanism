@@ -110,7 +110,6 @@ public class ChannelManipulator {
         }
     }
 
-
     private void packParameterListeners() {
         if(this.hub.getParameterListeners().size() == 0)
             return;

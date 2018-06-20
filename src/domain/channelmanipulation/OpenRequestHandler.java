@@ -20,11 +20,6 @@ public class OpenRequestHandler implements IRequestHandler {
     }
 
     @Override
-    public void Initialize(String request) {
-
-    }
-
-    @Override
     public boolean IsRetrieveFromRequest() {
         return this.requestHandler.IsRetrieveFromRequest();
     }

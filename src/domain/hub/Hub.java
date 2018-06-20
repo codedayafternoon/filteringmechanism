@@ -123,6 +123,7 @@ public class Hub implements IHub {
 		}
 	}
 
+	@Override
 	public Map<Filter, Date> GetFilters() {
 		return this.filters;
 	}
@@ -188,7 +189,8 @@ public class Hub implements IHub {
 			this.parameters.remove(filter);
 		}
 	}
-	
+
+	@Override
 	public Map<Filter, Date> GetParameters(){
 		return this.parameters;
 	}
@@ -255,6 +257,7 @@ public class Hub implements IHub {
 		}
 	}
 
+	@Override
 	public Map<Filter, Date> GetRequests(){
 		return this.requests;
 	}

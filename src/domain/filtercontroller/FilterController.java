@@ -108,7 +108,7 @@ public class FilterController implements IFilterController {
 	@Override
 	public FilterContainer GetContainerById(Object id) {
 		for(FilterContainer c : this.containers){
-			if(c.GetId().equals(id))
+			if(c.GetId().toString().equals(id.toString()))
 				return c;
 		}
 		return null;
@@ -150,15 +150,10 @@ public class FilterController implements IFilterController {
 
 	private void resetAllWithoutRequestPropagationHelper(FilterContainer container, List<Filter> filters, List<HubCommand> commands){
 		for(Filter f : filters){
-			//if(f.GetMode() == FilterMode.COMPLEX){
-			//	List<Filter> innerFilters = ((CompositeFilter)f).getFilters();
-				//this.resetAllWithoutRequestPropagationHelper(container, innerFilters,commands);
-			//}else{
-				if(!f.IsReset()){
-					HubCommand command = new HubCommand(container.GetId(), container.GetName(),f.Id, f.getName(), "reset");
-					commands.add(command);
-				}
-			//}
+			if(!f.IsReset()){
+				HubCommand command = new HubCommand(container.GetId(), container.GetName(),f.Id, f.getName(), "reset");
+				commands.add(command);
+			}
 		}
 	}
 

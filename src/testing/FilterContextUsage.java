@@ -201,11 +201,6 @@ public class FilterContextUsage {
         }
 
         @Override
-        public void Initialize(String request) {
-
-        }
-
-        @Override
         public boolean IsRetrieveFromRequest() {
             return false;
         }

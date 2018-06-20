@@ -6,8 +6,11 @@ import java.util.Scanner;
 
 import application.Container;
 import application.Controller;
+import application.MainComponent;
 import application.SimpleRequestHandler;
 import application.components.FilterPreviewComponent;
+import application.components.FiltersTreeViewComponent;
+import application.components.ResultsComponent;
 import application.components.UrlManagerComponent;
 import application.filters.AreaDistanceFilter;
 import application.filters.AreaFilter;
@@ -17,14 +20,17 @@ import application.filters.PageFilter;
 import application.filters.PriceFilter;
 import application.filters.ScreenSizeFilter;
 import application.filters.SortingFilter;
-import application.infrastructure.IUrlBuilder;
+import application.infrastructure.MockConfiguration;
+import domain.FilterContext;
+import domain.buildins.IUrlBuilder;
 import application.infrastructure.SimpleConsolePrinter;
-import application.infrastructure.UrlBuilder;
-import application.infrastructure.UrlQueryConverter;
+import domain.buildins.UrlBuilder;
+import domain.buildins.UrlQueryConverter;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.IRequestHandler;
 import domain.filtercontroller.IRequestConverter;
 import domain.hub.Hub;
+import domain.hub.IHub;
 import domain.notifier.FilterNotifier;
 import domain.notifier.ParameterNotifier;
 
@@ -32,16 +38,66 @@ public class Main {
 
 	public static void main(String[] args) {
 		System.out.println("System started");
-		TestWithConsoleInput();
+		FilterContext context = new FilterContext();
+
+		SimpleRequestHandler handler = new SimpleRequestHandler();
+		context.Initialize(handler, new UrlQueryConverter(new UrlBuilder(",", "&")), new MockConfiguration());
+		handler.SetHub(context.GetHub());
+		handler.SetBuilder(context.GetBuilder());
+
+		ResultsComponent resultsComponent = new ResultsComponent(context);
+		FilterPreviewComponent previewComponent = new FilterPreviewComponent(context);
+		FiltersTreeViewComponent filtersComponent = new FiltersTreeViewComponent(context);
+		MainComponent component = new MainComponent(context,resultsComponent,filtersComponent, previewComponent);
+
+		handler.makeRequest(""); // simulate first request
+
+		Scanner in = new Scanner(System.in);
+		while(true){
+			try {
+				String input = in.nextLine();
+				System.out.println("command: " + input);
+				if (input.equals("exit"))
+					break;
+				else if(input.startsWith("print")){
+					if(input.contains("results")){
+						component.Print();
+					}else if(input.contains("filters")){
+						filtersComponent.Print();
+					}else if(input.contains("preview")){
+						previewComponent.Print();
+					}else {
+						component.Print();
+						filtersComponent.Print();
+						previewComponent.Print();
+					}
+				}else if(input.startsWith("changestate")){
+					String []parts = input.replace("changestate", "").trim().split(" ");
+					String containerId = parts[0];
+					String filterId = parts[1];
+					String state = parts[2];
+					filtersComponent.changeState(containerId, filterId, state);
+				}else if(input.startsWith("remove")){
+					String []parts = input.replace("remove", "").trim().split(" ");
+					String containerId = parts[0];
+					String filterId = parts[1];
+					previewComponent.remove(containerId, filterId);
+				}
+			} catch (Exception e) {
+				System.out.println("error=>" + e.getMessage());
+			}
+		}
+		System.out.println("system exited");
 	}
 
 	private static void TestWithConsoleInput() {
 		System.out.println("TestWithConsoleInput");
 
 		List<FilterContainer> groups = new ArrayList<>();
-		Hub hub = new Hub();
+		IHub hub = new Hub();
 
-		IRequestHandler receiver = new SimpleRequestHandler(hub);
+		IRequestHandler receiver = new SimpleRequestHandler();
+		((SimpleRequestHandler) receiver).SetHub(hub);
 		ParameterNotifier parameterNotifier = new ParameterNotifier(hub);
 		FilterNotifier filterNotifier = new FilterNotifier(hub);
 
@@ -128,16 +184,16 @@ public class Main {
 
 		IUrlBuilder urlBuilder = new UrlBuilder(",", "&");
 		IRequestConverter requestConverter = new UrlQueryConverter(urlBuilder);
-		Controller manager = new Controller(groups, hub, receiver, requestConverter);
+		Controller manager = new Controller(groups, (Hub)hub, receiver, requestConverter);
 
 		UrlManagerComponent urlManager = new UrlManagerComponent(new UrlBuilder("*", "%"));
 
-		FilterPreviewComponent banner = new FilterPreviewComponent(manager);
+		FilterPreviewComponent banner = new FilterPreviewComponent(new FilterContext());
 		hub.AddFilterListener(urlManager);
 		hub.AddParameterListener(urlManager);
 		hub.AddFilterListener(banner);
 
-		receiver.Initialize("");
+		receiver.makeRequest("");
 
 		System.out.println("press e for exit");
 		SimpleConsolePrinter printer = new SimpleConsolePrinter();
@@ -184,8 +240,9 @@ public class Main {
 		System.out.println("TestWithGroupManager");
 
 		List<FilterContainer> groups = new ArrayList<>();
-		Hub hub = new Hub();
-		IRequestHandler receiver = new SimpleRequestHandler(hub);
+		IHub hub = new Hub();
+		IRequestHandler receiver = new SimpleRequestHandler();
+		((SimpleRequestHandler) receiver).SetHub(hub);
 		
 		ParameterNotifier parameterNotifier = new ParameterNotifier(hub);
 		FilterNotifier filterNotifier = new FilterNotifier(hub);
@@ -206,9 +263,9 @@ public class Main {
 
 		IUrlBuilder urlBuilder = new UrlBuilder(",", "&");
 		IRequestConverter requestConverter = new UrlQueryConverter(urlBuilder);
-		Controller manager = new Controller(groups, hub, receiver, requestConverter);
+		Controller manager = new Controller(groups, (Hub)hub, receiver, requestConverter);
 
-		receiver.Initialize("");
+		receiver.makeRequest("");
 
 		SimpleConsolePrinter printer = new SimpleConsolePrinter();
 		printer.Print(System.out, groups);

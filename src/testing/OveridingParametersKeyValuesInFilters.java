@@ -1,15 +1,13 @@
 package testing;
 
-import application.infrastructure.UrlBuilder;
-import application.infrastructure.UrlQueryConverter;
+import domain.buildins.UrlBuilder;
+import domain.buildins.UrlQueryConverter;
 import domain.FilterContext;
 import domain.configuration.*;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.IFilterController;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.INotifier;
-import domain.filters.types.RangeFilter;
-import domain.hub.Hub;
 import domain.hub.IHub;
 import domain.notifier.FilterNotifier;
 import org.junit.Assert;
@@ -54,11 +52,6 @@ public class OveridingParametersKeyValuesInFilters {
         public void makeRequest(String request) {
             this.Request = request;
             System.out.println("MockRequestHandler->makeRequest:" + request);
-        }
-
-        @Override
-        public void Initialize(String request) {
-
         }
 
         @Override

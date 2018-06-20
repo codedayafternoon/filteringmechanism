@@ -14,5 +14,10 @@ public class CellPhone {
 		this.Name = name;
 		this.Price = price;
 	}
+
+	@Override
+	public String toString(){
+		return "[Manufacturer:" + this.Manufacturer + ", Name:" + this.Name + ", price:" + this.Price + "]";
+	}
 	
 }

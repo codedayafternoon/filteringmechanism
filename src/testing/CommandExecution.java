@@ -1,7 +1,7 @@
 package testing;
 
-import application.infrastructure.UrlBuilder;
-import application.infrastructure.UrlQueryConverter;
+import domain.buildins.UrlBuilder;
+import domain.buildins.UrlQueryConverter;
 import domain.filtercontroller.FilterContainer;
 import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IRequestConverter;
@@ -484,12 +484,6 @@ public class CommandExecution {
         @Override
         public void makeRequest(String request) {
             System.out.println("MockRequestHandler->makeRequest:" + request);
-            this.Request = request;
-        }
-
-        @Override
-        public void Initialize(String request) {
-            System.out.println("MockRequestHandler->Initialize:" + request);
             this.Request = request;
         }
 

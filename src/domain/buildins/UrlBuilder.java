@@ -1,4 +1,4 @@
-package application.infrastructure;
+package domain.buildins;
 
 import java.util.HashMap;
 import java.util.Map;

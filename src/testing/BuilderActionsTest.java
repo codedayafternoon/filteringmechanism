@@ -1,16 +1,14 @@
 package testing;
 
-import application.infrastructure.UrlBuilder;
-import application.infrastructure.UrlQueryConverter;
+import domain.buildins.UrlBuilder;
+import domain.buildins.UrlQueryConverter;
 import domain.FilterContext;
 import domain.configuration.*;
 import domain.filtercontroller.FilterContainer;
-import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IFilterController;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.Filter;
 import domain.filters.FilterPropertyType;
-import domain.hub.Hub;
 import domain.hub.IFilterHubListener;
 import domain.hub.IHub;
 import domain.notifier.FilterNotifier;
@@ -793,11 +791,6 @@ public class BuilderActionsTest {
         public void makeRequest(String request) {
             this.Request = request;
             this.RequestCount++;
-        }
-
-        @Override
-        public void Initialize(String request) {
-
         }
 
         @Override

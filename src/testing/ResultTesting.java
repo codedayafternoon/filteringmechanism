@@ -3,11 +3,9 @@ package testing;
 import domain.FilterContext;
 import domain.configuration.*;
 import domain.filtercontroller.FilterContainer;
-import domain.filtercontroller.FilterController;
 import domain.filtercontroller.IRequestConverter;
 import domain.filtercontroller.IRequestHandler;
 import domain.filters.Filter;
-import domain.hub.Hub;
 import domain.hub.HubCommand;
 import domain.hub.IHub;
 import domain.hub.IResultHubListener;
@@ -175,11 +173,6 @@ public class ResultTesting {
 
         @Override
         public void makeRequest(String request) {
-
-        }
-
-        @Override
-        public void Initialize(String request) {
 
         }
 

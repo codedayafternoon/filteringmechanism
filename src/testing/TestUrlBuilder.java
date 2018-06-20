@@ -3,7 +3,7 @@ package testing;
 import org.junit.Assert;
 import org.junit.Test;
 
-import application.infrastructure.UrlBuilder;
+import domain.buildins.UrlBuilder;
 
 public class TestUrlBuilder {
 

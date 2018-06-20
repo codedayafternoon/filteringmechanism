@@ -6,6 +6,8 @@ import domain.filters.Filter;
 import domain.filters.FilterMode;
 import domain.filters.INotifier;
 import domain.filters.policies.DefaultValueAsSelected;
+import domain.filters.policies.NullValueAsSelected;
+import domain.filters.policies.SelectedValuePolicyType;
 import domain.filters.structures.RangePart;
 
 public abstract class SingleTextFilter extends Filter {
@@ -17,7 +19,6 @@ public abstract class SingleTextFilter extends Filter {
 		if(values == null || values.size() == 0)
 			throw new Error("values cannot be null or empty");
 
-		// TODO replace with null
 		this.range = new RangePart(new DefaultValueAsSelected(), values, values.get(0));
 	}
 
@@ -28,6 +29,18 @@ public abstract class SingleTextFilter extends Filter {
 	@Override
 	public FilterMode GetMode() {
 		return FilterMode.SIMPLE;
+	}
+
+	public void SetSelectedValuePolicy(SelectedValuePolicyType policy){
+		switch (policy)
+		{
+			case DefaultIfNull:
+				this.range.SetSelectedValuePolicy(new DefaultValueAsSelected());
+				break;
+			case Null:
+				this.range.SetSelectedValuePolicy(new NullValueAsSelected());
+				break;
+		}
 	}
 
 	public void SetDefaultValue(String value) {

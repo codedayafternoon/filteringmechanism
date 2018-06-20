@@ -23,9 +23,6 @@ public abstract class RangeFilter extends Filter {
 		if(fromValues == null || toValues == null || fromValues.size() == 0 || toValues.size() == 0)
 			throw new Error("range values cannot be null or empty");
 
-//		this.rangeFrom = new RangePart(new DefaultValueAsSelected(), fromValues, fromValues.get(0));
-//		this.rangeTo = new RangePart(new DefaultValueAsSelected(), toValues, toValues.get(0));
-
 		this.rangeFrom = new RangePart(new DefaultValueAsSelected(), fromValues, null);
 		this.rangeTo = new RangePart(new DefaultValueAsSelected(), toValues, null);
 	}
