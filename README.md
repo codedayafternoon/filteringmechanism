@@ -577,7 +577,7 @@ builder.Build(new MockBuilderItems(filterContext.GetHub()));
 #### How to receive creational events
 One can build dynamically the filters in the interface from events from the IBuilderObserver. Once the component which builds the filters in the interface registers itseld as builder observer it can receive the next events:
 | Function        | Parameters  | Return type | Description |
-| :------------- | :-----| :----- | :----- |
+| :------------- | :-----| :-----| :----- |
 |**FilterAdded**|`ActionType actionType, Filter filter`|`void`|when a filter is added to the system this function is called |
 |**FilterRemoved**|`ActionType actionType, Filter filter`|`void`|when a filter is removed from the system this function is called |
 |**ContainerAdded**|`ActionType actionType, FilterContainer container`|`void`|when a container is added to the system this function is called |
