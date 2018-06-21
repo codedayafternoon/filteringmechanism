@@ -1,17 +1,19 @@
 package domain.buildins;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
 public class UrlBuilder implements IUrlBuilder {
 	
-	Map<String, String> _params;
+	Map<String, List<String>> _params;
 	String _parameterValueDelimiter;
 	String _parameterDelimiter;
 	
 	public UrlBuilder(String parameterValueDelimiter, String parameterDelimiter) {
-		this._params = new HashMap<String, String>();
+		this._params = new HashMap<String, List<String>>();
 		this._parameterValueDelimiter = parameterValueDelimiter;
 		this._parameterDelimiter = parameterDelimiter;
 	}
@@ -23,16 +25,27 @@ public class UrlBuilder implements IUrlBuilder {
 		if(this._params.containsKey(name)) {
 			if(this._params.get(name).contains(value))
 				return;
-			this._params.put(name, this._params.get(name) + this._parameterValueDelimiter + value);
+			List<String> values = this._params.get(name);
+			values.add(value);
 		}else {
-			this._params.put(name, value);
+			List<String> values = new ArrayList<>();
+			values.add(value);
+			this._params.put(name, values);
 		}
 	}
-	
+
+	private String serializeList(List<String> values){
+		String res = "";
+		for(String v : values){
+			res += v + this._parameterValueDelimiter;
+		}
+		return res.substring(0, res.length() - this._parameterValueDelimiter.length());
+	}
+
 	private String constructUrl() {
 		String res = "";
-		for(Entry<String, String> entry : this._params.entrySet()) {
-			res += entry.getKey() + "=" + entry.getValue();
+		for(Entry<String, List<String>> entry : this._params.entrySet()) {
+			res += entry.getKey() + "=" + this.serializeList( entry.getValue() );
 			res += this._parameterDelimiter;
 		}
 		if(!res.equals(""))
@@ -65,20 +78,10 @@ public class UrlBuilder implements IUrlBuilder {
 		if(!this._params.containsKey(name))
 			return;
 		
-		String value = this._params.get(name);
-		if(!value.contains(this._parameterValueDelimiter)) {
-			this._params.remove(name);
-		}else {
-			String pat = this._parameterValueDelimiter + paramValue + this._parameterValueDelimiter;
-			if(value.contains(pat)) {
-				value = value.replace(this._parameterValueDelimiter + paramValue, "");
-			}else if(value.contains(this._parameterValueDelimiter + paramValue)) {
-				value = value.replace(this._parameterValueDelimiter + paramValue, "");
-			}else if(value.contains(paramValue + this._parameterValueDelimiter)) {
-				value = value.replace(paramValue + this._parameterValueDelimiter, "");
-			}
-		}
-		this._params.put(name, value);
+		List<String> values = this._params.get(name);
+		if(values.contains(paramValue))
+			values.remove(paramValue);
+
 	}
 
 	@Override

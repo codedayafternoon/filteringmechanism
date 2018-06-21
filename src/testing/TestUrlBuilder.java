@@ -8,6 +8,16 @@ import domain.buildins.UrlBuilder;
 public class TestUrlBuilder {
 
 	@Test
+	public void testAddParameterWithSameStartingLetter(){
+		UrlBuilder urlBuilder = new UrlBuilder(",", "&");
+
+		urlBuilder.AddParameter("model", "Citan");
+		urlBuilder.AddParameter("model", "C");
+		Assert.assertTrue(urlBuilder.Peek().contains("model=Citan,C") || urlBuilder.Peek().contains("model=C,Citan"));
+
+	}
+
+	@Test
 	public void testAddParameter() {
 		UrlBuilder urlBuilder = new UrlBuilder(",", "&");
 
