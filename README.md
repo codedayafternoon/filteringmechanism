@@ -5,6 +5,7 @@ Table of contents
 =================
 
 * [introduction]() ok
+* [the overall image]()
 * [filters](#gh-md-toc) ok
     * [types](#types) ok
     * [states](#states) ok
@@ -34,17 +35,18 @@ Table of contents
 * [a test use case, how all fits together]()
 
 ## Introduction
-Fireman will help you build multiselection filtering support in your web, desktop or other types of applications. It decouples the client from managing the filters complexity allowing to concentrate of the other aspects of its problem.
+Fireman will help you build multiselection filtering support in your web, desktop or other types of applications. It decouples the client from managing the filters complexity allowing to concentrate of the other aspects of the problem.
 The library supports
 1. filter state management.
-2. instructing a request with parameters for fetching the results when a filter state changes.
+2. automatically instructing a request with parameters for fetching the results when a filter state changes.
 3. three channels for listening for filter state changes, ex. If you want to isolate filters from other filters and various component be notified for a subset of them.
 4. localization support. Filters content, such as name, values and other properties are easily changed through the API.
 5. control over how a filter is serialized to a parameter for using it as url parameter.
 6. bookmark and landing page support, restoring filters state.
 7. apply rules such as when a filter state changes then reset another filter.
 8. filter value formatting, for example replace all commas with dots in a number.
-9. allow the client to extend various core functionalities to meet their requirements.
+9. easy formatting filters as a user-friendly display string.
+10. allow the client to extend various core functionalities to meet their requirements.
 
 ## Filters
 The abstract Filter inside the framework represents any filter such as dropdowns or checkboxes. It has many attributes and behaviours that are consistent to all the subtypes of the Filter.
@@ -77,21 +79,21 @@ The various filter types which are supported by the system are:
 
 | Filter        | Constructor params | Description  |
 | :------------- |:-------------|:-----|
-| **CheckBoxFilter** | `Object id, String name, INotifier notifier` | represents a checkbox that either is selected or no |
+| **CheckBoxFilter** | `Object id, String name, INotifier notifier` | represents a checkbox that either is selected or not|
 | **FreeTextFilter**  | `Object id, String name, INotifier notifier` | represents a textbox that gets arbitrary values |
-| **SingleTextFilter** | `Object id, String name, INotifier notifier, List<String> values` | represents a filter that gets one value among a list of values, thats a dropdown |
-| **SingleSelectFilter** | `IInvalidator invalidator, Object id, String name, INotifier notifier` | its a special case of a checkboxFilter but acts as a radio button, that means that upon selection can deselect other singleselect filters |
+| **SingleTextFilter** | `Object id, String name, INotifier notifier, List<String> values` | represents a filter that gets one value among a list of values, like a dropdown |
+| **SingleSelectFilter** | `IInvalidator invalidator, Object id, String name, INotifier notifier` | its a special case of a checkboxFilter but acts as a radio button, that means that upon selection can deselect/reset other singleselect filters |
 | **RangeFitler** | `Object id, String name, INotifier notifier, List<String> fromValues, List<String> toValues`  |  represents a from-to (or double dropdown) filter |
 | **CompositeFilter** | `Object id, String name, INotifier notifier`  | thats a filter containing a list of other Filters, that a client want to manipulate them as a group |
 
 ### Filter states
-Each filter can take various states. These states have various formats depending of the type of the filter. In the following table we present how a state is set and retrieved depending on the type of the filter.
+Each filter can take various states. These states have various formats depending of the type of the filter. In the following table we present how a state is set and retrieved depending on the type of the filter. The state in a filter is its current value. Sometimes this consists of two or more values (such as in a RangeFilter we have two values)
 
-| Filter Type | State Format in `ChangeState(String state)` | how to set (specific) | return format `String GetState()` |
+| Filter Type | state Format, `ChangeState(String state)` | how to set (specific function) | return format `String GetState()` |
 | :---------- |:---------|:-----|:-----|
 |**CheckBoxFilter**|`1` or `0`| `Check() UnCheck()` | `true` or `false` |
-|**FreeTextFilter**|`the text we want`|`SetText(String text)`|`the text we set` |
-|**SingleTextFilter**|`one value from the list`|`SetSelectedValue(String value)`|`the value we set` or `null` |
+|**FreeTextFilter**|the text we want|`SetText(String text)`|`the text we set` |
+|**SingleTextFilter**|one value from the list|`SetSelectedValue(String value)`|`the value we set` or `null` |
 |**SingleSelectFilter**|`1` or `0`| `Check() UnCheck()` | `true` or `false` |
 |**RangeFitler**|`from:value` or `to:value` or `from:value1-to:value2`|`SetFrom(String from)`,`SetTo(String to)` |`from:value1-to:value2` |
 |**CompositeFilter**|`id_of_internal_filter:desired_state`|NONE|`states of internal filters divided with` |
@@ -104,7 +106,7 @@ singleTextValues.add("x");
 singleTextValues.add("y");
 singleTextValues.add("z");
 MockSingleTextFilter singleText1 = new MockSingleTextFilter(1, "f1", this.notifier, singleTextValues);
-singleText1.SetDefaultValue("q"); // there is no such value in list
+singleText1.SetDefaultValue("q"); // there is no such value in list, so do nothing.
 Assert.assertEquals("x", singleText1.GetSelectedValue());
 singleText1.SetDefaultValue("x");
 Assert.assertEquals("x", singleText1.GetSelectedValue());
@@ -129,7 +131,7 @@ Assert.assertEquals(false, checkBox2.IsChecked());
 ```
 
 ### Filter Channels, Filter Notifiers
-All filters must have a INotifier for its creation. A INotifier is one of the three predefined notifiers the framework supports. They act as channels in which the filters will fire their events. Basically, a filter event is either filterStateChanged or a filterReset. A filterReset event is raised when the filter is getting its default value or directly is requested to be reset. The notifiers are the next:
+All filters must have an implementation of INotifier for its creation. A INotifier is one of the three predefined notifiers the framework supports. They act as channels (observers) in which the filters will fire their events. Basically, a filter event is either filterStateChanged or a filterReset. A filterReset event is raised when the filter is getting its default value or directly is requested to be reset. The notifiers are the next:
 1. FilterNotifier
 2. ParameterNotifier
 3. RequestNotifier
@@ -140,13 +142,13 @@ All filters must have a INotifier for its creation. A INotifier is one of the th
 
 These three notifiers act as various channels that the various filters of the system will call.
 
-All notifiers for theis creation have to have a Hub in its contructor. At the end all notifier will notify the same hub but will fire different functions on it. The Hub can easily be obtained by the context and passed to the notifier contructor.
+All notifiers for theis creation have to have a `Hub` in its contructor. At the end all notifiers will notify the same hub but will fire different functions on it. The Hub can easily be obtained by the context and passed to the notifier contructor.
 
 ### simple filter usage example
 All Filters are abstract, that means that client must have its own implementation classes.
 ```java
 public void createFilters(Hub hub){
-    FilterNotifier notifier = new FilterNotifier(hub); // this object is predefined inside the library
+    FilterNotifier notifier = new FilterNotifier(hub); // the FilterNotifier is predefined inside the library.
     FilterContainer container = new FilterContainer(1, "c1");
     SortingFilter sortFilter = new SortingFilter(1, "sort", notifier);
     List<String> from = new ArrayList<>();
@@ -157,7 +159,7 @@ public void createFilters(Hub hub){
     to.add("400");
     to.add("500");
     to.add("600");
-    PriceFilter priceFilter = new PriceFilter(2,"price", this.notifier, from, to);
+    PriceFilter priceFilter = new PriceFilter(2,"price", this.notifier, from, to); // the priceFilter inherits from RangeFilter
 
     filterContainer.AddFilter(sortFilter);
     filterContainer.AddFilter(priceFilter);
@@ -184,7 +186,7 @@ By extending the abstract filters of the system you can provide new specialized 
 | **Count** | `int` | represents how many items (from the result) are satisfied by this filter |
 
 ### Filter Value policy
-Some filters such as RangeFilters and SingleTextFilter(dropdown) when they are reseted can have as a selected value a value from its list defined as default or a null value. This is defined from the SelectedValuePolicy. This is can be one of the following:
+Some filters such as RangeFilters and SingleTextFilter(dropdown) when they are reseted can have as a selected value a value from its list defined as default or a null value. This is defined from the SelectedValuePolicy. This can be one of the following:
 
 | Selected Value Type | description |
 | :------------- |:------------- |
@@ -223,7 +225,7 @@ state = f1.GetState();
 Assert.assertEquals("from:200-to:null", state);
 ```
 ### Value Formatters
-If the client wants the value of a filter to be formatted(for example when sending to a http request), an IValuePostFormatter must be provided on the Filter. By default the value of this variable is an in-build DefaultValuePostFormatter which is does nothing. The client has the freedom to implement this interface and provide whatever filter it needs with the propert IValuePostFormatter. Bellow is the interface
+If the client wants the value of a filter to be formatted(for example when sending to a http request), an IValuePostFormatter must be provided on the Filter. By default the value of this variable is an in-build DefaultValuePostFormatter which does nothing. The client has the freedom to implement this interface and provide whatever filter it needs with the proper IValuePostFormatter. Bellow is the interface
 
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :----- |
@@ -246,7 +248,7 @@ Assert.assertEquals("77s7s,dw2.3wdq,dd", res);
 *The `GetParameterValue()` function is one abstract Filter function that a converter to Url parameter string is using.*
 
 ### FilterFormatter
-Client wants to 'stringify' a Filter to a user friendly format. For this purpose Filter has the an injectable FilterFormatter. Already the abstract FilterFormatter does the heavy job to format to a desired string the filter, but also enables the client to extend this class to provide more control over formatting the Filter.
+Client wants to 'stringify' a Filter to a user friendly format. For this purpose Filter has the an injectable FilterFormatter. Already the abstract FilterFormatter does the heavy job to format to a desired string, but also enables the client to extend this class to provide more control over formatting the Filter.
 To begin with, FilterFormatter has a textbased API for setting a string pattern which will guide the formatter to format the Filter. The text-based API of this pattern is display bellow:
 
 | Literal        |Initials| Description  |
@@ -261,7 +263,7 @@ To begin with, FilterFormatter has a textbased API for setting a string pattern 
 |`$f[i].cn`|i-th Filter FilterValue|this is used for the Composite filter, it returns the i-th Filters container name |
 
 In addition client possible will need to provide some injectable parameter depending the locale it currently uses. For example if we want to display "from 100 euro" in english and "von 100 euro" in german we can put a placeholder in the pattern as shown:
-pattern: "$from $fv[0] euro" . We supose that this pattern is for a RangeFilter so it gets the first value (from) from this filter. The client when gets the formatted text from the filter provides the function with the desired localized string.
+pattern: "$from $fv[0] euro" . We suppose that this pattern is for a RangeFilter so it gets the first value (from) from this filter. The client when gets the formatted text from the filter provides the function with the desired localized string.
 A Filter can have many formatters and client gets the formatted text by formatter id. An example is displayed bellow:
 
 ```java
@@ -339,9 +341,9 @@ private class MockCheckBoxFilterFormatter extends FilterFormatter{
 }
 
 ```
-### Filter to request parameter
+### Filter to request parameter convertion
 All the filters when instructing a request to a server are converted into parameters. The build-in mechanism which converting these Fitlers to parameters takes into account in which container the filter is. Thus the result is a mix on the container, the filter and possible other 'selected' filters from the same container.
-The filters are separated with a mode that denotes if the filter has a single value(SIMPLE), if the filter has two values (RANGED) or the filter is complex (COMPLEX) as CompositeFilter. The next table show what each filter returns as ParameterValue and parameterKey (key=value)
+The filters are separated with a mode that denotes if the filter has a single value(SIMPLE), has two values (RANGED) or the filter is complex (COMPLEX) as CompositeFilter. The next table show what each filter returns as ParameterValue and parameterKey (key=value)
 *For SINGLE mode filter:*
 
 |Filter| parameter key | parameter value |
@@ -641,9 +643,6 @@ The framework is configurable through its boundary objects as following:
 *All of the above are configurable and extensible from the client*
 
 
-### request parameter configuration
-
-
 ## Filter rules
 Sometimes we want to reset some filters depending the activity of others before making any request. For example we have a price range filter which have FilterNotifier and a sorting singleTextFilter with a ParameterNotifier. We want to reset the sorting to a default value every time we select other price in the RangeFilter.
 For this purpose we use the FilterInterconnection object. A FilterInterconnection replesents/encapsulates a rule. After initializing this kind of object we pass it as parameter to the Hub calling AddInterconnection();
@@ -712,6 +711,47 @@ Assert.assertEquals(true, single2.IsChecked());
 ```
 
 ## a test use case, how all fits together
+bellow we present a snapshot of the system we want to built
+[fireman overview image]
+Some dinstinct areas are:
+1. In left side we have the tree view of the filters. From that component we can manipulate (change state, reset) the filters and we receive events when a filter changes.
+2. In the middle component we have the results. The results component is a result listener that responts to the ResultReceived event to draw the results.
+3. At the top we have the url of the browser that is changed when a filter state changes. The responsible component handling the apropriate events and controlling the bowsers url could be the container of all the other components.
+4. In the 'SELECTED FILTERS PREVIEW' section we present the selected filters. The user can easily remove/reset a filter from that section causing a filterReset event to the other components.
+5. in 'PAGING SECTION' we have the page as a filter like the rest, but it has a ParameterNotifier insdead of a FilterNotifier that the filters in the tree view have to separate it from them. This separation means that the page filter will not affects the url (because we dont want to have page parameter in the url) but will affect the http request.
+
+Another view of this system is shown bellow:
+[fireman backstage.html image]
+in this view we see more separately the different components of the interface and the connections that have with the fireman framework.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
