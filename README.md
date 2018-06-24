@@ -4,75 +4,79 @@ Fireman
 Table of contents
 =================
 
-* [introduction]() ok
-* [the overall image]()
-* [filters](#gh-md-toc) ok
-    * [types](#types) ok
-    * [states](#states) ok
+* [Introduction]() ok
+* [The Overall Image]()
+* [Filters](#gh-md-toc) ok
+    * [Types](#types) ok
+    * [States](#states) ok
     * [Filter Channels, FilterNotifiers]() ok
-    * [simple filter usage example](#simple-filter-usage-example) ok
-    * [Filter Value policy](filter-value-policy) ok
+    * [Simple Filter Usage Example](#simple-filter-usage-example) ok
+    * [Filter Value Policy](filter-value-policy) ok
     * [Value Formatters](value-formatters) ok
     * [FilterFormatter]() ok
-    * [Filter to request parameter]() ok
-* [Boundary and Control objects](#boundary-and-control-objects) ok
+    * [Filter to Request Parameter]() ok
+* [Boundary and Control Objects](#boundary-and-control-objects) ok
     * [FilterContext](#filtercontext) ok
-    * [IFilterController, how to control filters](#ifiltercontroller) ok
+    * [IFilterController - How to Control Filters](#ifiltercontroller) ok
     * [IHub](#ihub) ok
-        * [How to register for events from framework](#hublisteners) ok
-        * [How to change filter states without making request]() ok
+        * [How to Register for Events from Framework](#hublisteners) ok
+        * [How to Change Filter States Without Making a Request]() ok
             * [HubCommand]() ok
     * [Builder](#builder) ok
         * [BuilderItems]() ok
-        * [How to receive creational events]() ok
+        * [How to Receive Creational Events]() ok
             * [IBuilderObserver]()
     * [ChannelManipulator](#channelmanipulator) ok
-* [Request instruction/handling]() ok
+* [Request Instruction/Handling]() ok
 * [Configuration](#configuration) ok
-    * [request parameter configuration](#df)
-    * []()
-* [Filter rules](#rules) ok
-* [a test use case, how all fits together]()
+    * [Request Parameter Configuration](#df)
+* [Filter Rules](#rules) ok
+* [A Case Study - How All Fit Together]()
 
 ## Introduction
-Fireman will help you build multiselection filtering support in your web, desktop or other types of applications. It decouples the client from managing the filters complexity allowing to concentrate of the other aspects of the problem.
-The library supports
-1. filter state management.
-2. automatically instructing a request with parameters for fetching the results when a filter state changes.
-3. three channels for listening for filter state changes, ex. If you want to isolate filters from other filters and various component be notified for a subset of them.
-4. localization support. Filters content, such as name, values and other properties are easily changed through the API.
-5. control over how a filter is serialized to a parameter for using it as url parameter.
-6. bookmark and landing page support, restoring filters state.
-7. apply rules such as when a filter state changes then reset another filter.
-8. filter value formatting, for example replace all commas with dots in a number.
-9. easy formatting filters as a user-friendly display string.
-10. allow the client to extend various core functionalities to meet their requirements.
+
+
+Fireman will help you build multiselection filtering support in your web, desktop or other types of applications. It decouples the client from managing the filters complexity, allowing the client to concentrate on the other aspects of the problem.
+
+The library supports:
+
+1. Filter state management.
+2. When a filter state changes, the framework automatically instructs a request with parameters for fetching results.
+3. Three channels for listening the filter state changes. For example, if you want to isolate filters from other filters, then various client-components can be notified for a subset of them.
+4. Localization support. Filters content, such as name, values and other properties are easily changed through the API.
+5. Control over how a filter is serialized in order to use it as a url request parameter.
+6. Bookmark and landing page can be supported, by restoring filter states.
+7. Apply rules such as, when a filter state changes then another filter resets.
+8. Filter value formatting. For example, ability to replace all commas with dots in the arithmetic values of filters.
+9. Easy formatting of filters as a user-friendly string (for display purposes).
+10. Allows the client to extend various core functionalities to meet their requirements.
 
 ## Filters
-The abstract Filter inside the framework represents any filter such as dropdowns or checkboxes. It has many attributes and behaviours that are consistent to all the subtypes of the Filter.
-The most important of the Filter interface is depict in the following table:
+
+The abstract `Filter` inside the framework represents any filter, such as dropdowns or checkboxes. It has many attributes and behaviors that are consistent to all the subtypes of the `Filter`.
+The most important part of the `Filter` interface is depicted in the following table:
 
 | Function | Parameters  | Return type | Description |
 | ------------- | ----- | ----- | ----- |
-|**GetNotifierType**| none |`NotifierChannelType`|returns which type of notifier the filter is using {FilterNotifier, ParameterNotifier, RequestNotifier} |
-|**SetValuePostFormatter**|`IValuePostFormatter formatter`|`void`|sets the formatter that formats the value of the filter |
-|**GetMode**|none |`FilterMode`|returns the mode the filter has {SIMPLE, RANGED, COMPLEX}. The mode depends on how many separated values has the filter |
-|**GetParameterKey**|none |`String`|returns a distinctive key of the filter, is used to convert Filter to a parameter |
-|**GetParameterValue**|none |`void`|return a distinctive value of the filter, is used to convert Filter to a parameter |
-|**Pause**|none |`void`|pause the filter causing all state changes does not affect its notifier and events are not propagated |
-|**UnPause**|none |`void`|unpause the filter causing all filter events to be propagated |
-|**SetCount**|`int count`|`void`|sets the count of the filter |
-|**GetCount**|none |`int`|gets the count of the filter |
-|**GetValue**|`int index`|`String`|gets the i-th value of the filter. In case of a RangeFilter which has two values the index takes 0 or 1 |
-|**GetContainer**|none |`FilterContainer`|gets the filter container of the filter |
-|**Reset**|none |`void`|resets the filter, either to null or a default value |
-|**GetState**|none |`String`|returns the filter's state |
-|**ChangeState**|`String state`|`void`|changes the state of the filter |
-|**UpdateFrom**|`Filter filter`|`void`|updates the filter from another filter |
-|**IsReset**|none |`boolean`|returns true when the filter is reset |
-|**GetFormattedText**|`Object formatterId`|`String`|getts a user friendly formatted text using the formatted with formatterId |
-|**GetFormattedText**|`Object formatterId, Map<String, String> _params`|`String`|getts a user friendly formatted text using the formatted with formatterId, injecting other parameters for the formatting to get into account |
-|**AddFormatter**|`FilterFormatter formatter`|`void`|adds a formatter in the filter |
+|**GetNotifierType**| none |`NotifierChannelType`|Returns which type of notifier the filter is using {FilterNotifier, ParameterNotifier, RequestNotifier} |
+|**SetValuePostFormatter**|`IValuePostFormatter formatter`|`void`|Sets the formatter that formats the value of the `Filter` |
+|**GetMode**|none |`FilterMode`|Returns the mode of the `Filter` {SIMPLE, RANGED, COMPLEX}. The `Filter`'s mode depends on the number of its separated values. For example, a `RangeFilter` has two values |
+|**GetParameterKey**|none |`String`|Returns a distinctive key of the `Filter`, which is used to convert the `Filter` into a parameter |
+|**GetParameterValue**|none |`void`|Returns a distinctive value of the `Filter`, which is used to convert the `Filter` into a parameter |
+|**Pause**|none |`void`|Pauses the `Filter`. State changes do not call the notifier and events are not propagated |
+|**UnPause**|none |`void`|Unpauses the `Filter`, causing all `Filter` events to be propagated |
+|**SetCount**|`int count`|`void`|Sets the count of the `Filter` |
+|**GetCount**|none |`int`|Gets the count of the `Filter` |
+|**GetValue**|`int index`|`String`|Gets the i-th value of the `Filter`. In case of a `RangeFilter`, which has two values, the index can be 0 or 1 |
+|**GetContainer**|none |`FilterContainer`|Returns the `Filter` container |
+|**Reset**|none |`void`|Resets the `Filter`, either to null or to a default value |
+|**GetState**|none |`String`|Returns the `Filter`'s state |
+|**ChangeState**|`String state`|`void`|Changes the `Filter`'s state |
+|**UpdateFrom**|`Filter filter`|`void`|Updates the `Filter` from another `Filter` |
+|**IsReset**|none |`boolean`|Returns `true` when the `Filter` is reseted |
+|**GetFormattedText**|`Object formatterId`|`String`|Gets a user friendly formatted text, using the formatter by formatterId |
+|**GetFormattedText**|`Object formatterId, Map<String, String> _params`|`String`|Gets a user friendly formatted text, using the formatter with formatterId. In addition, it allows the injection of other parameters, which are taken into account by the formatter |
+|**AddFormatter**|`FilterFormatter formatter`|`void`|Adds a formatter to the `Filter` |
 
 ### types
 The various filter types which are supported by the system are:
