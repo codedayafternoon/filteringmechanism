@@ -83,27 +83,28 @@ The various filter types which are supported by the system are:
 
 | Filter        | Constructor params | Description  |
 | :------------- |:-------------|:-----|
-| **CheckBoxFilter** | `Object id, String name, INotifier notifier` | represents a checkbox that either is selected or not|
-| **FreeTextFilter**  | `Object id, String name, INotifier notifier` | represents a textbox that gets arbitrary values |
-| **SingleTextFilter** | `Object id, String name, INotifier notifier, List<String> values` | represents a filter that gets one value among a list of values, like a dropdown |
-| **SingleSelectFilter** | `IInvalidator invalidator, Object id, String name, INotifier notifier` | its a special case of a checkboxFilter but acts as a radio button, that means that upon selection can deselect/reset other singleselect filters |
-| **RangeFitler** | `Object id, String name, INotifier notifier, List<String> fromValues, List<String> toValues`  |  represents a from-to (or double dropdown) filter |
-| **CompositeFilter** | `Object id, String name, INotifier notifier`  | thats a filter containing a list of other Filters, that a client want to manipulate them as a group |
+| **CheckBoxFilter** | `Object id, String name, INotifier notifier` | Represents a checkbox that is either selected or not|
+| **FreeTextFilter**  | `Object id, String name, INotifier notifier` | Represents a textbox that takes arbitrary values |
+| **SingleTextFilter** | `Object id, String name, INotifier notifier, List<String> values` | Represents a filter that takes one value among a list of values, like a dropdown |
+| **SingleSelectFilter** | `IInvalidator invalidator, Object id, String name, INotifier notifier` | It is a special case of a checkboxFilter, but acts as a radio button, which means that upon selection it can deselect/reset other singleselect filters |
+| **RangeFitler** | `Object id, String name, INotifier notifier, List<String> fromValues, List<String> toValues`  |  Represents a double (from-to) dropdown filter |
+| **CompositeFilter** | `Object id, String name, INotifier notifier`  | It is a filter containing a list of other filters, which can be manipulated as a group |
 
-### Filter states
-Each filter can take various states. These states have various formats depending of the type of the filter. In the following table we present how a state is set and retrieved depending on the type of the filter. The state in a filter is its current value. Sometimes this consists of two or more values (such as in a RangeFilter we have two values)
+### Filter States
+Each filter can take various states. These states have various formats depending on the type of the filter. In the following table we present how a state is set and retrieved depending on the type of the filter. The state of a filter is its current value. Sometimes this consists of two or more values (for example a `RangeFilter` has two values).
 
-| Filter Type | state Format, `ChangeState(String state)` | how to set (specific function) | return format `String GetState()` |
+| Filter Type | State Format, `ChangeState(String state)` | How to Set the State | Returned Format, `String GetState()` |
 | :---------- |:---------|:-----|:-----|
 |**CheckBoxFilter**|`1` or `0`| `Check() UnCheck()` | `true` or `false` |
-|**FreeTextFilter**|the text we want|`SetText(String text)`|`the text we set` |
-|**SingleTextFilter**|one value from the list|`SetSelectedValue(String value)`|`the value we set` or `null` |
+|**FreeTextFilter**|the text we want|`SetText(String text)`|the text we set |
+|**SingleTextFilter**|one value from the list|`SetSelectedValue(String value)`|the value we set or `null` |
 |**SingleSelectFilter**|`1` or `0`| `Check() UnCheck()` | `true` or `false` |
 |**RangeFitler**|`from:value` or `to:value` or `from:value1-to:value2`|`SetFrom(String from)`,`SetTo(String to)` |`from:value1-to:value2` |
-|**CompositeFilter**|`id_of_internal_filter:desired_state`|NONE|`states of internal filters divided with` |
+|**CompositeFilter**|`id_of_internal_filter:desired_state`|NONE|states of internal filters divided with `|` |
 
-A simple usage of the above is displayed below:
-a simple usage of singleText filter is diplayed bellow:
+A simple usage of the above statements is displayed below:
+
+ For a `SingleTextFilter`:
 ```java
 List<String> singleTextValues = new ArrayList<String>();
 singleTextValues.add("x");
@@ -124,7 +125,7 @@ Assert.assertEquals("x", singleText1.GetSelectedValue());
 singleText1.ChangeState("z"); // same effect as SetSelectedValue
 Assert.assertEquals("z", singleText1.GetSelectedValue());
 ```
-and for a CheckBoxFilter
+For a `CheckBoxFilter`:
 ```java
 MockCheckBoxFilter checkBox1 = new MockCheckBoxFilter(1, "c1", notifier);
 MockCheckBoxFilter checkBox2 = new MockCheckBoxFilter(2, "c2", notifier);
@@ -135,21 +136,19 @@ Assert.assertEquals(false, checkBox2.IsChecked());
 ```
 
 ### Filter Channels, Filter Notifiers
-All filters must have an implementation of INotifier for its creation. A INotifier is one of the three predefined notifiers the framework supports. They act as channels (observers) in which the filters will fire their events. Basically, a filter event is either filterStateChanged or a filterReset. A filterReset event is raised when the filter is getting its default value or directly is requested to be reset. The notifiers are the next:
-1. FilterNotifier
-2. ParameterNotifier
-3. RequestNotifier
+All filters must have an implementation of INotifier for their creation. An INotifier has to be one of the three predefined notifiers the framework supports. They act as channels (observers) in which the filters fire their events. Basically, a filter event is either `filterStateChanged` or a `filterReset`. A `filterReset` event is raised when the filter is getting its default value, or when the `Reset()` function is called. The three predefined notifiers are the following:
+1. `FilterNotifier`
+2. `ParameterNotifier`
+3. `RequestNotifier`
 
-*These names are not anything else but Channel1,2,3. Their names are not represent anything specific.*
+*Their names do not represent anything specific. They could be named Channel1, Channel2, Channel3.*
 
-*Another type of Notifier is the OpenNotifier but is not used by the client. This is a special type of notifier used internally by the system when the user or the framework instructs to pause the channel. Then the currently notifier is encapsulated by the OpenNotifier to open the circuit and stop the event propagation*
+*Another type of `iNotifier` is the `OpenNotifier`, but it is not supposed to be used by the client. This is a special type of notifier used internally by the system, when the user or the framework instructs the channel to pause. Then, the corresponding notifier is encapsulated by the `OpenNotifier` to open the circuit and stop the event propagation.*
 
-These three notifiers act as various channels that the various filters of the system will call.
+For the creation of a notifier, a `Hub` is needed in its contructor. In the end all notifiers will notify the same hub, but they will fire different functions on it. The `Hub` can easily be obtained by the `FilterContext` and passed to the notifier constructor.
 
-All notifiers for theis creation have to have a `Hub` in its contructor. At the end all notifiers will notify the same hub but will fire different functions on it. The Hub can easily be obtained by the context and passed to the notifier contructor.
-
-### simple filter usage example
-All Filters are abstract, that means that client must have its own implementation classes.
+### Simple Filter Usage Example
+All filters are abstract, which means that the client must have its own implementation classes.
 ```java
 public void createFilters(Hub hub){
     FilterNotifier notifier = new FilterNotifier(hub); // the FilterNotifier is predefined inside the library.
@@ -181,24 +180,25 @@ public class PriceFilter extends RangeFilter {
 }
 //.. other implementations of the filters
 ```
-By extending the abstract filters of the system you can provide new specialized functions or properties. By default all filters have the next:
+By extending the abstract filters of the system you can provide new specialized functions or properties. By default all filters have the next same set of attributes:
 
-| Attribute        | type | Description  |
+| Attributes        | Type | Description  |
 | :------------- |:-------------|:----- |
-| **Id**  | `Object` | a unique id for the filter, identifing uniqly the filter inside its container |
-| **Name**  | `String` | the name of the filter. Inside a container two filters cannot have the same name |
-| **Count** | `int` | represents how many items (from the result) are satisfied by this filter |
+| **Id**  | `Object` | A unique id for the filter. Identifies the filter uniquely inside its container. |
+| **Name**  | `String` | The name of the filter. Inside a container two filters cannot have the same name. |
+| **Count** | `int` | Represents how many items result from the filter. |
 
-### Filter Value policy
-Some filters such as RangeFilters and SingleTextFilter(dropdown) when they are reseted can have as a selected value a value from its list defined as default or a null value. This is defined from the SelectedValuePolicy. This can be one of the following:
+### Filter Value Policy
+When some filters, such as `RangeFilters` and `SingleTextFilter` (dropdown), are reset, they can take a default value from their list, or they can take a `null` value. This is defined by the `SelectedValuePolicy`, which can be one of the following types:
 
-| Selected Value Type | description |
+| Selected Value Type | Description |
 | :------------- |:------------- |
-|**DefaultIfNull**|when filter is reseted the selected value goes to the defined default value |
-|**Null**|when filter is reseted the selected value goes to null |
+|**DefaultIfNull**|When the filter is reset, the selected value falls back to the defined default value. |
+|**Null**|When the filter is reset, the selected value falls back to `null`. |
 
-This policy can come in handy depending the situation we are in. For example if we want a dropdown when reseting to return to a default value then we can use the DefaultIfNull policy. But if we want the filter to get a null value as selected value, then we can use the Null policy.
+This policy can come in handy depending on the situation we are in. For example, when we reset the dropdown and want its value to fall back to the default value, we use the `DefaultIfNull` policy. When we reset the filter and want its value to fall back to null, then we use the `Null` policy.
 An example is shown bellow:
+
 ```java
 List<String> fromValues = new ArrayList<>();
 fromValues.add("100");
@@ -214,7 +214,7 @@ MockRangeFilter f1 = new MockRangeFilter(1, "f1", notifier, fromValues, toValues
 
 f1.SetSelectedValuePolicy(SelectedValuePolicyType.Null);
 String state = f1.GetState();
-Assert.assertEquals("from:null-to:null", state); // the policy is to get null as selected value
+Assert.assertEquals("from:null-to:null", state); // null policy
 
 f1.ChangeState("from:200");
 state = f1.GetState();
@@ -229,14 +229,16 @@ state = f1.GetState();
 Assert.assertEquals("from:200-to:null", state);
 ```
 ### Value Formatters
-If the client wants the value of a filter to be formatted(for example when sending to a http request), an IValuePostFormatter must be provided on the Filter. By default the value of this variable is an in-build DefaultValuePostFormatter which does nothing. The client has the freedom to implement this interface and provide whatever filter it needs with the proper IValuePostFormatter. Bellow is the interface
+
+If the client wants the value of a filter to have a specific format (for example when sending an http request), an `IValuePostFormatter` must be provided to the `Filter`. By default the value of this variable is an in-build `DefaultValuePostFormatter` which does nothing. The client has the freedom to implement this interface and provide whatever logic the filter needs. Bellow is the `IValuePostFormatter`interface:
 
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :----- |
-|**Extract**|`String value`|`List<String>`|this function returns all the sub strings that the formatter will format |
-|**Format**|`String value`|`String`|this function formats the value and returns it |
+|**Extract**|`String value`|`List<String>`|This function returns all the sub strings that the formatter will format. |
+|**Format**|`String value`|`String`|This function formats the current value and returns it. |
 
-As an example we present another build-in formatter, the NumberValuePostFormatter which converts all numbers of the value from comma to dot and vise-versa
+As an example we present another build-in formatter, the `NumberValuePostFormatter`, which converts all numbers of the value from comma separated to dot and vise-versa.
+
 ```java
 MockFreeTextFilter f1 = new MockFreeTextFilter(1, "f1", notifier);
 
@@ -249,26 +251,29 @@ f1.SetValuePostFormatter(formatter);
 res = f1.GetParameterValue();
 Assert.assertEquals("77s7s,dw2.3wdq,dd", res);
 ```
-*The `GetParameterValue()` function is one abstract Filter function that a converter to Url parameter string is using.*
+*The `GetParameterValue()` function is one abstract `Filter` function that a converter (to Url parameter string) is using.*
 
 ### FilterFormatter
-Client wants to 'stringify' a Filter to a user friendly format. For this purpose Filter has the an injectable FilterFormatter. Already the abstract FilterFormatter does the heavy job to format to a desired string, but also enables the client to extend this class to provide more control over formatting the Filter.
-To begin with, FilterFormatter has a textbased API for setting a string pattern which will guide the formatter to format the Filter. The text-based API of this pattern is display bellow:
+
+Client wants to 'stringify' a `Filter` to a user friendly format. For this purpose `Filter` has an injectable `FilterFormatter`. Already the abstract `FilterFormatter` has the heavy task to format the `Filter` to a desired string, but also enables the client to extend this class in order to provide more control over the formatting of the `Filter`.
+To begin with, `FilterFormatter` has a textbased API for setting a string pattern which will guide the formatter to format the `Filter`. The text-based API of this pattern is displayed bellow:
 
 | Literal        |Initials| Description  |
 | :------------- | :-----| :----- |
-|`$fv`|FilterValue|renders the value of the filter |
-|`$cn`|ContainerName|renders the name of the filter container |
-|`$fn`|FilterName|renders the name of the filter |
-|`$fv[i]`|i-th FilterValue|renders the i-th value of the filter, for example in a RangeFilter that has two values (from and to) if client wants to display the second value then it provides fv[1] |
-|`$f[i].fn`|i-th Filter FilterName|this is used for the Composite filter, it returns the i-th Filters name |
-|`$f[i].fv`|i-th Filter FilterValue|this is used for the Composite filter, it returns the i-th Filters value |
-|`$f[i].fv[i]`|i-th Filter FilterValue|this is used for the Composite filter, it returns the i-th Filters i-th value |
-|`$f[i].cn`|i-th Filter FilterValue|this is used for the Composite filter, it returns the i-th Filters container name |
+|`$fv`|FilterValue|Renders the value of the `Filter`. |
+|`$cn`|ContainerName|Renders the name of the filter container. |
+|`$fn`|FilterName|Renders the name of the `Filter`. |
+|`$fv[i]`|i-th FilterValue|Renders the i-th value of the filter. For example, to display the second value in a `RangeFilter` that has two values (from and to), we provide $fv[1]. |
+|`$f[i].fn`|i-th Filter FilterName|This is used for the `CompositeFilter`, it returns the i-th `Filter`'s name. |
+|`$f[i].fv`|i-th Filter FilterValue|This is used for the `CompositeFilter`, it returns the i-th `Filter'`s value. |
+|`$f[i].fv[i]`|i-th Filter FilterValue|This is used for the `CompositeFilter`, it returns the i-th `Filter'`s i-th value. |
+|`$f[i].cn`|i-th Filter FilterValue|This is used for the `CompositeFilter`, it returns the i-th `Filter'`s container name. |
 
-In addition client possible will need to provide some injectable parameter depending the locale it currently uses. For example if we want to display "from 100 euro" in english and "von 100 euro" in german we can put a placeholder in the pattern as shown:
-pattern: "$from $fv[0] euro" . We suppose that this pattern is for a RangeFilter so it gets the first value (from) from this filter. The client when gets the formatted text from the filter provides the function with the desired localized string.
-A Filter can have many formatters and client gets the formatted text by formatter id. An example is displayed bellow:
+In addition, the client will possibly need to provide some injectable parameters depending on the locale it currently uses. For example, if we want to display "from 100 euro" in English and "von 100 euro" in German, we can put a placeholder in the pattern as shown:
+
+`$from $fv[0] euro` 
+We suppose that this pattern is for a `RangeFilter`, so it gets the filter's first value (from). The client provides the localized text for the $from placeholder.
+A `Filter` can have many formatters and the client gets the formatted text by formatter id. An example is displayed bellow:
 
 ```java
 MockNotifier notifier = new MockNotifier();
@@ -727,36 +732,4 @@ Some dinstinct areas are:
 Another view of this system is shown bellow:
 [fireman backstage.html image]
 in this view we see more separately the different components of the interface and the connections that have with the fireman framework.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
