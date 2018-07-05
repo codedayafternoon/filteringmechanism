@@ -4,33 +4,33 @@ Fireman
 Table of contents
 =================
 
-* [Introduction]() ok
+* [Introduction]()
 * [The Overall Image]()
-* [Filters](#gh-md-toc) ok
-    * [Types](#types) ok
-    * [States](#states) ok
-    * [Filter Channels, FilterNotifiers]() ok
-    * [Simple Filter Usage Example](#simple-filter-usage-example) ok
-    * [Filter Value Policy](filter-value-policy) ok
-    * [Value Formatters](value-formatters) ok
-    * [FilterFormatter]() ok
-    * [Filter to Request Parameter]() ok
-* [Boundary and Control Objects](#boundary-and-control-objects) ok
-    * [FilterContext](#filtercontext) ok
-    * [IFilterController - How to Control Filters](#ifiltercontroller) ok
-    * [IHub](#ihub) ok
-        * [How to Register for Events from Framework](#hublisteners) ok
-        * [How to Change Filter States Without Making a Request]() ok
-            * [HubCommand]() ok
-    * [Builder](#builder) ok
-        * [BuilderItems]() ok
-        * [How to Receive Creational Events]() ok
+* [Filters](#gh-md-toc)
+    * [Types](#types)
+    * [States](#states)
+    * [Filter Channels, FilterNotifiers]()
+    * [Simple Filter Usage Example](#simple-filter-usage-example)
+    * [Filter Value Policy](filter-value-policy)
+    * [Value Formatters](value-formatters)
+    * [FilterFormatter]()
+    * [Filter to Request Parameter]()
+* [Boundary and Control Objects](#boundary-and-control-objects)
+    * [FilterContext](#filtercontext)
+    * [IFilterController - How to Control Filters](#ifiltercontroller)
+    * [IHub](#ihub) 
+        * [How to Register for Events from Framework](#hublisteners) 
+        * [How to Change Filter States Without Making a Request]() 
+            * [HubCommand]() 
+    * [Builder](#builder) 
+        * [BuilderItems]() 
+        * [How to Receive Creational Events]() 
             * [IBuilderObserver]()
-    * [ChannelManipulator](#channelmanipulator) ok
-* [Request Instruction/Handling]() ok
-* [Configuration](#configuration) ok
+    * [ChannelManipulator](#channelmanipulator) 
+* [Request Instruction/Handling]() 
+* [Configuration](#configuration) 
     * [Request Parameter Configuration](#df)
-* [Filter Rules](#rules) ok
+* [Filter Rules](#rules) 
 * [A Case Study - How All Fit Together]()
 
 ## Introduction
@@ -351,9 +351,10 @@ private class MockCheckBoxFilterFormatter extends FilterFormatter{
 
 ```
 ### Filter to request parameter convertion
-All the filters when instructing a request to a server are converted into parameters. The build-in mechanism which converting these Fitlers to parameters takes into account in which container the filter is. Thus the result is a mix on the container, the filter and possible other 'selected' filters from the same container.
-The filters are separated with a mode that denotes if the filter has a single value(SIMPLE), has two values (RANGED) or the filter is complex (COMPLEX) as CompositeFilter. The next table show what each filter returns as ParameterValue and parameterKey (key=value)
-*For SINGLE mode filter:*
+All the filters must be converted into parameters when a request happens. The build-in mechanism which converting these Fitlers to parameters takes into account in which container the `Filter` is. Thus the result is a mix on the container, the filter and possible other filters from the same container.
+The filters are separated with a mode that denotes if the `Filter` has a single value (mode:`SIMPLE`), has two values (mode:RANGED) or the filter is complex (mode:COMPLEX) as `CompositeFilter`. The next table show what each filter returns as ParameterValue and ParameterKey (key=value)
+
+*For `SINGLE` mode `Filter`:*
 
 |Filter| parameter key | parameter value |
 | :-------------| :------------- | :----- |
@@ -362,15 +363,16 @@ The filters are separated with a mode that denotes if the filter has a single va
 |**FreeTextFilter**|filter's name|its state, selected value |
 |**RangeFilter**|filter's name|its state, selected value |
 
-*For RANGED mode filter:*
+*For `RANGED` mode `Filter`:*
 
 |Filter| parameter key from | parameter key to | parameter value from| parameter value to |
 | :-------------| :------------- | :-----| :------------- | :----- |
-|**RangedFilter**|filter's name + "From"|fitler's name + "To"|"from:" + filter's from value|"to:" + filter's to value |
+|**RangedFilter**|`Filter`'s name + "From"|`Fitler`'s name + "To"|"from:" + `Filter`'s from value|"to:" + `Filter`'s to value |
 
-*For COMPLEX mode filter*
+*For COMPLEX mode `Filter`*
 the convertor iterate thought the internal filters of the Composite.
 
+In the next example we present how the used filters will be converted to request parameters:
 ```java
 // we initialize some filters
 MockContainer checkBoxContainer = new MockContainer(2,"checkContainer");
@@ -425,91 +427,91 @@ private class MockRequestHandler implements IRequestHandler {
 
 ```
 
-
 ## Boundary and Control objects
-The system has a various number of ports for interacting with the client and vise versa. That interfaces are accessible through the next control and boundary objects:
+The system has a various number of ports for interacting with the client and vise versa. These interfaces are accessible through the next control and boundary objects:
 
 | Object        | Description  |
 | :------------- | :-----|
-| **FilterContext**  | an object controlling the access for the other boundary and control objects |
-| **IFilterController**  | an interface for instructing the framework and controlling the state of filters |
-| **IHub**  | an interface for registering various client side components as observers for various events of the framework |
-| **Builder** | an object that will build all filters inside the framework. The filters are coming from the client side |
-| **ChannelManupulator** | a control object that enables the client to control the channels inside the framework |
+| **FilterContext**  | an object controlling the access for the other boundary and control objects. |
+| **IFilterController**  | an interface for instructing the framework and controlling the state of filters. |
+| **IHub**  | an interface for registering various client side components as observers for various events from the framework. |
+| **Builder** | an object that will build all filters inside the framework. The filters are coming from the client side. |
+| **ChannelManupulator** | a control object that enables the client to control the channels inside the framework. |
 
-**All the above objects can easily obtained through a context that is acting as a singleton, the FilterContext its API is the following**
+**All the above objects can easily be obtained through a context, that is acting as a singleton, the FilterContext. The FilterContext API is presented in the next table:**
 
-Bellow there are more detailed APIs
 ### FilterContext
 
 | Function        | Parameters  | Return type | Description |
 | ------------- | ----- | ----- | ----- |
-|**Initialize**|`IRequestHandler requestHandler, IRequestConverter requestConverter,Configuration configuration` |`void`|initialize must run before all other access functions called |
-|**GetController**||`IFilterController`|returns the controller. Every call to this functions returns the same instance of the controller |
-|**GetBuilder**||`Builder`|returns the controller. Every call to this functions returns the same instance of the Builder |
-|**GetHub**||`IHub`|returns the controller. Every call to this functions returns the same instance of the IHub |
-|**GetChannelmanipulator**||`ChannelManipulator`|returns the controller. Every call to this functions returns the same instance of the ChannelManipulator |
+|**Initialize**|`IRequestHandler requestHandler, IRequestConverter requestConverter,Configuration configuration` |`void`|initialize must be called before all other access functions called |
+|**GetController**||`IFilterController`|returns the `FilterController`. Every call to this functions returns the same instance of the controller |
+|**GetBuilder**||`Builder`|returns the `Builder`. Every call to this functions returns the same instance of the `Builder` |
+|**GetHub**||`IHub`|returns the `IHub`. Every call to this functions returns the same instance of the `IHub` |
+|**GetChannelmanipulator**||`ChannelManipulator`|returns the `ChannelManipulator`. Every call to this functions returns the same instance of the `ChannelManipulator` |
 |**Dispose**||`void`|this function cleans the context from the created references. It has to be Initialized again to work properly |
 
 
 ### IFilterController, how to control filters
+Bellow we present the API fot the `IFilterController`:
 
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :-----|
-|AddContainer|`FilterContainer container`|`void`| adds a container to controller |
-|RemoveContainerById|`FilterContainer container`|`void`| removes a container by the id of the container |
-|GetContainerById|`Object id`|`FilterContainer`| returns a container by id, null if not found |
-|GetContainers||`List<FilterContainer>`| returns all containers from controller |
-|ChangeState|`Object containerId, Object filterId, String state`|`void`| changes the state of a specific filter. The state format depends of the type of filter |
-|MakeRequestWithCurrentState||`void`| instructs a request with parameters depending of the current state of the system |
-|MakeDirectRequest|`String url`|`void`| instructs a request with the provided url |
-|ResetAllWithoutRequestPropagation||`void`| reseting all filters without instructing a request |
-|GetFiltersByChannel|`NotifierChannelType filterChannel`|`List<Filter>`| getting all filters per channel |
-|GetCurrentSelectedRequestParameters||`Map<Filter, Date>`| returns all the changed filters which will take part in request as parameters |
-|GetCurrentConvertedRequest||`Map<Filter, Date>`| returns serialized the current state of the filters |
-|Clear||`void`| clears all the containers from their filters |
+|**AddContainer**|`FilterContainer container`|`void`| adds a container to controller |
+|**RemoveContainerById**|`FilterContainer container`|`void`| removes a container by the id of the container |
+|**GetContainerById**|`Object id`|`FilterContainer`| returns a container by id, `null` if not found |
+|**GetContainers**||`List<FilterContainer>`| returns all containers from controller |
+|**ChangeState**|`Object containerId, Object filterId, String state`|`void`| changes the state of a specific `Filter`. The state format depends of the type of `Filter` |
+|**MakeRequestWithCurrentState**||`void`| instructs a request with parameters depending of the current state of the system |
+|**MakeDirectRequest**|`String url`|`void`| instructs a request with the provided url |
+|**ResetAllWithoutRequestPropagation**||`void`| reseting all filters without instructing a request |
+|**GetFiltersByChannel**|`NotifierChannelType filterChannel`|`List<Filter>`| getting all filters per channel |
+|**GetCurrentSelectedRequestParameters**||`Map<Filter, Date>`| returns all the changed filters which will take part in request as parameters |
+|**GetCurrentConvertedRequest**||`Map<Filter, Date>`| returns serialized the current state of the filters |
+|**Clear**||`void`| clears all the containers from their filters |
 
 ### IHub
+Bellow we present the API fot the `IHub`:
 
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :----- |
-|ResultReceived|`IResult result`|`void`| the client when receives results from the server, calls this function providing the results in the framework throught a client side object implementing IResult |
-|AddResultListener|`IResultHubListener listener`|`void`| a client component can register itself if it wants to receives notifications when a results is received |
-|RemoveResultListener|`IResultHubListener listener`|`void`| removes the listener |
-|ClearResultListeners||`void`| clears all result listeners |
-|AddInterconnection|`FilterInterconnection interconnection`|`void`| adds an interconnection |
-|RemoveInterconnection|`FilterInterconnection interconnection`|`void`| removes an interconnection by reference or by id |
-|HasInterconnection|`FilterInterconnection interconnection`|`boolean`| returns true if an interconnection with the same id exists |
-|Execute|`HubCommand command`|`void`| executs the hubcommand |
-|Execute|`List<HubCommand> commands`|`void`| executes all hubcommands one by one |
+|**ResultReceived**|`IResult result`|`void`| when the client receives results from the server, notifies the framework and passes the result with an object implementing `IResult` |
+|**AddResultListener**|`IResultHubListener listener`|`void`| a client component can register itself if it wants to receives notifications when a results is received |
+|**RemoveResultListener**|`IResultHubListener listener`|`void`| removes the listener |
+|**ClearResultListeners**||`void`| clears all result listeners |
+|**AddInterconnection**|`FilterInterconnection interconnection`|`void`| adds an interconnection |
+|**RemoveInterconnection**|`FilterInterconnection interconnection`|`void`| removes an interconnection by reference or by id |
+|**HasInterconnection**|`FilterInterconnection interconnection`|`boolean`| returns `true` if an interconnection with the same id exists |
+|**Execute**|`HubCommand command`|`void`| executes the `HubCommand` |
+|**Execute**|`List<HubCommand> commands`|`void`| executes all `HubCommands` one by one |
 
 Furthermore, the IHub extends the next interfaces:
 1. IFilterHub
 2. IParameterHub
 3. IRequestHub
 
-These interfaces corresponds to the three predifined internal channel the framework has. The three interfaces have very similar functions.
+These interfaces corresponds to the three predifined internal channels the framework has. The three interfaces have very similar functions.
 
 #### How to register for events from framework
-Various component from client, wants to be notified when filters state changed. For example a component has a preview of the selected filters or a component has the responsibility to change the url depending the changed filters from the framework. When a component wants to register itseft to receive notifications it can do this through the IHub interface. First the component must be implement one or  more of the listener interfaces bellow:
+Various component from client, wants to be notified when filters states are changed. For example a component has a preview of the selected filters or a component has the responsibility to change the url depending the changed filters from the framework. When a component wants to register itseft to receive notifications it can do this through the `IHub` interface. First the component must be implement one or  more of the listener interfaces bellow:
 * IFilterHubListener
 * IParameterHubListener
 * IRequestHubListener
 
-These names dont have a special meaning, its just Channel1,2,3. When a filter has a FilterNotifier in its constructor then all the events raised by that filter will fire the corresponding function from IFilterHubListener. The functions of these three listeners have very similar functions. Bellow we present the IFilterHubListener
+These names dont have a special meaning, its just Channel1,2,3. When a filter has a `FilterNotifier` in its constructor then all the events raised by that filter will fire the corresponding function from `IFilterHubListener`. The functions of these three listeners have very similar functions. Bellow we present the `IFilterHubListener`
 
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :-----|
-|**FilterChanged**|`Filter filter`|`void`|is called when a state of a filter is changed. As parameter is the filter its state changed |
-|**FilterReset**|`Filter filter`|`void`|is called when a state of a filter is reset. If a filter is already reset then the event is not raised twice |
-|**FilterPropertyChanged**|`Filter filter, String old, String _new, FilterPropertyType propType`|`void`|when the name or the count of a filter is changed this event is raised with the appropriate parameter values |
-|**FilterUpdated**|`Filter filter`|`void`|when the contents of the filter are changed, for example the list of a singleTextFilter, then this event is raised. When language changes the contents of the filter should be changed |
+|**FilterChanged**|`Filter filter`|`void`|is called when a state of a filter changed. As parameter is the filter which its state is changed |
+|**FilterReset**|`Filter filter`|`void`|is called when a state of a filter is reset. If a `Filter` is already reset then the event is not raised |
+|**FilterPropertyChanged**|`Filter filter, String old, String _new, FilterPropertyType propType`|`void`|when the `Name` or the `Count` of a `Filter` is changed this event is raised with the appropriate parameter values |
+|**FilterUpdated**|`Filter filter`|`void`|when the contents of the `Filter` are changed, for example the list of a `SingleTextFilter`, then this event is raised. When language changes the contents of the filter should be changed |
 
-#### How to change filter states without making request
-There are times when we want to change/restore a state of a filter without causing another http request. This could be done using the HubCommands. A hubCommand is an immutable object which acts as a DTO. We can 'execute' a HubCommand with the interface IHub calling Execute. This will cause the desired effect without making an http request. All other events such as FilterChanged will be raised.
+#### How to change filter states without propagating a request
+There are times when we want to change/restore a state of a filter without causing another http request. This could be done using the HubCommands. A `HubCommand` is an immutable object which acts as a DTO. We can 'execute' a `HubCommand` by calling  `Execute()` on the `IHub`. This will cause the desired effect without making an http request. All other events such as FilterChanged will be raised.
 
 ##### HubCommand
-HubCommand encapsulated the containerId, desiredCotnainerName, filterId, desiredFilterName, state and count. Hub to find the target filter works with the ids from HubCommand. The filter matching will be with the containerid and filterid.
+`HubCommand` encapsulated the containerId, desiredCotnainerName, filterId, desiredFilterName, state and count. `Hub` finds the target `FilterContainer` and `Filter` with the ids from `HubCommand`.
 
 ```java
 this.hub = new Hub();
@@ -557,14 +559,15 @@ private class FilterChannel2 implements IParameterHubListener{
 
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :----- |
-|`AddObserver`|`IBuilderObserver observer`|`void`|registers a component as an observer |
-|`RemoveObserver`|`IBuilderObserver observer`|`void`|removes a component from observer |
-|`ClearObservers`||`void`|clears all observers|
-|`Build`|`BuilderItems items`|`void`|build(add, update, remove) filters inside the framework depending on the filters inside the BuildeItems. The items with the already existing filters inside the framework are matched by ids |
+|**AddObserver**|`IBuilderObserver observer`|`void`|registers a component as an observer |
+|**RemoveObserver**|`IBuilderObserver observer`|`void`|removes a component from the list of observers |
+|**ClearObservers**||`void`|clears all observers|
+|**Build**|`BuilderItems items`|`void`|build(add, update, remove) filters inside the framework depending on the filters inside the BuildeItems. The items with the already existing filters inside the framework are matched by ids |
 
 #### BuilderItems
 A structure must be passed every time we want to synchronize the internal state/number of filters inside the system with a response from a server. This object encapsulates all the containers the client created and want to be passed inside the framework so the framework will rspond with the proper events to notify the rest of the system.
-Every time a results is received and various filters are returns from server in a format such as json, and client wants the framework to be updated and corresponding events be raised then client uses the BuilderItems to communicate with the framework throught Builder. Lets see an example
+Every time a results is received and various filters that returns from server in a format such as json, and client wants the framework to be updated and corresponding events be raised then client uses the `BuilderItems` to communicate with the framework throught `Builder`. Lets see an example:
+
 ```java
 // we have hardcoded items but the items clearly can be deserialized from a json or other formats as well.
 private class MockBuilderItems extends BuilderItems
@@ -599,16 +602,16 @@ builder.Build(new MockBuilderItems(filterContext.GetHub()));
 // then the framework raises all the relevant creational events to synchronize itseft with the new results
 
 ```
-*One comment though. In the build prosess one thing doenst change, the state of the filter. If *
+*One comment though. In the build prosess one thing doesn't change, the state of the filter. If we want to change also the state of the `Filter` we should use the `HubCommand`*
 
 
 #### How to receive creational events
-One can build dynamically the filters in the interface from events from the IBuilderObserver. Once the component which builds the filters in the interface registers itseld as builder observer it can receive the next events:
+One can build dynamically the filters in the interface from events from the `IBuilderObserver`. Once the component which builds the filters in the interface registers itseld as builder observer it can receive the next events:
 
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :----- |
-|**FilterAdded**|`ActionType actionType, Filter filter`|`void`|when a filter is added to the system this function is called |
-|**FilterRemoved**|`ActionType actionType, Filter filter`|`void`|when a filter is removed from the system this function is called |
+|**FilterAdded**|`ActionType actionType, Filter filter`|`void`|when a `Filter` is added to the system this function is called |
+|**FilterRemoved**|`ActionType actionType, Filter filter`|`void`|when a `Filter` is removed from the system this function is called |
 |**ContainerAdded**|`ActionType actionType, FilterContainer container`|`void`|when a container is added to the system this function is called |
 |**ContainerRemoved**|`ActionType actionType, FilterContainer container`|`void`|when a container is removed from the system this function is called |
 |**ContainerUpdated**|`ActionType actionType, FilterContainer container`|`void`|when a container is updated in the system this function is called, this happens when container name is changed |
@@ -628,23 +631,25 @@ This object controls the state of the channels, paused or active. When a channel
 |**UnPauseBuilderChannel**||`void`|unpause/resume the builder channel |
 
 ## Request instruction/handling
-Client is responsible to make the actual request (http or whatever) and get the result. Instructing that request is the responsibility of the framework. When a FilterContext is initialized it must have an IRequestHandler. behind this interface lies the object which is instructed by the framework to make the actual request. Lets see what IRequestHandler must have:
+Client is responsible to make the actual request (http or whatever) and get the result. Instructing that request is the responsibility of the framework. When a `FilterContext` is initialized it must have an `IRequestHandler`. behind this interface lies the object which is instructed by the framework to make the actual request. Lets see what `IRequestHandler` must have:
 
 | Function        | Parameters  | Return type | Description |
 | :------------- | :-----| :-----| :-----|
-|**makeRequest**|`String request`|`void`|framework instructs the client to make a request calling this method. The request string will have all the changed filters converted with the IRequestConverter |
-|**IsRetrieveFromFilters**||`boolean`|true if client wants to include the filters that have a FilterNotifier in the request parameters |
-|**IsRetrieveFromParameters**||`boolean`|true if client wants to include the filters that have a ParameterNotifier in the request parameters |
-|**IsRetrieveFromRequest**||`boolean`|true if client wants to include the filters that have a RequestNotifier in the request parameters |
+|**makeRequest**|`String request`|`void`|framework instructs the client to make a request calling this method. The request string will have all the changed filters converted with the `IRequestConverter` |
+|**IsRetrieveFromFilters**||`boolean`|`true` if client wants to include the filters that have a `FilterNotifier` in the request parameters |
+|**IsRetrieveFromParameters**||`boolean`|`true` if client wants to include the filters that have a `ParameterNotifier` in the request parameters |
+|**IsRetrieveFromRequest**||`boolean`|`true` if client wants to include the filters that have a `RequestNotifier` in the request parameters |
 
 ## Configuration
 The framework is configurable through its boundary objects as following:
 
+????
+TODO
 | Object | Parameter  | Description |
 | ------------- | -----| ----- |
-|**Filter**|`FilterFormatter`| a filter display formatter |
-|**Filter** | `IValuePostFormatter` | a filter value formatter |
-|**Filter** | `SelectedValuePolicy` | allow filter to have null as  selected value |
+|**Filter**|`FilterFormatter`| a `Filter` display formatter |
+|**Filter** | `IValuePostFormatter` | a `Filter` value formatter |
+|**Filter** | `SelectedValuePolicy` | allow `Filter` to have null as  selected value |
 |**FilterContext** | `IRequestHandler` | denotes who will be the handler for the request instructions, and this object must denote which filter channels to include as request parameters |
 |**FilterContext** | `IRequestConverter` | the strategy which the filters are converted to request parameters |
 |**FilterContext** | `Configuration` | this includes the strategies that will take place in the building process |
@@ -732,4 +737,3 @@ Some dinstinct areas are:
 Another view of this system is shown bellow:
 [fireman backstage.html image]
 in this view we see more separately the different components of the interface and the connections that have with the fireman framework.
-
